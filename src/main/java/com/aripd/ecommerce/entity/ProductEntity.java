@@ -70,8 +70,11 @@ public class ProductEntity extends AbstractEntity {
 
     @Transient
     public boolean getBannerStatus() {
-        Calendar cal = Calendar.getInstance();
-        return cal.after(bannerStart) && cal.before(bannerEnd);
+        if (productStatus.equals(ProductStatus.ACTIVE)) {
+            Calendar cal = Calendar.getInstance();
+            return cal.after(bannerStart) && cal.before(bannerEnd);
+        }
+        return false;
     }
 
     @Transient

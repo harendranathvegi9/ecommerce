@@ -22,55 +22,21 @@
                         </div>
                         <div class="ui-g-9">
                             <h:form>
-                                <p:panelGrid class="ui-noborder">
+                                <p:panelGrid columns="2">
                                     <f:facet name="header">
-                                        <p:row>
-                                            <p:column style="font-weight: bold;">#{i18n['Quantity']}</p:column>
-                                            <p:column style="font-weight: bold;">#{i18n['Amount']}</p:column>
-                                            <p:column style="font-weight: bold;">#{i18n['Currency']}</p:column>
-                                            <p:column style="font-weight: bold;">#{i18n['Action']}</p:column>
-                                        </p:row>
+                                        <p:commandButton value="#{i18n['Update']}" actionListener="#{productController.doUpdateRecord}" update="@form, :growl" icon="ui-icon-disk"/>
                                     </f:facet>
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputText value="#{productController.newPrice.quantity}" label="#{i18n['Quantity']}" placeholder="#{i18n['Quantity']}" required="true"/>
-                                        </p:column>
-                                        <p:column>
-                                            <p:inputText value="#{productController.newPrice.amount}" label="#{i18n['Amount']}" placeholder="#{i18n['Amount']}" required="true"/>
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu value="#{productController.newPrice.currency}"
-                                                             label="#{i18n['Currency']}"
-                                                             required="true"
-                                                             filter="true" filterMatchMode="contains">
-                                                <f:selectItem itemLabel="#{i18n['Select One']}" itemValue="" noSelectionOption="true"/>
-                                                <f:selectItems value="#{currencyBean.currencies}" var="currency" itemLabel="#{currency.currencyCode}"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                        <p:column>
-                                            <p:commandButton value="#{i18n['Save']}" actionListener="#{productController.doCreatePrice}" update=":dataListForm, @form, :growl" icon="ui-icon-disk"/>
-                                        </p:column>
-                                    </p:row>
-                                </p:panelGrid>
-                            </h:form>
 
-                            <h:form id="dataListForm">
-                                <p:dataList value="#{productController.selectedRecord.prices}" var="price" itemType="none" emptyMessage="#{i18n['No records found']}">
-                                    <p:inputText value="#{price.quantity}" label="#{i18n['Quantity']}" placeholder="#{i18n['Quantity']}" required="true"/>
-                                    <p:inputText value="#{price.amount}" label="#{i18n['Amount']}" placeholder="#{i18n['Amount']}" required="true"/>
-                                    <p:selectOneMenu value="#{price.currency}"
-                                                     label="#{i18n['Currency']}"
-                                                     required="true"
-                                                     filter="true" filterMatchMode="contains">
-                                        <f:selectItem itemLabel="#{i18n['Select One']}" itemValue="" noSelectionOption="true"/>
-                                        <f:selectItems value="#{currencyBean.currencies}" var="currency" itemLabel="#{currency.currencyCode}"/>
-                                    </p:selectOneMenu>
-                                    <p:commandButton value="#{i18n['Update']}" actionListener="#{productController.doUpdateRecord}" update="@form, :growl" icon="ui-icon-disk"/>
-                                    <p:commandButton value="#{i18n['Delete']}" action="#{productController.onDeletePrice}" update="@form, :growl" icon="ui-icon-trash">
-                                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
-                                        <f:setPropertyActionListener value="#{price}" target="#{productController.selectedPrice}"/>
-                                    </p:commandButton>
-                                </p:dataList>
+                                    <p:outputLabel for="bannerHeadline" value="#{i18n['Headline']}"/>
+                                    <p:inputText id="bannerHeadline" value="#{productController.selectedRecord.bannerHeadline}" label="#{i18n['Headline']}" placeholder="#{i18n['Headline']}" />
+
+                                    <p:outputLabel for="bannerStart" value="#{i18n['Starting Time']}"/>
+                                    <p:calendar id="bannerStart" value="#{productController.selectedRecord.bannerStart}" label="#{i18n['Starting Time']}" placeholder="#{i18n['Starting Time']}" locale="#{localeBean.locale}" />
+
+                                    <p:outputLabel for="bannerEnd" value="#{i18n['Ending Time']}"/>
+                                    <p:calendar id="bannerEnd" value="#{productController.selectedRecord.bannerEnd}" label="#{i18n['Ending Time']}" placeholder="#{i18n['Ending Time']}" locale="#{localeBean.locale}" />
+
+                                </p:panelGrid>
                             </h:form>
                         </div>
                     </div>
