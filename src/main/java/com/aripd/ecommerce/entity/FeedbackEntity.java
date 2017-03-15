@@ -24,6 +24,10 @@ public class FeedbackEntity extends AbstractEntity {
 
     @NotNull
     @Column(nullable = false)
+    private String uuid;
+
+    @NotNull
+    @Column(nullable = false)
     private String subject;
 
     @NotNull
@@ -52,6 +56,14 @@ public class FeedbackEntity extends AbstractEntity {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getSubject() {

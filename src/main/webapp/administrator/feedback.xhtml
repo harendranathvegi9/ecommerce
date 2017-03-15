@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Feedbacks']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form id="form">
+                        <p:poll interval="60" update="dataTable"/>
+                        <p:dataTable id="dataTable" value="#{feedbackController.lazyModel}" var="feedback" emptyMessage="#{i18n['No records found']}"
+                                     paginator="true" paginatorPosition="bottom" rows="10" 
+                                     rowKey="#{feedback.id}" selectionMode="single" selection="#{feedbackController.selectedRecord}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                     sortMode="multiple" 
+                                     lazy="true" rowsPerPageTemplate="10,15,50">
+                            <p:column headerText="#{i18n['Created At']}">
+                                <h:outputFormat value="#{feedback.createdAt}">
+                                    <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                </h:outputFormat>
+                            </p:column>
+                            <p:column headerText="#{i18n['Fullname']}">
+                                <h:outputText value="#{feedback.createdBy.fullname}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Subject']}">
+                                <h:outputText value="#{feedback.subject}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Message']}">
+                                <h:outputText value="#{feedback.message}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form id="showForm">
+            <p:dialog id="showDlg" header="#{i18n['Show']}" widgetVar="showDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="#{i18n['Created At']}"/>
+                    <h:outputFormat value="#{feedbackController.selectedRecord.createdAt}">
+                        <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                    </h:outputFormat>
+                    <p:outputLabel value="#{i18n['Fullname']}"/>
+                    <h:outputText value="#{feedbackController.selectedRecord.createdBy.fullname}"/>
+                    <p:outputLabel value="#{i18n['Subject']}"/>
+                    <h:outputText value="#{feedbackController.selectedRecord.subject}"/>
+                    <p:outputLabel value="#{i18n['Message']}"/>
+                    <h:outputText value="#{feedbackController.selectedRecord.message}"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Reply']}" update=":replyForm:replyDlg" oncomplete="PF('replyDialog').hide();PF('editDialog').show();" icon="ui-icon-pencil" title="#{i18n['Reply']}">
+                        <f:setPropertyActionListener value="#{feedbackController.selectedRecord}" target="#{feedback}"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{i18n['Close']}" onclick="PF('showDialog').hide();"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+        <h:form id="replyForm">
+            <p:dialog id="replyDlg" header="#{i18n['Reply']}" widgetVar="replyDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="subject" value="#{i18n['Subject']}"/>
+                    <p:inputText id="subject" value="#{feedbackController.selectedRecord.subject}" />
+                    <p:outputLabel for="message" value="#{i18n['Message']}"/>
+                    <p:inputTextarea id="message" value="#{feedbackController.selectedRecord.message}" />
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Reply']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'replyDlg','replyForm','replyDialog');" actionListener="#{feedbackController.doReplyRecord}"/>
+                    <p:commandButton value="#{i18n['Close']}" onclick="PF('replyDialog').hide();"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

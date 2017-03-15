@@ -2,7 +2,9 @@ package com.aripd.ecommerce.view.administrator;
 
 import com.aripd.ecommerce.service.FeedbackService;
 import com.aripd.ecommerce.entity.FeedbackEntity;
+import com.aripd.ecommerce.entity.UserEntity;
 import com.aripd.ecommerce.model.data.LazyFeedbackDataModel;
+import com.aripd.ecommerce.service.UserService;
 import com.aripd.util.MessageUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -25,6 +27,10 @@ public class FeedbackController implements Serializable {
     private LazyDataModel<FeedbackEntity> lazyModel;
 
     @Inject
+    private UserService userService;
+    private UserEntity user;
+
+    @Inject
     MessageUtil messageUtil;
 
     public FeedbackController() {
@@ -34,12 +40,20 @@ public class FeedbackController implements Serializable {
 
     @PostConstruct
     public void init() {
+        user = userService.getCurrentUser();
         lazyModel = new LazyFeedbackDataModel(feedbackService);
     }
 
     public void doCreateRecord(ActionEvent actionEvent) {
         feedbackService.create(newRecord);
         messageUtil.addGlobalInfoFlashMessage("Created");
+    }
+
+    public void doReplyRecord(ActionEvent actionEvent) {
+        newRecord = selectedRecord;
+        newRecord.setCreatedBy(user);
+        feedbackService.update(selectedRecord);
+        messageUtil.addGlobalInfoFlashMessage("Updated");
     }
 
     public void doUpdateRecord(ActionEvent actionEvent) {
@@ -87,6 +101,14 @@ public class FeedbackController implements Serializable {
 
     public LazyDataModel<FeedbackEntity> getLazyModel() {
         return lazyModel;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
 }

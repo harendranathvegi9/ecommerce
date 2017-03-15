@@ -38,14 +38,16 @@
                                              sortBy="#{feedback.id}" sortOrder="descending"
                                              lazy="true">
                                     <f:facet name="header">#{i18n['Feedbacks']}</f:facet>
-                                    <p:column headerText="#{i18n['Name']}">
-                                        <h:outputText value="#{feedback.name}"/>
+                                    <p:column headerText="#{i18n['Fullname']}">
+                                        <p:link outcome="/administrator/feedback" value="#{feedback.createdBy.fullname}">
+                                            <f:param name="id" value="#{feedback.id}"/>
+                                        </p:link>
                                     </p:column>
-                                    <p:column headerText="#{i18n['E-mail Address']}">
-                                        <h:outputText value="#{feedback.email}"/>
+                                    <p:column headerText="#{i18n['Subject']}">
+                                        <h:outputText value="#{feedback.subject}"/>
                                     </p:column>
-                                    <p:column headerText="#{i18n['Phone Number']}">
-                                        <h:outputText value="#{feedback.phone}"/>
+                                    <p:column headerText="#{i18n['Message']}">
+                                        <h:outputText value="#{feedback.message}"/>
                                     </p:column>
                                     <p:column headerText="#{i18n['Created At']}">
                                         <h:outputFormat value="#{feedback.createdAt}">

@@ -7,4 +7,5 @@ import javax.ejb.Local;
 public interface FeedbackService extends CrudService<FeedbackEntity, Long> {
 
     public void sendFeedback(FeedbackEntity feedback);
+
 }
