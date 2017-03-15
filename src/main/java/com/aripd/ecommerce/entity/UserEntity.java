@@ -54,9 +54,6 @@ public class UserEntity extends AbstractEntity {
     @OneToMany(mappedBy = "createdBy", orphanRemoval = true)
     private List<BasketitemEntity> basketitems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "createdBy", orphanRemoval = true)
-    private List<WishitemEntity> wishitems = new ArrayList<>();
-
     public UserEntity() {
     }
 
@@ -152,14 +149,6 @@ public class UserEntity extends AbstractEntity {
 
     public void setBasketitems(List<BasketitemEntity> basketitems) {
         this.basketitems = basketitems;
-    }
-
-    public List<WishitemEntity> getWishitems() {
-        return wishitems;
-    }
-
-    public void setWishitems(List<WishitemEntity> wishitems) {
-        this.wishitems = wishitems;
     }
 
     public List<AddressEntity> getAddresses() {

@@ -53,9 +53,6 @@ public class ProductEntity extends AbstractEntity {
     @OneToMany(mappedBy = "product", orphanRemoval = true)
     private List<BasketitemEntity> basketitems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", orphanRemoval = true)
-    private List<WishitemEntity> wishitems = new ArrayList<>();
-
     public ProductEntity() {
     }
 
@@ -150,14 +147,6 @@ public class ProductEntity extends AbstractEntity {
 
     public void setBasketitems(List<BasketitemEntity> basketitems) {
         this.basketitems = basketitems;
-    }
-
-    public List<WishitemEntity> getWishitems() {
-        return wishitems;
-    }
-
-    public void setWishitems(List<WishitemEntity> wishitems) {
-        this.wishitems = wishitems;
     }
 
     public List<ImageEntity> getImages() {

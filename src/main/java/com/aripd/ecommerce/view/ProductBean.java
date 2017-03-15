@@ -5,9 +5,7 @@ import com.aripd.ecommerce.service.ProductService;
 import com.aripd.ecommerce.service.UserService;
 import com.aripd.ecommerce.entity.ProductEntity;
 import com.aripd.ecommerce.entity.UserEntity;
-import com.aripd.ecommerce.entity.WishitemEntity;
 import com.aripd.ecommerce.service.BasketitemService;
-import com.aripd.ecommerce.service.WishitemService;
 import com.aripd.util.MessageUtil;
 import com.aripd.util.currency.CurrencyBean;
 import com.aripd.util.currency.PriceHelper;
@@ -36,9 +34,6 @@ public class ProductBean implements Serializable {
 
     @Inject
     private BasketitemService basketitemService;
-
-    @Inject
-    private WishitemService wishitemService;
 
     @Inject
     PriceHelper priceHelper;
@@ -105,23 +100,6 @@ public class ProductBean implements Serializable {
             }
 
             messageUtil.addGlobalInfoFlashMessage("Product has been added to your shopping basket");
-        }
-    }
-
-    public void addWishlistitem(ActionEvent actionEvent) {
-        if (user == null) {
-            messageUtil.addGlobalInfoFlashMessage("Please login first");
-        } else {
-            WishitemEntity entity = wishitemService.findOneByUserAndProduct(user, selectedRecord);
-            if (entity != null) {
-                messageUtil.addGlobalInfoFlashMessage("This product has already been added to your wish list before");
-            } else {
-                entity = new WishitemEntity();
-                entity.setCreatedBy(user);
-                entity.setProduct(selectedRecord);
-                wishitemService.create(entity);
-                messageUtil.addGlobalInfoFlashMessage("{0} ({1}) added to your wish list", new Object[]{selectedRecord.getName(), selectedRecord.getCode()});
-            }
         }
     }
 
