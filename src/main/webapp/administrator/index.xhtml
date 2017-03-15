@@ -15,7 +15,8 @@
                     <h:form>
                         <div class="ui-g">
                             <div class="ui-g-6">
-                                <p:dataTable value="#{userController.lazyModel}" var="user" emptyMessage="#{i18n['No records found']}" 
+                                <p:poll interval="60" update="userDataTable"/>
+                                <p:dataTable id="userDataTable" value="#{userController.lazyModel}" var="user" emptyMessage="#{i18n['No records found']}" 
                                              paginator="true" paginatorPosition="bottom" rows="10"
                                              sortBy="#{user.id}" sortOrder="descending"
                                              lazy="true" rowsPerPageTemplate="10,15,50">
@@ -54,6 +55,41 @@
                                 </p:dataTable>
                             </div>
                             <div class="ui-g-6">
+                                <p:poll interval="60" update="saleDataTable"/>
+                                <p:dataTable id="saleDataTable" value="#{saleController.lazyModel}" var="sale" emptyMessage="#{i18n['No records found']}" 
+                                             paginator="true" paginatorPosition="bottom" rows="10"
+                                             sortBy="#{sale.id}" sortOrder="descending"
+                                             lazy="true" rowsPerPageTemplate="10,15,50">
+                                    <f:facet name="header">#{i18n['Sales']}</f:facet>
+                                    <p:column headerText="#{i18n['Order Ref']}" filterBy="#{sale.REFNOEXT}">
+                                        <h:outputText value="#{sale.REFNOEXT}"/>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Created At']}">
+                                        <h:outputFormat value="#{sale.createdAt}">
+                                            <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                        </h:outputFormat>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Created By']}">
+                                        <h:outputText value="#{sale.createdBy.fullname}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="ui-g-6">
+                                <p:poll interval="60" update="productDataTable"/>
+                                <p:dataTable id="productDataTable" value="#{productController.lazyModel}" var="product" emptyMessage="#{i18n['No records found']}" 
+                                             paginator="true" paginatorPosition="bottom" rows="10"
+                                             sortBy="#{product.id}" sortOrder="descending"
+                                             lazy="true" rowsPerPageTemplate="10,15,50">
+                                    <f:facet name="header">#{i18n['Products']}</f:facet>
+                                    <p:column headerText="#{i18n['Product Code']}" filterBy="#{product.code}">
+                                        <p:link outcome="/administrator/product/form" value="#{product.code}">
+                                            <f:param name="id" value="#{product.id}"/>
+                                        </p:link>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Name']}" filterBy="#{product.name}">
+                                        <h:outputText value="#{product.name}"/>
+                                    </p:column>
+                                </p:dataTable>
                             </div>
                         </div>
                     </h:form>
