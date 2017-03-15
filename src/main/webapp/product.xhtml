@@ -18,12 +18,12 @@
             <div class="features-content">
 
                 <div class="ui-g">
-                    <div class="ui-g-6">
-                        <p:galleria value="#{productBean.selectedRecord.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                    <div class="ui-g-8">
+                        <p:galleria value="#{productBean.selectedRecord.images}" var="image" showCaption="true">
                             <p:graphicImage name="#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" />
                         </p:galleria>
                     </div>
-                    <div class="ui-g-6">
+                    <div class="ui-g-4">
                         <h1>#{productBean.selectedRecord.name}</h1>
                         <h3><h:outputText value="#{of:formatCurrency(productBean.getPriceTaxedExchanged(productBean.selectedRecord, 1), currencyBean.currency.currencyCode)}"/></h3>
 
