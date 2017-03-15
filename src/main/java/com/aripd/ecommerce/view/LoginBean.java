@@ -6,10 +6,8 @@ import com.aripd.ecommerce.entity.UserStatus;
 import com.aripd.util.MessageUtil;
 import com.aripd.util.RequestUtil;
 import com.aripd.util.helper.CookieHelper;
-import com.aripd.util.locale.LocaleBean;
 import com.aripd.util.validator.EmailAddress;
 import java.io.Serializable;
-import java.util.Locale;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -20,7 +18,6 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.LocaleUtils;
 
 @Named
 @SessionScoped
@@ -39,9 +36,6 @@ public class LoginBean implements Serializable {
     private String username;
     private String password;
     private boolean remember;
-
-    @Inject
-    private LocaleBean localeBean;
 
     @Inject
     MessageUtil messageUtil;
@@ -90,9 +84,6 @@ public class LoginBean implements Serializable {
             HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 
             request.login(username, password);
-
-            Locale locale = LocaleUtils.toLocale(user.getLocale());
-            localeBean.doChange(locale);
 
             if (remember) {
                 String uuid = UUID.randomUUID().toString();

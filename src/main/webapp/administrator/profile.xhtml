@@ -25,13 +25,6 @@
                             <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
                             <p:inputText id="lastname" value="#{profileBean.selectedRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
 
-                            <p:outputLabel for="locale" value="#{i18n['Locale']}"/>
-                            <p:selectOneMenu id="locale" value="#{profileBean.selectedRecord.locale}" 
-                                             label="#{i18n['Locale']}" 
-                                             required="true">
-                                <f:selectItems value="#{localeBean.locales}" var="locale" itemLabel="#{locale.getDisplayName(localeBean.locale)}"/>
-                            </p:selectOneMenu>
-
                             <f:facet name="footer">
                                 <p:commandButton value="#{i18n['Update']}" actionListener="#{profileBean.doUpdateRecord}" update=":growl"/>
                             </f:facet>

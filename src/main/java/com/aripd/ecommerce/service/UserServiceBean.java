@@ -49,7 +49,6 @@ public class UserServiceBean extends CrudServiceBean<UserEntity, Long> implement
         u.setUserStatus(model.getStatus());
         u.setEmail(model.getEmail());
         u.setPassword(model.getPassword());
-        u.setLocale(model.getLocale());//
         u.setFirstname(model.getFirstname());
         u.setLastname(model.getLastname());
 

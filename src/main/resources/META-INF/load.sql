@@ -1,8 +1,7 @@
-INSERT INTO `USERENTITY` (`ID`, `EMAIL`, `FIRSTNAME`, `LASTNAME`, `LOCALE`, `PASSWORD`, `USERGROUP`, `USERSTATUS`, `UUID`)
+INSERT INTO `USERENTITY` (`ID`, `EMAIL`, `FIRSTNAME`, `LASTNAME`, `PASSWORD`, `USERGROUP`, `USERSTATUS`, `UUID`)
 VALUES 
-(1,'cem@aripd.com','Cem','aripd','tr_TR','cem','Administrators','Approved',NULL),
-(2,'dev@aripd.com','Dev','aripd','en_US','dev','Administrators','Approved',NULL),
-(3,'test@aripd.com','Test','aripd','tr_TR','test','Members','Approved',NULL);
+        (1,'cem@aripd.com','Cem','aripd','cem','Administrators','Approved',NULL),
+        (2,'dev@aripd.com','Dev','aripd','dev','Administrators','Approved',NULL);
 
 INSERT INTO `CATEGORYENTITY` (`ID`, `CODE`, `SORTORDER`, `PARENT_ID`)
 VALUES 
@@ -107,21 +106,21 @@ VALUES
 
 INSERT INTO `PRODUCTENTITY` (`ID`, `CODE`, `DESCRIPTION`, `NAME`, `PRODUCTSTATUS`, `TAXRATE`, `CATEGORY_ID`)
 VALUES 
-(1,'2000000035951','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum1','ACTIVE',.18,2),
-(2,'2000000035952','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum2','ACTIVE',.18,2),
-(3,'2000000035953','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum3','ACTIVE',.18,2);
+        (1,'2000000035951','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum1','ACTIVE',.18,2),
+        (2,'2000000035952','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum2','ACTIVE',.18,2),
+        (3,'2000000035953','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum3','ACTIVE',.18,2);
 
 INSERT INTO `PRICEENTITY` (`ID`, `AMOUNT`, `CURRENCY`, `QUANTITY`, `PRODUCT_ID`) 
 VALUES 
-(1,100.00,'TRY',1,1),
-(2,200.00,'TRY',1,2),
-(3,300.00,'TRY',1,3);
+        (1,100.00,'TRY',1,1),
+        (2,200.00,'TRY',1,2),
+        (3,300.00,'TRY',1,3);
 
 INSERT INTO `PAGEENTITY` (`ID`, `CONTENT`, `DESCRIPTION`, `NAME`) 
 VALUES 
-(1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name1'),
-(2,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name2'),
-(3,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name3');
+        (1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name1'),
+        (2,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name2'),
+        (3,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name3');
 
 INSERT INTO `BANNERENTITY` (`ID`, `BANNERTYPE`, `BYTES`, `DESCRIPTION`, `NAME`, `SORTORDER`, `STATUS`, `TIMEEND`, `TIMESTART`)
 VALUES

@@ -3,7 +3,6 @@ package com.aripd.ecommerce.view;
 import com.aripd.ecommerce.entity.AddressEntity;
 import com.aripd.ecommerce.entity.UserGroup;
 import com.aripd.ecommerce.entity.UserStatus;
-import com.aripd.util.locale.LocaleProvider;
 import java.security.SecureRandom;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -16,7 +15,6 @@ public class SignupModel {
     private final UserStatus status;
     private final String email;
     private final String password;
-    private final String locale;
     private final String firstname;
     private final String lastname;
 
@@ -26,12 +24,11 @@ public class SignupModel {
 
     private final AddressEntity address;
 
-    public SignupModel(UserGroup group, UserStatus status, String email, String password, String locale, String firstname, String lastname, String company, int credit, AddressEntity address) {
+    public SignupModel(UserGroup group, UserStatus status, String email, String password, String firstname, String lastname, String company, int credit, AddressEntity address) {
         this.group = group;
         this.status = status;
         this.email = email;
         this.password = password;
-        this.locale = locale;
         this.firstname = firstname;
         this.lastname = lastname;
         this.company = company;
@@ -53,10 +50,6 @@ public class SignupModel {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getLocale() {
-        return locale;
     }
 
     public String getFirstname() {
@@ -85,7 +78,6 @@ public class SignupModel {
         private UserStatus status;
         private String email;
         private String password = RandomStringUtils.random(6, 0, 0, true, true, null, new SecureRandom());
-        private String locale = LocaleProvider.getLocale().toString();
 
         private String firstname = "";
         private String lastname = "";
@@ -111,11 +103,6 @@ public class SignupModel {
 
         public Builder setPassword(String password) {
             this.password = password;
-            return this;
-        }
-
-        public Builder setLocale(String locale) {
-            this.locale = locale;
             return this;
         }
 
@@ -145,7 +132,7 @@ public class SignupModel {
         }
 
         public SignupModel build() {
-            return new SignupModel(group, status, email, password, locale, firstname, lastname, company, credit, address);
+            return new SignupModel(group, status, email, password, firstname, lastname, company, credit, address);
         }
     }
 

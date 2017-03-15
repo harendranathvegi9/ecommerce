@@ -10,9 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -40,10 +37,6 @@ public class UserEntity extends AbstractEntity {
     @NotNull
     @Column(nullable = false, length = 128)
     private String password;
-
-    @NotNull
-    @Column(nullable = false)
-    private String locale;
 
     @NotNull
     @Column(nullable = false)
@@ -143,14 +136,6 @@ public class UserEntity extends AbstractEntity {
 
     public void setUserStatus(UserStatus userStatus) {
         this.userStatus = userStatus;
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
     }
 
     public List<SaleEntity> getSales() {
