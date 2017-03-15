@@ -32,17 +32,13 @@ public class PageBean implements Serializable {
 
     public void onLoad() {
         if (id == null) {
-            messageUtil.addGlobalErrorFlashMessage("Bad request. Please use a link from within the system.");
-            return;
+            try {
+                selectedRecord = getPages().get(0);
+            } catch (ArrayIndexOutOfBoundsException ex) {
+            }
+        } else {
+            selectedRecord = pageService.find(id);
         }
-
-        selectedRecord = pageService.find(id);
-
-        if (selectedRecord == null) {
-            messageUtil.addGlobalErrorFlashMessage("Bad request. Unknown record.");
-            return;
-        }
-
     }
 
     public List<PageEntity> getPages() {

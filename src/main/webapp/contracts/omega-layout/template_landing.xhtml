@@ -54,10 +54,6 @@
 
         <h:body id="body" styleClass="landing-body">
 
-            <p:messages id="messages" showIcon="false" showSummary="false" showDetail="true" autoUpdate="true" closable="true" style="text-align: center; position: fixed; z-index: 9999; width: 100%;">
-                <p:effect type="pulsate" event="load" delay="500" />
-            </p:messages>
-
             <div class="landing-wrapper">
                 <div class="landing-header">
                     <div class="landing-header-content clearfix">
@@ -70,10 +66,6 @@
                         </p:link>
                         <ul id="menu">
                             <li><p:link outcome="/index" fragment="introduction" value="#{i18n['Home']}"/></li>
-                            <li><p:link outcome="/index" fragment="features" value="#{i18n['Features']}"/></li>
-                            <li><p:link outcome="/index" fragment="mobile" value="#{i18n['Mobile']}"/></li>
-                            <li><p:link outcome="/index" fragment="pricing" value="#{i18n['Pricing']}"/></li>
-                            <li><p:link outcome="/index" fragment="testimonials" value="#{i18n['Testimonials']}"/></li>
                             <li><p:link outcome="/search" value="#{i18n['Search']}"/></li>
 
                             <li><p:link outcome="/member/index" value="#{i18n['Dashboard']}" rendered="#{not empty request.userPrincipal}"/></li>
@@ -109,12 +101,7 @@
                                 <div class="ui-g-2">
                                     <ul style="font-size: smaller;">
                                         <li><p:link outcome="/index" fragment="introduction" value="#{i18n['Home']}"/></li>
-                                        <li><p:link outcome="/index" fragment="features" value="#{i18n['Features']}"/></li>
-                                        <li><p:link outcome="/index" fragment="mobile" value="#{i18n['Mobile']}"/></li>
-                                        <li><p:link outcome="/index" fragment="pricing" value="#{i18n['Pricing']}"/></li>
-                                        <li><p:link outcome="/index" fragment="testimonials" value="#{i18n['Testimonials']}"/></li>
                                         <li><p:link outcome="/search" value="#{i18n['Search for Products']}"/></li>
-                                        <li><p:link outcome="/pages" value="#{i18n['Pages']}"/></li>
                                         <li><p:link outcome="/categories" value="#{i18n['Categories']}"/></li>
                                     </ul>
                                 </div>

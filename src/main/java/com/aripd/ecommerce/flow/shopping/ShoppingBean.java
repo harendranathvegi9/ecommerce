@@ -26,11 +26,11 @@ import javax.faces.event.ActionEvent;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.apache.commons.collections4.Predicate;
 import com.aripd.ecommerce.service.SaleService;
 import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.faces.FacesException;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.IterableUtils;
 
 @Named

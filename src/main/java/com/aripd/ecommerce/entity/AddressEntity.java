@@ -49,7 +49,7 @@ public class AddressEntity extends AbstractEntity {
 
     @Transient
     public String getFulladdress() {
-        return String.format("%s, %s, %s, %s, %s, %s, %s",
+        return String.format("%s, %s, %s, %s, %s",
                 line,
                 zipcode,
                 county,
