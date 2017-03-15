@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{userController.id}"/>
+            <f:event type="preRenderView" listener="#{userController.onLoad}"/>
+        </f:metadata>
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['User']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <div class="ui-g">
+                        <div class="ui-g-3">
+                            <composite:navigationUser user="#{userController.selectedRecord}"/>
+                        </div>
+                        <div class="ui-g-9">
+                            <h:form>
+                                <p:panelGrid columns="2">
+                                    <f:facet name="header">
+                                        <p:commandButton value="#{i18n['Update']}" actionListener="#{userController.doUpdateRecord}" update="@form, :growl" icon="ui-icon-disk"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{i18n['Categories']}"/>
+                                    <h:panelGrid columns="1">
+                                        <p:selectCheckboxMenu value="#{userController.selectedRecord.categories}" 
+                                                              label="#{i18n['Categories']}" title="#{i18n['Categories']}"
+                                                              filter="true" filterMatchMode="contains"
+                                                              converter="#{categoryConverter}">
+                                            <f:selectItems value="#{userController.categories}" var="category" itemValue="#{category}" itemLabel="#{category.id}, #{category.code}" />
+                                        </p:selectCheckboxMenu>
+                                        <p:dataList value="#{userController.selectedRecord.categories}" var="category" emptyMessage="#{i18n['No records found']}">
+                                            <h:outputText value="#{category.id}"/>, <h:outputText value="#{category.code}"/>
+                                        </p:dataList>
+                                    </h:panelGrid>
+                                </p:panelGrid>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

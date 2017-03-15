@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="content">
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['Contact Us']}</h1>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <composite:navigationMember/>
+                    </div>
+                    <div class="ui-g-9">
+                        <h3>#{i18n['Order Summary']}</h3>
+                        <p:dataTable value="#{shoppingBean.basketitems}" var="basketitem" emptyMessage="#{i18n['No records found']}">
+                            <p:column headerText="#{i18n['Product']}">
+                                <p:link outcome="/product" value="#{basketitem.product.name}">
+                                    <f:param name="id" value="#{basketitem.product.id}"/>
+                                    <f:param name="slug" value="#{basketitem.product.slug}"/>
+                                </p:link>
+                                <h:outputText value="#{basketitem.note}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Unit(s)']}">
+                                <h:outputText value="#{basketitem.quantity}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Unit Price']}">
+                                <h:outputText value="#{of:formatCurrency(shoppingBean.getPriceExchanged(basketitem.product, basketitem.quantity, 'TRY'), 'TRY')}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Unit Tax']}">
+                                <h:outputText value="#{of:formatCurrency(shoppingBean.getTaxExchanged(basketitem.product, basketitem.quantity, 'TRY'), 'TRY')}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Unit Discount']}">
+                                <h:outputText value="#{of:formatCurrency(shoppingBean.getDiscountExchanged(basketitem.product, 'TRY'), 'TRY')}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Amount']}">
+                                <h:outputText value="#{of:formatCurrency(shoppingBean.getAmountExchanged(basketitem.product, 'TRY'), 'TRY')}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:panelGrid columns="2" style="text-align: right; float: right;">
+                            <h:outputText value="#{i18n['Basket Total']}"/>
+                            <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateBasketTotal('TRY'), 'TRY')}"/>
+                            <h:outputText value="#{i18n['Tax Total']}"/>
+                            <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateTaxTotal('TRY'), 'TRY')}"/>
+                            <h:outputText value="#{i18n['General Total']}"/>
+                            <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateGeneralTotal('TRY'), 'TRY')}"/>
+                        </h:panelGrid>
+
+                        <div class="clearfix"></div>
+
+                        <h4>#{i18n['Bill Address']}</h4>
+                        <address>
+                            <strong>#{shoppingBean.billAddress.firstname} #{shoppingBean.billAddress.lastname}</strong><br/>
+                            #{shoppingBean.billAddress.fulladdress}<br/>
+                            <abbr title="#{i18n['Phone Number']}">P:</abbr> #{shoppingBean.billAddress.phone}<br/>
+                        </address>
+
+                        <h4>#{i18n['Delivery Address']}</h4>
+                        <address>
+                            <strong>#{shoppingBean.deliveryAddress.firstname} #{shoppingBean.deliveryAddress.lastname}</strong><br/>
+                            #{shoppingBean.deliveryAddress.fulladdress}<br/>
+                            <abbr title="#{i18n['Phone Number']}">P:</abbr> #{shoppingBean.deliveryAddress.phone}<br/>
+                        </address>
+
+                        <h:form>
+                            <p:commandButton value="#{i18n['Return to shopping basket']}" action="shopping"/>
+                            <p:commandButton id="button" value="#{i18n['Complete the order']}" actionListener="#{shoppingBean.doProcessOrderForMT}" onclick="this.childNodes[0].innerHTML = '#{i18n['Please wait']}'; this.disabled = true;"/>
+                            <p:blockUI block=":body" trigger="button" />
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="content">
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['My Orders']}</h1>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <composite:navigationMember/>
+                    </div>
+                    <div class="ui-g-9">
+                        <p:dataTable id="dataTable" value="#{saleView.lazyModel}" var="sale" emptyMessage="#{i18n['No records found']}"
+                                     paginator="true" paginatorPosition="bottom" rows="10" 
+                                     rowKey="#{sale.id}" selectionMode="single" selection="#{saleView.selectedRecord}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                     sortMode="multiple" 
+                                     lazy="true" rowsPerPageTemplate="10,15,50">
+                            <p:column headerText="#{i18n['Order Ref']}" sortBy="#{sale.REFNOEXT}" filterMatchMode="contains" filterBy="#{sale.REFNOEXT}">
+                                <h:outputText value="#{sale.REFNOEXT}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Created At']}">
+                                <h:outputFormat value="#{sale.createdAt}">
+                                    <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                </h:outputFormat>
+                            </p:column>
+                            <p:column headerText="#{i18n['Status']}">
+                                <h:outputText value="#{i18n[sale.saleStatus]}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Total Price']}">
+                                <h:outputText value="#{of:formatCurrency(sale.priceTotalAfterTaxAfterDiscount, sale.currency)}"/>
+                            </p:column>
+                            <p:column exportable="false" width="100">
+                                <p:link outcome="/member/sale/show" value="#{i18n['Order Details']}">
+                                    <f:param name="id" value="#{sale.id}"/>
+                                </p:link>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{salelineController.id}"/>
+            <f:event type="preRenderView" listener="#{salelineController.onLoad}"/>
+        </f:metadata>
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Saleline']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <div class="ui-g">
+                        <div class="ui-g-3">
+                            <p:panel header="#{i18n['Order Ref']}" >
+                                <h:outputText value="#{salelineController.selectedRecord.sale.REFNOEXT}"/>
+                            </p:panel>
+                            <p:panel header="#{i18n['Date']}">
+                                <h:outputFormat value="#{salelineController.selectedRecord.sale.createdAt}">
+                                    <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                </h:outputFormat>
+                            </p:panel>
+                            <p:panel header="#{i18n['Delivery Address']}">
+                                <h:panelGrid columns="1">
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.deliveryFirstname} #{salelineController.selectedRecord.sale.deliveryLastname}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.deliveryCompany}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.deliveryAddress}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.deliveryPhone}"/>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel header="#{i18n['Bill Address']}">
+                                <h:panelGrid columns="1">
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.billFirstname} #{salelineController.selectedRecord.sale.billLastname}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.billCompany}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.billAddress}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.billPhone}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.billFax}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.sale.billEmail}"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </div>
+                        <div class="ui-g-9">
+                            <p:panel>
+                                <f:facet name="header">
+                                    <h:form>
+                                        <p:commandButton value="#{i18n['Invoice']}" actionListener="#{salelineController.doGenerateSaleline}"/>
+                                    </h:form>
+                                </f:facet>
+                                <f:facet name="footer">
+                                    <h:form>
+                                        <p:outputLabel value="#{i18n['Status']}" />
+                                        <p:selectOneMenu value="#{salelineController.selectedRecord.salelineStatus}" label="#{i18n['Status']}" converter="#{salelineStatusConverter}" required="true">
+                                            <f:ajax execute="@form :growl" render="@form" listener="#{salelineController.doUpdateStatus}"/>
+                                            <f:selectItems value="#{salelineController.salelineStatuses}" var="salelineStatus" itemValue="#{salelineStatus}" itemLabel="#{i18n[salelineStatus]}" />
+                                        </p:selectOneMenu>
+                                    </h:form>
+                                </f:facet>
+
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="#{i18n['Product']}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.product.name}"/>
+
+                                    <h:outputText value="#{i18n['Quantity']}"/>
+                                    <h:outputText value="#{salelineController.selectedRecord.IPN_QTY}"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

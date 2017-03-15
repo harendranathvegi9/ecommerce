@@ -1,0 +1,69 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:po="http://primefaces.org/omega"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <div class="sidebar">
+        <div class="nano">
+            <div class="nano-content sidebar-scroll-content">
+                <div class="logo">
+                    <p:link outcome="/index">
+                        <p:graphicImage name="images/logo.png" library="omega-layout" width="113"/>
+                    </p:link>
+                </div>
+
+                <h:form>
+                    <div class="profile">
+                        <p:graphicImage name="images/profile.png" library="omega-layout" />
+                        <a id="profile-button" href="#">
+                            <span class="username">#{loginBean.user.fullname}</span>
+                            <i class="fa fa-fw fa-cog"></i>
+                        </a>
+                        <ul>
+                            <li>
+                                <p:link outcome="/administrator/profile" rendered="#{request.isUserInRole('Administrator')}">
+                                    <i class="fa fa-fw fa-sliders"></i><span>#{i18n['Account']}</span>
+                                </p:link>
+                            </li>
+                            <li><a href="#"><i class="fa fa-fw fa-bell"></i><span>#{i18n['Notifications']}</span><span class="menu-badge">2</span></a></li>
+                            <li>
+                                <p:commandLink title="#{i18n['Sign Out']}" action="#{loginBean.doLogout}">
+                                    <i class="fa fa-fw fa-power-off"></i><span>#{i18n['Sign Out']}</span>
+                                </p:commandLink>
+                            </li>
+                        </ul>
+                    </div>
+                </h:form>
+
+                <div class="menu">
+                    <h:form>
+                        <po:menu rendered="#{request.isUserInRole('Administrator')}">
+                            <p:menuitem outcome="/administrator/index" value="#{i18n['Dashboard']}" icon="fa fa-tachometer fa-fw"/>
+                            <p:submenu label="#{i18n['User Management']}" icon="fa fa-users fa-fw">
+                                <p:menuitem outcome="/administrator/user/index" value="#{i18n['Users']}" />
+                            </p:submenu>
+                            <p:submenu label="#{i18n['Product Management']}" icon="fa fa-cubes fa-fw">
+                                <p:menuitem outcome="/administrator/product/index" value="#{i18n['Products']}" />
+                                <p:menuitem outcome="/administrator/category/index" value="#{i18n['Categories']}" />
+                            </p:submenu>
+                            <p:submenu label="#{i18n['Order Management']}" icon="fa fa-shopping-cart fa-fw">
+                                <p:menuitem outcome="/administrator/saleline/index" value="#{i18n['Orders Saleline']}" />
+                                <p:menuitem outcome="/administrator/sale/index" value="#{i18n['Orders']}" />
+                                <p:menuitem outcome="/administrator/sale/report" value="#{i18n['Reports']}" />
+                            </p:submenu>
+                            <p:submenu label="#{i18n['Content Management']}" icon="fa fa-sitemap fa-fw">
+                                <p:menuitem outcome="/administrator/page/index" value="#{i18n['Pages']}" />
+                                <p:menuitem outcome="/administrator/feedback" value="#{i18n['Feedbacks']}" />
+                                <p:menuitem outcome="/administrator/banner" value="#{i18n['Banners']}" />
+                            </p:submenu>
+                        </po:menu>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

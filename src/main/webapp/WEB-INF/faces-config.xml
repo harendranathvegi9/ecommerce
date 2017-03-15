@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="
+        http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <name>ecommerce</name>
+    
+    <component>
+        <component-type>org.primefaces.component.OmegaMenu</component-type>
+        <component-class>org.primefaces.omega.component.menu.OmegaMenu</component-class>
+    </component>
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.OmegaMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.omega.component.menu.OmegaMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    
+    <application>
+        <locale-config>
+            <default-locale>en_US</default-locale>
+            <supported-locale>en_US</supported-locale>
+            <supported-locale>tr_TR</supported-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>Resources</base-name>
+            <var>i18n</var>
+        </resource-bundle>
+        <message-bundle>ValidationMessages</message-bundle>
+        <resource-library-contracts>
+            <contract-mapping>
+                <url-pattern>*</url-pattern>
+                <contracts>omega-layout</contracts>
+            </contract-mapping>
+        </resource-library-contracts>
+    </application>
+    
+</faces-config>

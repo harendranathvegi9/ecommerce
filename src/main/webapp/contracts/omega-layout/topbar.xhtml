@@ -1,0 +1,47 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <div class="topbar clearfix">
+        <a id="omega-menu-button" href="#">
+            <span class="fa fa-bars"></span>
+        </a>
+
+        <span class="topbar-title"><ui:insert name="title"></ui:insert></span>
+
+        <a id="options-menu-button" href="#">
+            <span class="fa fa-ellipsis-h"></span>
+        </a>
+
+        <div id="topbar-icons" class="animated">
+            <h:form>
+                <span class="topbar-search">
+                    <input type="text" placeholder="#{i18n['Search']}" />
+                    <span class="topbar-search-icon fa fa-search"></span>
+                </span>
+                <a rhref="#">
+                    <span class="topbar-item-text">#{i18n['Messages']}</span>
+                    <span class="topbar-icon fa fa-envelope-o animated swing"></span>
+                    <span class="topbar-badge animated rubberBand">5</span>
+                </a>
+                <a href="#">
+                    <span class="topbar-item-text">#{i18n['Settings']}</span>
+                    <span class="topbar-icon fa fa-gear"></span>
+                </a>
+                <p:link outcome="/administrator/profile" rendered="#{request.isUserInRole('Administrator')}">
+                    <span class="topbar-item-text">#{i18n['User']}</span>
+                    <span class="topbar-icon fa fa-user"></span>
+                </p:link>
+                <p:commandLink title="#{i18n['Sign Out']}" action="#{loginBean.doLogout}">
+                    <span class="topbar-item-text">#{i18n['Sign Out']}</span>
+                    <span class="topbar-icon fa fa-power-off"></span>
+                </p:commandLink>
+            </h:form>
+        </div>
+
+    </div>
+
+</ui:composition>

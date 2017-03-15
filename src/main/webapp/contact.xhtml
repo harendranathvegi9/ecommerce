@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="title">#{i18n['Contact']}</ui:define>
+    <ui:define name="content">
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['Contact Us']}</h1>
+                <p>#{i18n['If you need help with our products, please contact us.']}</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <h:form>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel for="name" value="#{i18n['Your Full Name']}"/>
+                                <p:inputText id="name" value="#{feedbackBean.newRecord.name}" autocomplete="off" label="#{i18n['Your Full Name']}" placeholder="#{i18n['Your Full Name']}" required="true"/>
+                                <p:outputLabel for="email" value="#{i18n['Your E-mail Address']}"/>
+                                <p:inputText id="email" value="#{feedbackBean.newRecord.email}" autocomplete="off" label="#{i18n['Your E-mail Address']}" placeholder="#{i18n['Your E-mail Address']}" required="true"/>
+                                <p:outputLabel for="phone" value="#{i18n['Your Phone Number']}"/>
+                                <p:inputText id="phone" value="#{feedbackBean.newRecord.phone}" autocomplete="off" label="#{i18n['Your Phone Number']}" placeholder="#{i18n['Your Phone Number']}" required="true"/>
+                                <p:outputLabel for="message" value="#{i18n['Your Message']}"/>
+                                <p:inputTextarea id="message" value="#{feedbackBean.newRecord.message}" label="#{i18n['Your Message']}" placeholder="#{i18n['Your Message']}" cols="50" required="true"/>
+                                <p:outputLabel for="captcha" value="#{i18n['Captcha']}"/>
+                                <p:captcha id="captcha" label="#{i18n['Captcha']}" language="#{localeBean.locale}"/>
+                            </h:panelGrid>
+                            <p:commandButton value="#{i18n['Submit']}" actionListener="#{feedbackBean.doSubmit}" update="@form, :growl" />
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_login.xhtml">
+    <ui:define name="title">#{i18n['Remind my password']}</ui:define>
+    <ui:define name="content">
+        <div id="login-wrapper">
+            <p:link outcome="/index">
+                <!--<p:graphicImage name="images/login-logo.png" />-->
+                ecommerce
+            </p:link>
+
+            <div id="login-container">
+                <span class="title">#{i18n['Forgot Password']}</span>
+
+                <h:form id="reminder">
+                    <p:focus context="reminder"/>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12">
+                            <p:inputText value="#{reminderBean.email}" autocomplete="off" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:commandButton value="#{i18n['Remind my password']}" actionListener="#{reminderBean.doSubmit}" update="@form, :growl" icon="fa fa-check"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+
+            <div class="login-footer">
+                ARI <small>Business Management Systems</small>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

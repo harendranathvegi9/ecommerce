@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_login.xhtml">
+    <ui:define name="title">#{i18n['Login']}</ui:define>
+    <ui:define name="content">
+        <div id="login-wrapper">
+            <p:link outcome="/index">
+                <!--<p:graphicImage name="images/login-logo.png" />-->
+                ecommerce
+            </p:link>
+
+            <div id="login-container">
+                <span class="title">#{i18n['Log In']}</span>
+
+                <h:form id="login">
+                    <p:focus context="login"/>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12">
+                            <p:inputText value="#{loginBean.username}" autocomplete="off" label="#{i18n['Username']}" placeholder="#{i18n['Username']}" required="true" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:password value="#{loginBean.password}" autocomplete="off" label="#{i18n['Password']}" placeholder="#{i18n['Password']}" required="true" />
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <p:selectBooleanCheckbox value="#{loginBean.remember}" itemLabel="#{i18n['Remember Me']}" />
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <p:link outcome="/reminder" value="#{i18n['Forgot Password']}" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:splitButton value="#{i18n['Login']}" actionListener="#{loginBean.doLogin}" update="@form, :growl">
+                                <p:menuitem value="Google" url="api/oauth2/google" icon="fa fa-google-plus" />
+                                <p:menuitem value="Microsoft" url="/api/oauth2/microsoft" icon="fa fa-windows" />
+                                <p:menuitem value="Paypal" url="/api/oauth2/paypal" icon="fa fa-paypal" />
+                                <p:menuitem value="Github" url="/api/oauth2/github" icon="fa fa-github" />
+                                <p:menuitem value="Linkedin" url="/api/oauth2/linkedin" icon="fa fa-linkedin" />
+                                <p:menuitem value="Facebook" url="/api/oauth2/facebook" icon="fa fa-facebook" />
+                                <p:menuitem value="Instagram" url="/api/oauth2/instagram" icon="fa fa-instagram" />
+                            </p:splitButton>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+
+            <div class="login-footer">
+                ARI <small>Business Management Systems</small>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

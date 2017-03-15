@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="content">
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['Categories']}</h1>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <h:form>
+                            <p:tree value="#{categoryBean.root}" var="category" dynamic="true">
+                                <p:treeNode>
+                                    <p:link outcome="/category" value="#{category.code}">
+                                        <f:param name="id" value="#{category.id}"/>
+                                        <f:param name="slug" value="#{category.code}"/>
+                                    </p:link>
+                                </p:treeNode>
+                            </p:tree>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

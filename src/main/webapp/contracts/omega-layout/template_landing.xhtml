@@ -1,0 +1,212 @@
+<!DOCTYPE html [<!ENTITY nbsp "&#160;"> <!ENTITY bull "&#8226;"> <!ENTITY copy "&#169;">]>
+<html lang="#{localeBean.locale}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:view contentType="text/html" encoding="UTF-8" locale="#{localeBean.locale}">
+
+        <h:head>
+            <f:facet name="first">
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+                <title><ui:insert name="title"></ui:insert></title>
+
+                <!-- SEO -->
+                <meta name="author" content=""/>
+                <meta name="description" content=""/>
+                <meta name="keywords" content=""/>
+                <link rel="canonical" href=""/>
+
+                <!-- Social: Twitter -->
+                <meta name="twitter:card" content=""/>
+                <meta name="twitter:site" content=""/>
+                <meta name="twitter:creator" content=""/>
+                <meta name="twitter:title" content=""/>
+                <meta name="twitter:description" content=""/>
+                <meta name="twitter:image" content="https://storage.googleapis.com/at-paperplanes/assets/meta/twitter.jpg"/>
+
+                <!-- Social: Facebook / Open Graph -->
+                <meta property="og:url" content=""/>
+                <meta property="og:type" content=""/>
+                <meta property="og:title" content=""/>
+                <meta property="og:image" content=""/>
+                <meta property="og:description" content=""/>
+                <meta property="og:site_name" content=""/>
+
+                <meta name="google-site-verification" content=""/>
+
+            </f:facet>
+            <f:facet name="middle">
+                <!--<link rel="shortcut icon" href="images/favicon.ico"/>-->
+                <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAD/7swAAAAAAP///wBMdKkATOH/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAERERERERERERERERERERESIhERESIiIiIhEzMxEiIiIhE0NDMREREiEzQ0NDMzESITNDQ0NEQxEhE0NDNEQ0MSETMzM0RDQxITADADRERDEhMAMAM0RDESEwAwAxMzMSIRMxMxExExEiERERETMTMSIiIiIRERERIiIiIiIiIiL//wAA//8AAP//AADw/wAA4H8AAMAHAADAAwAA4AEAAOABAADAAQAAwAMAAMBDAADk2wAA/8kAAP//AAD//wAA" rel="icon" type="image/x-icon" />
+
+                <h:outputStylesheet name="css/layout.css"/>
+            </f:facet>
+            <f:facet name="last">
+            </f:facet>
+
+            <ui:insert name="head"></ui:insert>
+        </h:head>
+
+        <h:body id="body" styleClass="landing-body">
+
+            <p:messages id="messages" showIcon="false" showSummary="false" showDetail="true" autoUpdate="true" closable="true" style="text-align: center; position: fixed; z-index: 9999; width: 100%;">
+                <p:effect type="pulsate" event="load" delay="500" />
+            </p:messages>
+
+            <div class="landing-wrapper">
+                <div class="landing-header">
+                    <div class="landing-header-content clearfix">
+                        <p:link outcome="/index" style="text-decoration: none; color: #ffffff; font-size: 1.6em;">
+                            <!--<p:graphicImage name="images/logo.png" width="113" />-->
+                            ecommerce
+                        </p:link>
+                        <p:link id="menu-button" outcome="/index" fragment="introduction">
+                            <span class="fa fa-bars"></span>
+                        </p:link>
+                        <ul id="menu">
+                            <li><p:link outcome="/index" fragment="introduction" value="#{i18n['Home']}"/></li>
+                            <li><p:link outcome="/index" fragment="features" value="#{i18n['Features']}"/></li>
+                            <li><p:link outcome="/index" fragment="mobile" value="#{i18n['Mobile']}"/></li>
+                            <li><p:link outcome="/index" fragment="pricing" value="#{i18n['Pricing']}"/></li>
+                            <li><p:link outcome="/index" fragment="testimonials" value="#{i18n['Testimonials']}"/></li>
+                            <li><p:link outcome="/search" value="#{i18n['Search']}"/></li>
+
+                            <li><p:link outcome="/member/index" value="#{i18n['Dashboard']}" rendered="#{not empty request.userPrincipal}"/></li>
+                            <li>
+                                <h:form>
+                                    <p:commandLink value="#{i18n['Logout']}" action="#{loginBean.doLogout}" rendered="#{not empty request.userPrincipal}"/>
+                                </h:form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <ui:insert name="content"></ui:insert>
+
+                <div class="landing-footer">
+                    <div class="landing-footer-content">
+                        <div class="footer-top">
+                            <div class="ui-g">
+                                <div class="ui-g-5">
+                                    <p:link outcome="/index" style="text-decoration: none; color: #ffffff; font-size: 2.6em;">
+                                        <!--<p:graphicImage name="images/logo.png" />-->
+                                        ecommerce
+                                    </p:link>
+                                    <p>#{i18n['Start your online business']}</p>
+                                    <ul style="list-style: none; float: left;">
+                                        <li style="float: left;"><a target="_blank" href="#"><i class="fa fa-2x fa-facebook"></i></a></li>
+                                        <li style="float: left;"><a target="_blank" href="http://twitter.com/aripdcom"><i class="fa fa-2x fa-twitter"></i></a></li>
+                                        <li style="float: left;"><a target="_blank" href="#"><i class="fa fa-2x fa-linkedin"></i></a></li>
+                                        <li style="float: left;"><a target="_blank" href="#"><i class="fa fa-2x fa-google-plus"></i></a></li>
+                                        <li style="float: left;"><a target="_blank" href="#"><i class="fa fa-2x fa-skype"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="ui-g-2">
+                                    <ul style="font-size: smaller;">
+                                        <li><p:link outcome="/index" fragment="introduction" value="#{i18n['Home']}"/></li>
+                                        <li><p:link outcome="/index" fragment="features" value="#{i18n['Features']}"/></li>
+                                        <li><p:link outcome="/index" fragment="mobile" value="#{i18n['Mobile']}"/></li>
+                                        <li><p:link outcome="/index" fragment="pricing" value="#{i18n['Pricing']}"/></li>
+                                        <li><p:link outcome="/index" fragment="testimonials" value="#{i18n['Testimonials']}"/></li>
+                                        <li><p:link outcome="/search" value="#{i18n['Search for Products']}"/></li>
+                                        <li><p:link outcome="/pages" value="#{i18n['Pages']}"/></li>
+                                        <li><p:link outcome="/categories" value="#{i18n['Categories']}"/></li>
+                                    </ul>
+                                </div>
+                                <div class="ui-g-2">
+                                    <ul style="font-size: smaller;">
+                                        <li><p:link outcome="/login" value="#{i18n['Log In']}"/></li>
+                                        <li><h:form><p:commandLink action="signup" value="#{i18n['Sign Up']}"/></h:form></li>
+                                        <li><p:link outcome="/contact" value="#{i18n['Contact Us']}"/></li>
+                                        <li><p:link outcome="/member/sale/track" value="#{i18n['Order Tracking']}"/></li>
+                                    </ul>
+                                </div>
+                                <div class="ui-g-2">
+                                    <h:form>
+                                        <ul style="font-size: smaller;">
+                                            <ui:repeat value="#{localeBean.locales}" var="locale">
+                                                <li>
+                                                    <p:commandLink immediate="true" value="#{locale.getDisplayName(localeBean.locale)}" action="#{localeBean.onSet}">
+                                                        <f:setPropertyActionListener value="#{locale}" target="#{localeBean.locale}"/>
+                                                    </p:commandLink>
+                                                </li>
+                                            </ui:repeat>
+                                        </ul>
+                                    </h:form>
+                                </div>
+                                <div class="ui-g-1">
+                                    <h:form>
+                                        <ul style="font-size: smaller;">
+                                            <ui:repeat value="#{currencyBean.currencies}" var="currency">
+                                                <li>
+                                                    <p:commandLink immediate="true" value="#{currency.currencyCode}" action="#{currencyBean.onSet}">
+                                                        <f:setPropertyActionListener value="#{currency}" target="#{currencyBean.currency}"/>
+                                                    </p:commandLink>
+                                                </li>
+                                            </ui:repeat>
+                                        </ul>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="footer-bottom">
+                            ©
+                            <h:outputText value="#{session.lastAccessedTime}">
+                                <f:convertDateTime pattern="yyyy" type="date"/>
+                            </h:outputText>
+                            <h:outputLink value="http://aripd.com" target="_blank" style="color: inherit; text-decoration: none;">
+                                ARI <small>Business Management Systems</small>
+                            </h:outputLink>
+
+                            <h:panelGroup style="float: right;">
+                                <p:outputLabel style="font-size: smaller;" styleClass="fa fa-map-marker" value=" 8E-32 34758 TR, TURKEY"/>&nbsp;&nbsp;
+                                <p:outputLabel style="font-size: smaller;" styleClass="fa fa-phone" value=" +90 (533) 742-1059"/>&nbsp;&nbsp;
+                                <p:outputLabel style="font-size: smaller;" styleClass="fa fa-envelope-o" value=" dev@aripd.com"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ui:insert name="dialog"></ui:insert>
+
+            <p:growl id="growl" showDetail="true" life="5000" autoUpdate="true"/>
+
+            <h:form>
+                <p:confirmDialog global="true" closeOnEscape="true">
+                    <p:commandButton value="#{i18n['Yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="#{i18n['No']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                </p:confirmDialog>
+            </h:form>
+
+            <h:outputScript name="js/master.js"/>
+
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+                ga('create', '', 'auto');
+                ga('require', 'linkid', 'linkid.js');
+                ga('send', 'pageview');
+            </script>
+
+        </h:body>
+
+    </f:view>
+
+</html>

@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="title">#{productBean.selectedRecord.name}</ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{productBean.id}"/>
+            <f:viewParam name="slug" value="#{productBean.slug}"/>
+            <f:event type="preRenderView" listener="#{productBean.onLoad}"/>
+        </f:metadata>
+
+        <div id="features">
+            <div class="features-content">
+
+                <div class="ui-g">
+                    <div class="ui-g-6">
+                        <p:galleria value="#{productBean.selectedRecord.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                            <p:graphicImage name="#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" />
+                        </p:galleria>
+                    </div>
+                    <div class="ui-g-6">
+                        <h1>#{productBean.selectedRecord.name}</h1>
+                        <h3><h:outputText value="#{of:formatCurrency(productBean.getPriceTaxedExchanged(productBean.selectedRecord, 1), currencyBean.currency.currencyCode)}"/></h3>
+
+                        <p>#{i18n['Product Code']}: #{productBean.selectedRecord.code}</p>
+                        <p>
+                            #{i18n['Category']}: 
+                            <p:link outcome="/category" value="#{productBean.selectedRecord.category.code}">
+                                <f:param name="id" value="#{productBean.selectedRecord.category.id}"/>
+                                <f:param name="slug" value="#{productBean.selectedRecord.category.slug}"/>
+                            </p:link>
+                        </p>
+
+                        <h:form>
+                            <p:commandButton value="#{i18n['Add to shopping basket']}" actionListener="#{productBean.addBasketitem}" icon="fa fa-shopping-cart" update="@form, :growl" />
+                            <p:commandButton value="#{i18n['Add to wish list']}" actionListener="#{productBean.addWishlistitem}" icon="fa fa-plus" update="@form, :growl" />
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

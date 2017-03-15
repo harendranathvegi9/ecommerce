@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['User']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form id="form">
+                        <p:dataTable id="dataTable" value="#{userController.lazyModel}" var="user" emptyMessage="#{i18n['No records found']}"
+                                     paginator="true" paginatorPosition="bottom" rows="10" 
+                                     rowKey="#{user.id}" selectionMode="single" selection="#{userController.selectedRecord}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                     sortMode="multiple" 
+                                     rowStyleClass="#{user.userStatus ne 'Approved' ? 'ui-state-disabled' : null}"
+                                     lazy="true" rowsPerPageTemplate="10,15,50">
+                            <f:facet name="header">
+                                <p:commandButton value="#{i18n['Create a new record']}" title="#{i18n['Create a new record']}" onclick="PF('newDialog').show();" icon="ui-icon-plus"/>
+                                <p:commandButton value="#{i18n['Export']}" title="#{i18n['Export']}" ajax="false" icon="ui-icon-arrowthickstop-1-s">
+                                    <p:dataExporter type="xls" target="dataTable" fileName="export" />
+                                </p:commandButton>
+                            </f:facet>
+                            <p:column headerText="#{i18n['Id']}" sortBy="#{user.id}" filterBy="#{user.id}">
+                                <h:outputText value="#{user.id}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['E-mail Address']}" sortBy="#{user.email}" filterBy="#{user.email}">
+                                <h:outputText value="#{user.email}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Fullname']}" sortBy="#{user.firstname}" sortFunction="#{userController.sortByFullname}">
+                                <h:outputText value="#{user.fullname}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Group']}">
+                                <h:outputText value="#{i18n[user.userGroup]}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Status']}">
+                                <h:outputText value="#{i18n[user.userStatus]}"/>
+                            </p:column>
+                            <p:column exportable="false" width="100">
+                                <p:commandLink value="#{i18n['Edit']}" update="editForm" oncomplete="PF('editDialog').show()">
+                                    <f:setPropertyActionListener value="#{user}" target="#{userController.selectedRecord}" />
+                                </p:commandLink>
+                                <p:link outcome="/administrator/user/form" value="#{i18n['Edit']}">
+                                    <f:param name="id" value="#{user.id}"/>
+                                </p:link>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form id="editForm">
+            <p:dialog id="editDlg" header="#{i18n['Edit']}" widgetVar="editDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="email" value="#{i18n['E-mail Address']}"/>
+                    <p:inputText id="email" value="#{userController.selectedRecord.email}" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true"/>
+                    <p:outputLabel for="password" value="#{i18n['Password']}"/>
+                    <p:inputText id="password" value="#{userController.selectedRecord.password}" label="#{i18n['Password']}" placeholder="#{i18n['Password']}" required="true"/>
+                    <p:outputLabel for="locale" value="#{i18n['Locale']}"/>
+                    <p:selectOneMenu id="locale" value="#{userController.selectedRecord.locale}" label="#{i18n['Locale']}" required="true">
+                        <f:selectItems value="#{localeBean.locales}" var="locale" itemLabel="#{locale.getDisplayName(localeBean.locale)}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="userGroup" value="#{i18n['Group']}"/>
+                    <p:selectOneMenu id="userGroup" value="#{userController.selectedRecord.userGroup}" label="#{i18n['Group']}" converter="#{userGroupConverter}" required="true">
+                        <f:selectItems value="#{userController.userGroups}" var="group" itemValue="#{userGroup}" itemLabel="#{i18n[userGroup.label]}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="firstname" value="#{i18n['Firstname']}"/>
+                    <p:inputText id="firstname" value="#{userController.selectedRecord.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" />
+                    <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
+                    <p:inputText id="lastname" value="#{userController.selectedRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" />
+                    <p:outputLabel for="userStatus" value="#{i18n['Status']}"/>
+                    <p:selectOneMenu id="userStatus" value="#{userController.selectedRecord.userStatus}" label="#{i18n['Status']}" converter="#{userStatusConverter}" required="true">
+                        <f:selectItems value="#{userController.userStatuses}" var="userStatus" itemValue="#{userStatus}" itemLabel="#{i18n[userStatus.label]}"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Update']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{userController.doUpdateRecord}"/>
+                    <p:commandButton value="#{i18n['Delete']}" icon="ui-icon-trash" action="/administrator/user/index?faces-redirect=true" actionListener="#{userController.doDeleteRecord}">
+                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+        <h:form id="newForm">
+            <p:dialog id="newDlg" header="#{i18n['Create a new record']}" widgetVar="newDialog" resizable="false" closeOnEscape="true" modal="true"  >
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="email" value="#{i18n['E-mail Address']}"/>
+                    <p:inputText id="email" value="#{userController.newRecord.email}" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true"/>
+                    <p:outputLabel for="password" value="#{i18n['Password']}"/>
+                    <p:inputText id="password" value="#{userController.newRecord.password}" label="#{i18n['Password']}" placeholder="#{i18n['Password']}" required="true"/>
+                    <p:outputLabel for="locale" value="#{i18n['Locale']}"/>
+                    <p:selectOneMenu id="locale" value="#{userController.newRecord.locale}" label="#{i18n['Locale']}" required="true">
+                        <f:selectItems value="#{localeBean.locales}" var="locale" itemLabel="#{locale.getDisplayName(localeBean.locale)}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="group" value="#{i18n['Group']}"/>
+                    <p:selectOneMenu id="group" value="#{userController.newRecord.userGroup}" label="#{i18n['Group']}" converter="#{userGroupConverter}" required="true">
+                        <f:selectItems value="#{userController.userGroups}" var="userGroup" itemValue="#{userGroup}" itemLabel="#{i18n[userGroup.label]}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="firstname" value="#{i18n['Firstname']}"/>
+                    <p:inputText id="firstname" value="#{userController.newRecord.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" />
+                    <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
+                    <p:inputText id="lastname" value="#{userController.newRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" />
+                    <p:outputLabel for="userStatus" value="#{i18n['Status']}"/>
+                    <p:selectOneMenu id="userStatus" value="#{userController.newRecord.userStatus}" label="#{i18n['Status']}" converter="#{userStatusConverter}" required="true">
+                        <f:selectItems value="#{userController.userStatuses}" var="userStatus" itemValue="#{userStatus}" itemLabel="#{i18n[userStatus.label]}"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Save']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'newDlg','newForm','newDialog');" actionListener="#{userController.doCreateRecord}"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

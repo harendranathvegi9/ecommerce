@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Sales']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form id="form">
+                        <p:poll interval="60" update="dataTable"/>
+                        <p:dataTable id="dataTable" value="#{saleController.lazyModel}" var="sale" emptyMessage="#{i18n['No records found']}"
+                                     paginator="true" paginatorPosition="bottom" rows="10" 
+                                     rowKey="#{sale.id}" selectionMode="single" selection="#{saleController.selectedRecord}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                     sortMode="multiple" 
+                                     lazy="true" rowsPerPageTemplate="10,15,50">
+                            <p:column headerText="#{i18n['Order Ref']}" filterBy="#{sale.REFNOEXT}">
+                                <h:outputText value="#{sale.REFNOEXT}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Created At']}">
+                                <h:outputFormat value="#{sale.createdAt}">
+                                    <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                </h:outputFormat>
+                            </p:column>
+                            <p:column headerText="#{i18n['Created By']}">
+                                <h:outputText value="#{sale.createdBy.fullname}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Status']}">
+                                <h:outputText value="#{i18n[sale.saleStatus]}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Total Price']}" rendered="false">
+                                <h:outputText value="#{of:formatCurrency(sale.priceTotalAfterTax, sale.currency)}"/>
+                            </p:column>
+                            <p:column exportable="false" width="100">
+                                <p:link outcome="/administrator/sale/show" value="#{i18n['Show']}">
+                                    <f:param name="id" value="#{sale.id}"/>
+                                </p:link>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

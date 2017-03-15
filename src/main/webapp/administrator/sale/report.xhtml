@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Reports']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form>
+                        <h:panelGrid columns="4">
+                            <p:calendar value="#{reportController.reportFormModel.start}" label="#{i18n['Starting Time']}" placeholder="#{i18n['Starting Time']}" locale="#{localeBean.locale}" required="true"/>
+                            <p:calendar value="#{reportController.reportFormModel.end}" label="#{i18n['Ending Time']}" placeholder="#{i18n['Ending Time']}" locale="#{localeBean.locale}" required="true"/>
+                            <p:commandButton value="#{i18n['Refresh']}" actionListener="#{reportController.doDrawChart}" update="@form, :growl"/>
+                        </h:panelGrid>
+                        <p:chart type="pie" model="#{reportController.pieModel1}" responsive="true" />
+                        <p:chart type="pie" model="#{reportController.pieModel2}" responsive="true" />
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

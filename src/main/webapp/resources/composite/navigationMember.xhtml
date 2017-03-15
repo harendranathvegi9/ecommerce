@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <composite:interface>
+        <!--<composite:attribute name="user" required="true"/>-->
+    </composite:interface>
+    <composite:implementation>
+        <h:form>
+            <h:panelGroup rendered="#{not empty request.userPrincipal}">
+                <dl>
+                    <dt>#{i18n['My Profile']}</dt>
+                    <dd><p:link outcome="/member/logininformation" value="#{i18n['My Login Information']}"/></dd>
+                    <dd><p:link outcome="/member/personalinformation" value="#{i18n['My Personal Information']}"/></dd>
+                    <dd><p:link outcome="/member/personalsettings" value="#{i18n['My Personal Settings']}"/></dd>
+                </dl>
+                <dl>
+                    <dt>#{i18n['My Account']}</dt>
+                    <dd><p:link outcome="/member/address" value="#{i18n['My Postal Addresses']}"/></dd>
+                    <dd><p:link outcome="/member/wishlist" value="#{i18n['My Wish List']}"/></dd>
+                    <dd><p:commandLink action="shopping" value="#{i18n['My Shopping Basket']}"/></dd>
+                    <dd><p:link outcome="/member/sale/index" value="#{i18n['My Orders']}"/></dd>
+                    <dd><p:link outcome="/member/ticket/index" value="#{i18n['My Tickets']}"/></dd>
+                </dl>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{request.isUserInRole('Administrator')}">
+                <p:link outcome="/administrator/index" value="#{i18n['Admin Dashboard']}"/>
+            </h:panelGroup>
+
+        </h:form>
+
+    </composite:implementation>
+
+</html>

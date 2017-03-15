@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <composite:interface>
+
+        <composite:attribute name="nameLable" />
+        <composite:attribute name="nameValue" />
+        <composite:attribute name="emailLable" />
+        <composite:attribute name="emailValue" />
+
+        <composite:attribute name="signupButtonText" />
+        <composite:attribute name="signupButtonAction" 
+                             method-signature="java.lang.String action()" />
+        <composite:attribute name="signupButtonActionListener" 
+                             method-signature="void listener(javax.faces.event.ActionEvent)" />
+
+    </composite:interface>
+
+    <composite:implementation>
+
+        <h:form>
+
+            <h:message for="textPanel" style="color:red;" />
+
+            <h:panelGrid columns="2" id="textPanel">
+
+                #{cc.attrs.nameLable} : 
+                <p:inputText id="name" value="#{cc.attrs.nameValue}" />
+
+                #{cc.attrs.emailLable} : 
+                <p:inputText id="email" value="#{cc.attrs.emailValue}" />
+
+            </h:panelGrid>
+
+            <p:commandButton actionListener="#{cc.attrs.signupButtonActionListener}" 
+                             action="#{cc.attrs.signupButtonAction}" 
+                             value="#{cc.attrs.signupButtonText}"
+                             />
+
+        </h:form>
+
+    </composite:implementation>
+
+</html>

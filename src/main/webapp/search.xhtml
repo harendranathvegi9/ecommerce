@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="title">#{i18n['Products']}</ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="searchTerm" value="#{searchBean.searchTerm}"/>
+            <f:event type="preRenderView" listener="#{searchBean.onLoad}"/>
+        </f:metadata>
+
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['Search for Products']}</h1>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+
+                <h:form>
+                    <p:inputText value="#{searchBean.searchTerm}" label="#{i18n['Search']}" placeholder="#{i18n['Search for Products']}" required="true"/>
+                    <p:commandButton value="#{i18n['Search']}" action="#{searchBean.doSearch}" />
+                </h:form>
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:dataScroller id="product" value="#{searchBean.lazyModel}" var="product" 
+                                        rendered="#{not empty searchBean.searchTerm}"
+                                        chunkSize="20" 
+                                        lazy="true">
+                            <p:link outcome="/product">
+                                <f:param name="id" value="#{product.id}"/>
+                                <f:param name="slug" value="#{product.slug}"/>
+                                <figure>
+                                    <o:graphicImage value="#{product.image.bytes}" dataURI="true" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image.bytes}"/>
+                                    <figcaption>
+                                        <p><h:outputText value="#{product.name}"/></p>
+                                        <small><h:outputText value="#{of:formatCurrency(searchBean.getPriceTaxedExchanged(product), currencyBean.currency.currencyCode)}"/></small>
+                                    </figcaption>
+                                </figure>
+                            </p:link>
+                        </p:dataScroller>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

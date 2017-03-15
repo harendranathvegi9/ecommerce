@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{productController.id}"/>
+            <f:event type="preRenderView" listener="#{productController.onLoad}"/>
+        </f:metadata>
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Product']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <div class="ui-g">
+                        <div class="ui-g-3">
+                            <composite:navigationProduct product="#{productController.selectedRecord}"/>
+                        </div>
+                        <div class="ui-g-9">
+                            <h:form>
+                                <p:panelGrid columns="2">
+                                    <f:facet name="header">
+                                        <p:commandButton value="#{i18n['Update']}" actionListener="#{productController.doUpdateRecord}" update="@form, :growl" icon="ui-icon-disk"/>
+                                        <p:commandButton value="#{i18n['Delete']}" action="/administrator/product/index?faces-redirect=true" actionListener="#{productController.doDeleteRecord}" icon="fa fa-trash">
+                                            <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
+                                        </p:commandButton>
+                                    </f:facet>
+
+                                    <p:outputLabel for="productStatus" value="#{i18n['Product Status']}"/>
+                                    <p:selectOneMenu id="productStatus" value="#{productController.selectedRecord.productStatus}" 
+                                                     converter="#{productStatusConverter}"
+                                                     label="#{i18n['Product Status']}" 
+                                                     required="true">
+                                        <f:selectItems value="#{productController.productStatuses}" var="productStatus" itemValue="#{productStatus}" itemLabel="#{i18n[productStatus]}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="code" value="#{i18n['Product Code']}"/>
+                                    <p:inputText id="code" value="#{productController.selectedRecord.code}" label="#{i18n['Product Code']}" placeholder="#{i18n['Product Code']}" validator="codeValidator" required="true"/>
+
+                                    <p:outputLabel for="name" value="#{i18n['Product Name']}"/>
+                                    <p:inputText id="name" value="#{productController.selectedRecord.name}" label="#{i18n['Product Name']}" placeholder="#{i18n['Product Name']}" required="true"/>
+
+                                    <p:outputLabel for="description" value="#{i18n['Description']}"/>
+                                    <p:inputTextarea id="description" value="#{productController.selectedRecord.description}" label="#{i18n['Description']}" placeholder="#{i18n['Description']}" required="true"/>
+
+                                    <p:outputLabel for="category" value="#{i18n['Category']}"/>
+                                    <p:selectOneMenu id="category" value="#{productController.selectedRecord.category}" 
+                                                     converter="#{categoryConverter}" 
+                                                     label="#{i18n['Category']}">
+                                        <f:selectItem itemLabel="#{i18n['Select One']}" itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{productController.categories}" var="category" itemValue="#{category}" itemLabel="#{category.code}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="taxRate" value="#{i18n['Tax Rate']}"/>
+                                    <p:inputText id="taxRate" value="#{productController.selectedRecord.taxRate}" label="#{i18n['Tax Rate']}" placeholder="#{i18n['Tax Rate']}" required="true"/>
+
+                                </p:panelGrid>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

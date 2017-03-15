@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{userController.id}"/>
+            <f:event type="preRenderView" listener="#{userController.onLoad}"/>
+        </f:metadata>
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['User']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <div class="ui-g">
+                        <div class="ui-g-3">
+                            <composite:navigationUser user="#{userController.selectedRecord}"/>
+                        </div>
+                        <div class="ui-g-9">
+                            <h:form>
+                                <p:panelGrid columns="2">
+                                    <f:facet name="header">
+                                        <p:commandButton value="#{i18n['Update']}" actionListener="#{userController.doUpdateRecord}" update="@form, :growl" icon="ui-icon-disk"/>
+                                        <p:commandButton value="#{i18n['Delete']}" action="/administrator/user/index?faces-redirect=true" actionListener="#{userController.doDeleteRecord}" icon="fa fa-trash">
+                                            <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
+                                        </p:commandButton>
+                                    </f:facet>
+                                    <p:outputLabel for="userStatus" value="#{i18n['Status']}"/>
+                                    <p:selectOneMenu id="userStatus" value="#{userController.selectedRecord.userStatus}" label="#{i18n['Status']}" converter="#{userStatusConverter}" required="true">
+                                        <f:selectItems value="#{userController.userStatuses}" var="userStatus" itemValue="#{userStatus}" itemLabel="#{i18n[userStatus.label]}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel for="email" value="#{i18n['E-mail Address']}"/>
+                                    <p:inputText id="email" value="#{userController.selectedRecord.email}" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true"/>
+                                    <p:outputLabel for="password" value="#{i18n['Password']}"/>
+                                    <p:inputText id="password" value="#{userController.selectedRecord.password}" label="#{i18n['Password']}" placeholder="#{i18n['Password']}" required="true"/>
+                                    <p:outputLabel for="locale" value="#{i18n['Locale']}"/>
+                                    <p:selectOneMenu id="locale" value="#{userController.selectedRecord.locale}" label="#{i18n['Locale']}" required="true">
+                                        <f:selectItems value="#{localeBean.locales}" var="locale" itemLabel="#{locale.getDisplayName(localeBean.locale)}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel for="userGroup" value="#{i18n['Group']}"/>
+                                    <p:selectOneMenu id="userGroup" value="#{userController.selectedRecord.userGroup}" label="#{i18n['Group']}" converter="#{userGroupConverter}" required="true">
+                                        <f:selectItems value="#{userController.userGroups}" var="userGroup" itemValue="#{userGroup}" itemLabel="#{i18n[userGroup.label]}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel for="firstname" value="#{i18n['Firstname']}"/>
+                                    <p:inputText id="firstname" value="#{userController.selectedRecord.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" required="true"/>
+                                    <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
+                                    <p:inputText id="lastname" value="#{userController.selectedRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
+                                </p:panelGrid>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

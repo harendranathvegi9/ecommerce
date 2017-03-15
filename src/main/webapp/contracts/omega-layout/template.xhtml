@@ -1,0 +1,81 @@
+<!DOCTYPE html [<!ENTITY nbsp "&#160;"> <!ENTITY bull "&#8226;"> <!ENTITY copy "&#169;">]>
+<html lang="#{localeBean.locale}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:view contentType="text/html" encoding="UTF-8" locale="#{localeBean.locale}">
+
+        <h:head>
+            <f:facet name="first">
+                <meta charset="utf-8"/>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <meta name="description" content=""/>
+                <meta name="author" content="aripd.com"/>
+            </f:facet>
+
+            <!--<link rel="shortcut icon" href="images/favicon.ico"/>-->
+            <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAD/7swAAAAAAP///wBMdKkATOH/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAERERERERERERERERERERESIhERESIiIiIhEzMxEiIiIhE0NDMREREiEzQ0NDMzESITNDQ0NEQxEhE0NDNEQ0MSETMzM0RDQxITADADRERDEhMAMAM0RDESEwAwAxMzMSIRMxMxExExEiERERETMTMSIiIiIRERERIiIiIiIiIiL//wAA//8AAP//AADw/wAA4H8AAMAHAADAAwAA4AEAAOABAADAAQAAwAMAAMBDAADk2wAA/8kAAP//AAD//wAA" rel="icon" type="image/x-icon" />
+
+            <title><ui:insert name="title"></ui:insert></title>
+
+            <h:outputStylesheet name="css/animate.css" library="omega-layout" />
+            <h:outputStylesheet name="css/nanoscroller.css" library="omega-layout" />
+            <h:outputStylesheet name="css/layout.css" library="omega-layout" />
+
+            <f:facet name="middle">
+            </f:facet>
+            <f:facet name="last">
+                <h:outputScript name="js/nanoscroller.js"/>
+                <h:outputScript name="js/layout.js"/>
+                <h:outputScript name="js/master.js"/>
+            </f:facet>
+
+            <ui:insert name="head"/>
+        </h:head>
+
+        <h:body styleClass="main-body">
+
+            <div class="wrapper">
+                <ui:include src="topbar.xhtml" />
+
+                <ui:include src="sidebar.xhtml" />
+
+                <div class="main">
+                    <ui:insert name="content"/>
+                </div>
+
+                <ui:include src="footer.xhtml" />
+            </div>
+
+            <ui:insert name="dialog"></ui:insert>
+
+            <p:growl id="growl" widgetVar="growl" showDetail="true" life="5000" autoUpdate="true"/>
+
+            <h:form>
+                <p:confirmDialog global="true" closeOnEscape="true">
+                    <p:commandButton value="#{i18n['Yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="#{i18n['No']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                </p:confirmDialog>
+            </h:form>
+
+            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+                <f:facet name="start">
+                    <p:graphicImage name="images/preloader.gif" library="omega-layout" style="width: 32px;"/>
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+
+        </h:body>
+
+    </f:view>
+
+</html>

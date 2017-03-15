@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="content">
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['My Personal Information']}</h1>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <composite:navigationMember/>
+                    </div>
+                    <div class="ui-g-9">
+                        <h:form>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel for="firstname" value="#{i18n['Firstname']}"/>
+                                <p:inputText id="firstname" value="#{profileBean.selectedRecord.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" required="true"/>
+                                <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
+                                <p:inputText id="lastname" value="#{profileBean.selectedRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
+                                <p:commandButton value="#{i18n['Update']}" actionListener="#{profileBean.doUpdateRecord}" update="@form, :growl"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

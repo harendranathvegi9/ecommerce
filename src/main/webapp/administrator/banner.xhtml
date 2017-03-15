@@ -1,0 +1,168 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Banners']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form id="form">
+                        <p:dataTable id="dataTable" value="#{bannerController.lazyModel}" var="banner" emptyMessage="#{i18n['No records found']}"
+                                     paginator="true" paginatorPosition="bottom" rows="10" 
+                                     rowKey="#{banner.id}" selectionMode="single" selection="#{bannerController.selectedRecord}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                     sortMode="multiple" 
+                                     rowStyleClass="#{!banner.status ? 'ui-state-disabled' : null}"
+                                     lazy="true" rowsPerPageTemplate="10,15,50">
+                            <f:facet name="header">
+                                <p:commandButton value="#{i18n['Create a new record']}" title="#{i18n['Create a new record']}" onclick="PF('newDialog').show();" icon="ui-icon-plus"/>
+                                <p:commandButton value="#{i18n['Export']}" title="#{i18n['Export']}" ajax="false" icon="ui-icon-arrowthickstop-1-s">
+                                    <p:dataExporter type="xls" target="dataTable" fileName="export" />
+                                </p:commandButton>
+                            </f:facet>
+                            <p:column headerText="#{i18n['Id']}">
+                                <h:outputText value="#{banner.id}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Starting Time']}">
+                                <h:outputFormat value="#{banner.timeStart}">
+                                    <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                </h:outputFormat>
+                            </p:column>
+                            <p:column headerText="#{i18n['Ending Time']}">
+                                <h:outputFormat value="#{banner.timeEnd}">
+                                    <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                </h:outputFormat>
+                            </p:column>
+                            <p:column headerText="#{i18n['Name']}">
+                                <h:outputText value="#{banner.name}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Content']}">
+                                <h:outputText value="#{banner.description}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Status']}">
+                                <h:outputText value="#{banner.status?i18n['Active']:i18n['Passive']}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Sort Order']}" sortBy="#{banner.sortOrder}">
+                                <h:outputText value="#{banner.sortOrder}"/>
+                            </p:column>
+                            <p:column exportable="false" width="100">
+                                <p:commandLink value="#{i18n['Show']}" update="showForm" oncomplete="PF('showDialog').show()">
+                                    <f:setPropertyActionListener value="#{banner}" target="#{bannerController.selectedRecord}" />
+                                </p:commandLink>
+                                <p:commandLink value="#{i18n['Edit']}" update="editForm" oncomplete="PF('editDialog').show()">
+                                    <f:setPropertyActionListener value="#{banner}" target="#{bannerController.selectedRecord}" />
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form id="showForm">
+            <p:dialog id="showDlg" header="#{i18n['Show']}" widgetVar="showDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="#{i18n['Banner Type']}"/>
+                    <h:outputText value="#{i18n[bannerController.selectedRecord.bannerType]}"/>
+                    <p:outputLabel value="#{i18n['Name']}"/>
+                    <h:outputText value="#{bannerController.selectedRecord.name}"/>
+                    <p:outputLabel value="#{i18n['Content']}"/>
+                    <h:outputText value="#{bannerController.selectedRecord.description}"/>
+                    <p:outputLabel value="#{i18n['Image']}"/>
+                    <h:panelGroup>
+                        <o:graphicImage value="#{bannerController.selectedRecord.bytes}" dataURI="true" alt="#{bannerController.selectedRecord.name}" title="#{bannerController.selectedRecord.name}" rendered="#{not empty bannerController.selectedRecord.bytes}"/>
+                    </h:panelGroup>
+                    <p:outputLabel value="#{i18n['Status']}"/>
+                    <h:outputText value="#{bannerController.selectedRecord.status?i18n['Active']:i18n['Passive']}"/>
+                    <p:outputLabel value="#{i18n['Sort Order']}"/>
+                    <h:outputText value="#{bannerController.selectedRecord.sortOrder}"/>
+                    <p:outputLabel value="#{i18n['Starting Time']}"/>
+                    <h:outputFormat value="#{bannerController.selectedRecord.timeStart}">
+                        <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                    </h:outputFormat>
+                    <p:outputLabel value="#{i18n['Ending Time']}"/>
+                    <h:outputFormat value="#{bannerController.selectedRecord.timeEnd}">
+                        <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                    </h:outputFormat>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Edit']}" update=":editForm:editDlg" oncomplete="PF('showDialog').hide();PF('editDialog').show();" icon="ui-icon-pencil" title="#{i18n['Edit']}">
+                        <f:setPropertyActionListener value="#{bannerController.selectedRecord}" target="#{banner}"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{i18n['Close']}" onclick="PF('showDialog').hide();"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+        <h:form id="editForm" enctype="multipart/form-data">
+            <p:dialog id="editDlg" header="#{i18n['Edit']}" widgetVar="editDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="bannerType" value="#{i18n['Banner Type']}"/>
+                    <p:selectOneMenu id="bannerType" value="#{bannerController.selectedRecord.bannerType}" 
+                                     converter="#{bannerTypeConverter}"
+                                     label="#{i18n['Banner Type']}" 
+                                     required="true">
+                        <f:selectItems value="#{bannerController.bannerTypes}" var="bannerType" itemValue="#{bannerType}" itemLabel="#{i18n[bannerType]}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="name" value="#{i18n['Name']}"/>
+                    <p:inputText id="name" value="#{bannerController.selectedRecord.name}" label="#{i18n['Name']}" placeholder="#{i18n['Name']}" required="true"/>
+                    <p:outputLabel for="description" value="#{i18n['Content']}"/>
+                    <p:inputTextarea id="description" value="#{bannerController.selectedRecord.description}" label="#{i18n['Content']}" placeholder="#{i18n['Content']}" required="true"/>
+                    <p:outputLabel for="image" value="#{i18n['Image']}"/>
+                    <p:fileUpload id="image" value="#{bannerController.file}" label="#{i18n['Choose']}" mode="simple" skinSimple="true" validator="uploadImageValidator"/>
+                    <p:outputLabel for="status" value="#{i18n['Status']}"/>
+                    <p:inputSwitch id="status" value="#{bannerController.selectedRecord.status}" label="#{i18n['Status']}" offLabel="#{i18n['Passive']}" onLabel="#{i18n['Active']}"/>
+                    <p:outputLabel for="sortOrder" value="#{i18n['Sort Order']}"/>
+                    <p:inputText id="sortOrder" value="#{bannerController.selectedRecord.sortOrder}" label="#{i18n['Sort Order']}" placeholder="#{i18n['Sort Order']}"/>
+                    <p:outputLabel for="timeStart" value="#{i18n['Starting Time']}"/>
+                    <p:calendar id="timeStart" value="#{bannerController.selectedRecord.timeStart}" pattern="#{i18n['pattern.datetime']}" label="#{i18n['Starting Time']}" placeholder="#{i18n['Starting Time']}" locale="#{localeBean.locale}" showButtonPanel="false" navigator="true"/>
+                    <p:outputLabel for="timeEnd" value="#{i18n['Ending Time']}"/>
+                    <p:calendar id="timeEnd" value="#{bannerController.selectedRecord.timeEnd}" pattern="#{i18n['pattern.datetime']}" label="#{i18n['Ending Time']}" placeholder="#{i18n['Ending Time']}" locale="#{localeBean.locale}" showButtonPanel="false" navigator="true"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Update']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{bannerController.doUpdateRecord}" ajax="false"/>
+                    <p:commandButton value="#{i18n['Delete']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{bannerController.doDeleteRecord}">
+                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{i18n['Close']}" onclick="PF('editDialog').hide();"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+        <h:form id="newForm" enctype="multipart/form-data">
+            <p:dialog id="newDlg" header="#{i18n['Create a new record']}" widgetVar="newDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="bannerType" value="#{i18n['Banner Type']}"/>
+                    <p:selectOneMenu id="bannerType" value="#{bannerController.newRecord.bannerType}" 
+                                     converter="#{bannerTypeConverter}"
+                                     label="#{i18n['Banner Type']}" 
+                                     required="true">
+                        <f:selectItems value="#{bannerController.bannerTypes}" var="bannerType" itemValue="#{bannerType}" itemLabel="#{i18n[bannerType]}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="name" value="#{i18n['Name']}"/>
+                    <p:inputText id="name" value="#{bannerController.newRecord.name}" label="#{i18n['Name']}" placeholder="#{i18n['Name']}" required="true"/>
+                    <p:outputLabel for="description" value="#{i18n['Content']}"/>
+                    <p:inputTextarea id="description" value="#{bannerController.newRecord.description}" label="#{i18n['Content']}" placeholder="#{i18n['Content']}" required="true"/>
+                    <p:outputLabel for="image" value="#{i18n['Image']}"/>
+                    <p:fileUpload id="image" value="#{bannerController.file}" label="#{i18n['Choose']}" mode="simple" skinSimple="true" validator="uploadImageValidator"/>
+                    <p:outputLabel for="status" value="#{i18n['Status']}"/>
+                    <p:inputSwitch id="status" value="#{bannerController.newRecord.status}" label="#{i18n['Status']}" offLabel="#{i18n['Passive']}" onLabel="#{i18n['Active']}"/>
+                    <p:outputLabel for="sortOrder" value="#{i18n['Sort Order']}"/>
+                    <p:inputText id="sortOrder" value="#{bannerController.newRecord.sortOrder}" label="#{i18n['Sort Order']}" placeholder="#{i18n['Sort Order']}"/>
+                    <p:outputLabel for="timeStart" value="#{i18n['Starting Time']}"/>
+                    <p:calendar id="timeStart" value="#{bannerController.newRecord.timeStart}" pattern="#{i18n['pattern.datetime']}" placeholder="#{i18n['Starting Time']}" locale="#{localeBean.locale}" showButtonPanel="false" navigator="true"/>
+                    <p:outputLabel for="timeEnd" value="#{i18n['Ending Time']}"/>
+                    <p:calendar id="timeEnd" value="#{bannerController.newRecord.timeEnd}" pattern="#{i18n['pattern.datetime']}" label="#{i18n['Ending Time']}" placeholder="#{i18n['Ending Time']}" locale="#{localeBean.locale}" showButtonPanel="false" navigator="true"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Save']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'newDlg','newForm','newDialog');" actionListener="#{bannerController.doCreateRecord}" ajax="false"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

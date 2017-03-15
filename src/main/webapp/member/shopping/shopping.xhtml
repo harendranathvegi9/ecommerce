@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{shoppingBean.onLoad}" />
+        </f:metadata>
+
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['My Shopping Basket']}</h1>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <composite:navigationMember/>
+                    </div>
+                    <div class="ui-g-9">
+                        <h3>#{i18n['Shopping Basket']}</h3>
+                        <h:form id="form">
+                            <p:dataTable id="dataTable" value="#{shoppingBean.basketitems}" var="basketitem" emptyMessage="#{i18n['No records found']}">
+                                <p:column headerText="#{i18n['Image']}">
+                                    <p:link outcome="/product">
+                                        <f:param name="id" value="#{basketitem.product.id}"/>
+                                        <f:param name="slug" value="#{basketitem.product.slug}"/>
+                                        <o:graphicImage value="#{basketitem.product.image.bytes}" dataURI="true" alt="#{basketitem.product.name}" title="#{basketitem.product.name}" rendered="#{not empty basketitem.product.image.bytes}"/>
+                                    </p:link>
+                                </p:column>
+                                <p:column headerText="#{i18n['Product']}">
+                                    <h4>#{basketitem.product.name}</h4>
+                                    <p>#{basketitem.product.code}</p>
+                                </p:column>
+<!--                                <p:column headerText="#{i18n['Order Note']}">
+                                    <p:inputTextarea value="#{basketitem.note}" label="#{i18n['Order Note']}" placeholder="#{i18n['Order Note']}">
+                                        <p:ajax listener="#{shoppingBean.ajaxUpdateBasketitem}" partialSubmit="true" process="@this"/>
+                                    </p:inputTextarea>
+                                </p:column>-->
+                                <p:column headerText="#{i18n['Unit Price']}">
+                                    <h:outputText style="display:block;" title="#{i18n['Unit Price']}" value="#{of:formatCurrency(shoppingBean.getPriceExchanged(basketitem.product, basketitem.quantity, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Unit Tax']}" value="#{of:formatCurrency(shoppingBean.getTaxExchanged(basketitem.product, basketitem.quantity, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Unit Discount']}" value="#{of:formatCurrency(shoppingBean.getDiscountExchanged(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                </p:column>
+                                <p:column headerText="#{i18n['Quantity']}">
+                                    <p:spinner value="#{basketitem.quantity}" converter="javax.faces.Integer" min="1" stepFactor="1" size="2">
+                                        <p:ajax listener="#{shoppingBean.ajaxUpdateBasketitem}" partialSubmit="true" process="@this" update="@form" />
+                                    </p:spinner>
+                                </p:column>
+                                <p:column headerText="#{i18n['Amount']}">
+                                    <h:outputText style="display:block;" title="#{i18n['Amount']}" value="#{of:formatCurrency(shoppingBean.getAmountExchanged(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Tax']}" value="#{of:formatCurrency(shoppingBean.doCalculateTaxSubtotal(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Discount']}" value="#{of:formatCurrency(shoppingBean.doCalculateDiscountSubtotal(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                </p:column>
+                                <p:column headerText="#{i18n['Action']}">
+                                    <p:commandLink value="#{i18n['Edit']}" update="editForm" oncomplete="PF('editDialog').show()">
+                                        <f:setPropertyActionListener value="#{basketitem}" target="#{shoppingBean.selectedBasketitem}" />
+                                    </p:commandLink>
+                                    <p:commandLink value="#{i18n['Remove']}" update="@form" action="#{shoppingBean.removeBasketitem}">
+                                        <f:setPropertyActionListener value="#{basketitem.product}" target="#{shoppingBean.selectedProduct}"/>
+                                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:panelGrid columns="2" rendered="#{not empty shoppingBean.basketitems}" style="text-align: right; float: right;">
+                                <h:outputText value="#{i18n['Basket Total']}"/>
+                                <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateBasketTotal(currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                <h:outputText value="#{i18n['Tax Total']}"/>
+                                <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateTaxTotal(currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                <h:outputText value="#{i18n['Discount Total']}"/>
+                                <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateDiscountTotal(currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                                <h:outputText value="#{i18n['General Total']}"/>
+                                <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateGeneralTotal(currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
+                            </h:panelGrid>
+                        </h:form>
+
+                        <div class="clearfix"></div>
+
+                        <h:form>
+                            <h:panelGrid columns="1" rendered="#{not empty shoppingBean.basketitems}">
+                                <p:outputLabel for="billAddress" value="#{i18n['Bill Address']}"/>
+                                <p:selectOneMenu id="billAddress" value="#{shoppingBean.billAddress}" 
+                                                 converter="#{addressConverter}"
+                                                 label="#{i18n['Bill Address']}"
+                                                 required="true">
+                                    <f:selectItems value="#{shoppingBean.addresses}" var="address" itemValue="#{address}" itemLabel="#{address.fulladdress}"/>
+                                </p:selectOneMenu>
+                                <p:link outcome="/member/address" value="#{i18n['Create a new record']}" />
+
+                                <p:outputLabel for="deliveryAddress" value="#{i18n['Delivery Address']}"/>
+                                <p:selectOneMenu id="deliveryAddress" value="#{shoppingBean.deliveryAddress}" 
+                                                 converter="#{addressConverter}"
+                                                 label="#{i18n['Delivery Address']}"
+                                                 required="true">
+                                    <f:selectItems value="#{shoppingBean.addresses}" var="address" itemValue="#{address}" itemLabel="#{address.fulladdress}"/>
+                                </p:selectOneMenu>
+                                <p:link outcome="/member/address" value="#{i18n['Create a new record']}" />
+
+                                <p:commandButton value="#{i18n['Continue']}" update="@form, :growl" action="go-to-payment"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form id="editForm">
+            <p:dialog id="editDlg" header="#{i18n['Edit']}" widgetVar="editDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="note" value="#{i18n['Note']}"/>
+                    <p:inputTextarea id="note" value="#{shoppingBean.selectedBasketitem.note}" label="#{i18n['Note']}" placeholder="#{i18n['Note']}" />
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Update']}" update=":form, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{shoppingBean.doUpdateBasketitem}"/>
+                    <p:commandButton value="#{i18n['Close']}" onclick="PF('editDialog').hide();"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

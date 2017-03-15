@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="content">
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['My Wish List']}</h1>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <composite:navigationMember/>
+                    </div>
+                    <div class="ui-g-9">
+                        <h:form>
+                            <p:dataTable id="dataTable" value="#{wishitemView.lazyModel}" var="wishitem" emptyMessage="#{i18n['No records found']}"
+                                         paginator="true" paginatorPosition="bottom" rows="10" 
+                                         rowKey="#{wishitem.id}" selectionMode="single" selection="#{wishitemView.selectedRecord}"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                         sortMode="multiple" 
+                                         lazy="true" rowsPerPageTemplate="10,15,50">
+                                <p:column headerText="#{i18n['Image']}">
+                                    <p:link outcome="/product">
+                                        <f:param name="id" value="#{wishitem.product.id}"/>
+                                        <f:param name="slug" value="#{wishitem.product.slug}"/>
+                                        <o:graphicImage value="#{wishitem.product.image.bytes}" dataURI="true" alt="#{wishitem.product.name}" title="#{wishitem.product.name}" rendered="#{not empty wishitem.product.image.bytes}"/>
+                                    </p:link>
+                                </p:column>
+                                <p:column headerText="#{i18n['Product']}">
+                                    <h4>#{wishitem.product.name}</h4>
+                                    <p>#{wishitem.product.code}</p>
+                                </p:column>
+                                <p:column headerText="#{i18n['Price']}">
+                                    <h:outputText value="#{of:formatCurrency(wishitemView.getPriceTaxedExchanged(wishitem.product), currencyBean.currency.currencyCode)}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="#{i18n['Delete']}" action="#{wishitemView.doDeleteRecord}" update="@form, :growl" icon="ui-icon-trash">
+                                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
+                                        <f:setPropertyActionListener value="#{wishitem}" target="#{wishitemView.selectedRecord}"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

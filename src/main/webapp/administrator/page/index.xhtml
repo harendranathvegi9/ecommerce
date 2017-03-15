@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Pages']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form id="form">
+                        <p:dataTable id="dataTable" value="#{pageController.lazyModel}" var="page" emptyMessage="#{i18n['No records found']}"
+                                     paginator="true" paginatorPosition="bottom" rows="10" 
+                                     rowKey="#{page.id}" selectionMode="single" selection="#{pageController.selectedRecord}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                     sortMode="multiple" 
+                                     lazy="true" rowsPerPageTemplate="10,15,50">
+                            <f:facet name="header">
+                                <p:commandButton value="#{i18n['Create a new record']}" title="#{i18n['Create a new record']}" action="/administrator/page/new?faces-redirect=true" icon="ui-icon-plus"/>
+                                <p:commandButton value="#{i18n['Export']}" title="#{i18n['Export']}" ajax="false" icon="ui-icon-arrowthickstop-1-s">
+                                    <p:dataExporter type="xls" target="dataTable" fileName="export" />
+                                </p:commandButton>
+                            </f:facet>
+                            <p:column headerText="#{i18n['Id']}">
+                                <h:outputText value="#{page.id}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Name']}" width="300">
+                                <h:outputText value="#{page.name}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Description']}">
+                                <h:outputText value="#{page.description}"/>
+                            </p:column>
+                            <p:column exportable="false" width="100">
+                                <p:link outcome="/administrator/page/form" value="#{i18n['Edit']}">
+                                    <f:param name="id" value="#{page.id}"/>
+                                </p:link>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

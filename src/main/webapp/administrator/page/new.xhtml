@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Page']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel for="name" value="#{i18n['Name']}"/>
+                            <p:inputText id="name" value="#{pageController.newRecord.name}" placeholder="#{i18n['Name']}" required="true"/>
+                            <p:outputLabel for="description" value="#{i18n['Description']}"/>
+                            <p:inputTextarea id="description" value="#{pageController.newRecord.description}" placeholder="#{i18n['Description']}"/>
+                            <p:outputLabel for="content" value="#{i18n['Content']}"/>
+                            <p:editor id="content" value="#{pageController.newRecord.content}" required="true"/>
+                            <f:facet name="footer">
+                                <p:commandButton value="#{i18n['Save']}" actionListener="#{pageController.doCreateRecord}" update="@form, :growl"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Dashboard']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form>
+                        <div class="ui-g">
+                            <div class="ui-g-6">
+                                <p:dataTable value="#{userController.lazyModel}" var="user" emptyMessage="#{i18n['No records found']}" 
+                                             paginator="true" paginatorPosition="bottom" rows="10"
+                                             sortBy="#{user.id}" sortOrder="descending"
+                                             lazy="true" rowsPerPageTemplate="10,15,50">
+                                    <f:facet name="header">#{i18n['Users']}</f:facet>
+                                    <p:column headerText="#{i18n['User']}">
+                                        <p:link outcome="/administrator/user/show" value="#{user.fullname}">
+                                            <f:param name="id" value="#{user.id}"/>
+                                        </p:link>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Status']}">
+                                        <h:outputText value="#{i18n[user.userStatus]}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="ui-g-6">
+                                <p:poll interval="60" update="feedbackDataTable"/>
+                                <p:dataTable id="feedbackDataTable" value="#{feedbackController.lazyModel}" var="feedback" emptyMessage="#{i18n['No records found']}" 
+                                             paginator="true" paginatorPosition="bottom" rows="10" 
+                                             sortBy="#{feedback.id}" sortOrder="descending"
+                                             lazy="true">
+                                    <f:facet name="header">#{i18n['Feedbacks']}</f:facet>
+                                    <p:column headerText="#{i18n['Name']}">
+                                        <h:outputText value="#{feedback.name}"/>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['E-mail Address']}">
+                                        <h:outputText value="#{feedback.email}"/>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Phone Number']}">
+                                        <h:outputText value="#{feedback.phone}"/>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Created At']}">
+                                        <h:outputFormat value="#{feedback.createdAt}">
+                                            <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                        </h:outputFormat>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="ui-g-6">
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

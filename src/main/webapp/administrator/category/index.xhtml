@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Categories']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <h:form id="form">
+                        <p:dataTable id="dataTable" value="#{categoryController.lazyModel}" var="category" emptyMessage="#{i18n['No records found']}"
+                                     paginator="true" paginatorPosition="bottom" rows="10" 
+                                     rowKey="#{category.id}" selectionMode="single" selection="#{categoryController.selectedRecord}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                     sortMode="multiple" 
+                                     lazy="true" rowsPerPageTemplate="10,15,50">
+                            <f:facet name="header">
+                                <p:commandButton value="#{i18n['Create a new record']}" title="#{i18n['Create a new record']}" onclick="PF('newDialog').show();" icon="ui-icon-plus"/>
+                                <p:commandButton value="#{i18n['Export']}" title="#{i18n['Export']}" ajax="false" icon="ui-icon-arrowthickstop-1-s">
+                                    <p:dataExporter type="xls" target="dataTable" fileName="export" />
+                                </p:commandButton>
+                            </f:facet>
+                            <p:column headerText="#{i18n['Code']}" filterMatchMode="contains" filterBy="#{category.code}">
+                                <h:outputText value="#{category.code}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Sort Order']}">
+                                <h:outputText value="#{category.sortOrder}"/>
+                            </p:column>
+                            <p:column exportable="false" width="100">
+                                <p:commandLink value="#{i18n['Show']}" update="showForm" oncomplete="PF('showDialog').show()">
+                                    <f:setPropertyActionListener value="#{category}" target="#{categoryController.selectedRecord}" />
+                                </p:commandLink>
+                                <p:link outcome="/administrator/category/form" value="#{i18n['Edit']}">
+                                    <f:param name="id" value="#{category.id}"/>
+                                </p:link>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form id="showForm">
+            <p:dialog id="showDlg" header="#{i18n['Show']}" widgetVar="showDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="#{i18n['Code']}"/>
+                    <h:outputText value="#{categoryController.selectedRecord.code}"/>
+                    <p:outputLabel value="#{i18n['Sort Order']}"/>
+                    <h:outputText value="#{categoryController.selectedRecord.sortOrder}"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Close']}" onclick="PF('showDialog').hide();"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+        <h:form id="newForm" enctype="multipart/form-data">
+            <p:dialog id="newDlg" header="#{i18n['Create a new record']}" widgetVar="newDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="code" value="#{i18n['Code']}"/>
+                    <p:inputText id="code" value="#{categoryController.newRecord.code}" label="#{i18n['Code']}" placeholder="#{i18n['Code']}" required="true"/>
+                    <p:outputLabel for="sortOrder" value="#{i18n['Sort Order']}"/>
+                    <p:inputText id="sortOrder" value="#{categoryController.newRecord.sortOrder}" label="#{i18n['Sort Order']}" placeholder="#{i18n['Sort Order']}" required="true"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Save']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'newDlg','newForm','newDialog');" actionListener="#{categoryController.doCreateRecord}" ajax="false"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

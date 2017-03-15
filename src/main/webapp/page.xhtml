@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="title">#{pageBean.selectedRecord.name}</ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{pageBean.id}"/>
+            <f:event type="preRenderView" listener="#{pageBean.onLoad}"/>
+        </f:metadata>
+
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title"><h:outputText value="#{pageBean.selectedRecord.name}"/></h1>
+                <p><h:outputText value="#{pageBean.selectedRecord.description}"/></p>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <ul>
+                            <ui:repeat value="#{pageBean.pages}" var="page">
+                                <li>
+                                    <p:link outcome="/page" value="#{page.name}">
+                                        <f:param name="id" value="#{page.id}"/>
+                                    </p:link>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </div>
+                    <div class="ui-g-9">
+                        <p><h:outputText value="#{pageBean.selectedRecord.description}"/></p>
+                        <p><h:outputText value="#{pageBean.selectedRecord.content}" escape="false"/></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

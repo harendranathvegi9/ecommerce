@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="content">
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title">#{i18n['My Postal Addresses']}</h1>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <composite:navigationMember/>
+                    </div>
+                    <div class="ui-g-9">
+                        <h:form id="form">
+                            <p:dataList id="dataList" value="#{addressView.lazyModel}" var="address" emptyMessage="#{i18n['No records found']}"
+                                        type="unordered" itemType="none"
+                                        paginator="true" paginatorPosition="bottom" rows="10" 
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
+                                        lazy="true" rowsPerPageTemplate="10,15,50">
+                                <f:facet name="header">
+                                    <p:commandButton value="#{i18n['Create a new record']}" title="#{i18n['Create a new record']}" onclick="PF('newDialog').show();" icon="ui-icon-plus"/>
+                                </f:facet>
+                                <p:commandLink title="#{i18n['Edit']}" update="editForm" oncomplete="PF('editDialog').show()" styleClass="fa fa-search" style="float: left; margin-right: 10px;">
+                                    <f:setPropertyActionListener value="#{address}" target="#{addressView.selectedRecord}" />
+                                </p:commandLink>
+                                <h:outputText value="#{address.fulladdress}" style="display: inline-block;"/>
+                            </p:dataList>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form id="editForm">
+            <p:dialog id="editDlg" header="#{i18n['Edit']}" widgetVar="editDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="firstname" value="#{i18n['Firstname']}"/>
+                    <p:inputText id="firstname" value="#{addressView.selectedRecord.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" required="true"/>
+                    <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
+                    <p:inputText id="lastname" value="#{addressView.selectedRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
+                    <p:outputLabel for="company" value="#{i18n['Company']}"/>
+                    <p:inputText id="company" value="#{addressView.selectedRecord.company}" label="#{i18n['Company']}" placeholder="#{i18n['Company']}" />
+                    <p:outputLabel for="email" value="#{i18n['E-mail Address']}"/>
+                    <p:inputText id="email" value="#{addressView.selectedRecord.email}" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true"/>
+                    <p:outputLabel for="phone" value="#{i18n['Phone Number']}"/>
+                    <p:inputText id="phone" value="#{addressView.selectedRecord.phone}" label="#{i18n['Phone Number']}" placeholder="#{i18n['Phone Number']}" required="true"/>
+                    <p:outputLabel for="fax" value="#{i18n['Fax Number']}"/>
+                    <p:inputText id="fax" value="#{addressView.selectedRecord.fax}" label="#{i18n['Fax Number']}" placeholder="#{i18n['Fax Number']}"/>
+                    <p:outputLabel for="addressLine1" value="#{i18n['Address']}"/>
+                    <p:inputText id="addressLine1" value="#{addressView.selectedRecord.line1}" label="#{i18n['Address']}" placeholder="#{i18n['Address']}" required="true"/>
+                    <p:outputLabel for="addressLine2" value="#{i18n['Address']}"/>
+                    <p:inputText id="addressLine2" value="#{addressView.selectedRecord.line2}" label="#{i18n['Address']}" placeholder="#{i18n['Address']}" required="true"/>
+                    <p:outputLabel for="zipcode" value="#{i18n['Zip Code']}"/>
+                    <p:inputText id="zipcode" value="#{addressView.selectedRecord.zipcode}" label="#{i18n['Zip Code']}" placeholder="#{i18n['Zip Code']}" required="true"/>
+                    <p:outputLabel for="county" value="#{i18n['County']}"/>
+                    <p:inputText id="county" value="#{addressView.selectedRecord.county}" label="#{i18n['County']}" placeholder="#{i18n['County']}" required="true"/>
+                    <p:outputLabel for="city" value="#{i18n['City']}"/>
+                    <p:inputText id="city" value="#{addressView.selectedRecord.city}" label="#{i18n['City']}" placeholder="#{i18n['City']}" required="true"/>
+                    <p:outputLabel for="region" value="#{i18n['Region']}"/>
+                    <p:inputText id="region" value="#{addressView.selectedRecord.region}" label="#{i18n['Region']}" placeholder="#{i18n['Region']}" required="true"/>
+                    <p:outputLabel for="country" value="#{i18n['Country']}"/>
+                    <p:inputText id="country" value="#{addressView.selectedRecord.country}" label="#{i18n['Country']}" placeholder="#{i18n['Country']}" required="true"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Update']}" update=":form:dataList, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{addressView.doUpdateRecord}"/>
+                    <p:commandButton value="#{i18n['Delete']}" update=":form:dataList, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{addressView.doDeleteRecord}">
+                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{i18n['Close']}" onclick="PF('editDialog').hide();"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+        <h:form id="newForm">
+            <p:dialog id="newDlg" header="#{i18n['Create a new record']}" widgetVar="newDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="firstname" value="#{i18n['Firstname']}"/>
+                    <p:inputText id="firstname" value="#{addressView.newRecord.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" required="true"/>
+                    <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
+                    <p:inputText id="lastname" value="#{addressView.newRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
+                    <p:outputLabel for="company" value="#{i18n['Company']}"/>
+                    <p:inputText id="company" value="#{addressView.newRecord.company}" label="#{i18n['Company']}" placeholder="#{i18n['Company']}"/>
+                    <p:outputLabel for="email" value="#{i18n['E-mail Address']}"/>
+                    <p:inputText id="email" value="#{addressView.newRecord.email}" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true"/>
+                    <p:outputLabel for="phone" value="#{i18n['Phone Number']}"/>
+                    <p:inputText id="phone" value="#{addressView.newRecord.phone}" label="#{i18n['Phone Number']}" placeholder="#{i18n['Phone Number']}" required="true"/>
+                    <p:outputLabel for="fax" value="#{i18n['Fax Number']}"/>
+                    <p:inputText id="fax" value="#{addressView.newRecord.fax}" label="#{i18n['Fax Number']}" placeholder="#{i18n['Fax Number']}"/>
+                    <p:outputLabel for="addressLine1" value="#{i18n['Address']}"/>
+                    <p:inputText id="addressLine1" value="#{addressView.newRecord.line1}" label="#{i18n['Address']}" placeholder="#{i18n['Address']}" required="true"/>
+                    <p:outputLabel for="addressLine2" value="#{i18n['Address']}"/>
+                    <p:inputText id="addressLine2" value="#{addressView.newRecord.line2}" label="#{i18n['Address']}" placeholder="#{i18n['Address']}" required="true"/>
+                    <p:outputLabel for="zipcode" value="#{i18n['Zip Code']}"/>
+                    <p:inputText id="zipcode" value="#{addressView.newRecord.zipcode}" label="#{i18n['Zip Code']}" placeholder="#{i18n['Zip Code']}" required="true"/>
+                    <p:outputLabel for="county" value="#{i18n['County']}"/>
+                    <p:inputText id="county" value="#{addressView.newRecord.county}" label="#{i18n['County']}" placeholder="#{i18n['County']}" required="true"/>
+                    <p:outputLabel for="city" value="#{i18n['City']}"/>
+                    <p:inputText id="city" value="#{addressView.newRecord.city}" label="#{i18n['City']}" placeholder="#{i18n['City']}" required="true"/>
+                    <p:outputLabel for="region" value="#{i18n['Region']}"/>
+                    <p:inputText id="region" value="#{addressView.newRecord.region}" label="#{i18n['Region']}" placeholder="#{i18n['Region']}" required="true"/>
+                    <p:outputLabel for="country" value="#{i18n['Country']}"/>
+                    <p:inputText id="country" value="#{addressView.newRecord.country}" label="#{i18n['Country']}" placeholder="#{i18n['Country']}" required="true"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Save']}" update=":form:dataList, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'newDlg','newForm','newDialog');" actionListener="#{addressView.doCreateRecord}"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

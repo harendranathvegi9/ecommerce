@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="title">#{categoryBean.selectedCategory.code}</ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{categoryBean.id}"/>
+            <f:viewParam name="slug" value="#{categoryBean.slug}"/>
+            <f:event type="preRenderView" listener="#{categoryBean.onLoad}"/>
+        </f:metadata>
+
+        <div id="features">
+            <div class="features-content">
+                <h1 class="feature-title"><h:outputText value="#{categoryBean.selectedCategory.code}"/></h1>
+                <p>
+                    <h:form>
+                        <p:breadCrumb model="#{categoryBean.model}" homeDisplay="text" />
+                    </h:form>
+                </p>
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <h:panelGroup layout="block" rendered="#{categoryBean.selectedCategory ne null}">
+                            <p:dataList value="#{categoryBean.selectedCategory.children}" var="category" type="ordered" rendered="#{not empty categoryBean.selectedCategory.children}">
+                                <f:facet name="header">#{i18n['Categories']}</f:facet>
+                                <p:link outcome="/category" value="#{category.code}">
+                                    <f:param name="id" value="#{category.id}" />
+                                    <f:param name="slug" value="#{category.slug}" />
+                                </p:link>
+                            </p:dataList>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-9">
+                        <p:dataScroller id="product" value="#{categoryBean.lazyModel}" var="product" 
+                                        chunkSize="20" 
+                                        lazy="true">
+                            <p:link outcome="/product">
+                                <f:param name="id" value="#{product.id}"/>
+                                <f:param name="slug" value="#{product.slug}"/>
+                                <figure>
+                                    <p:graphicImage name="#{product.image.name}" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image}" />
+                                    <figcaption>
+                                        <p><h:outputText value="#{product.name}"/></p>
+                                        <small><h:outputText value="#{of:formatCurrency(categoryBean.getPriceTaxedExchanged(product), currencyBean.currency.currencyCode)}"/></small>
+                                    </figcaption>
+                                </figure>
+                            </p:link>
+                        </p:dataScroller>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

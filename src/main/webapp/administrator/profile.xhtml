@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>#{i18n['Profile']}</h1>
+                    <p>Use this page to start from scratch and place your custom content.</p>
+
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel for="email" value="#{i18n['E-mail Address']}"/>
+                            <p:inputText id="email" value="#{profileBean.selectedRecord.email}" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true"/>
+
+                            <p:outputLabel for="password" value="#{i18n['Password']}"/>
+                            <p:inputText id="password" value="#{profileBean.selectedRecord.password}" label="#{i18n['Password']}" placeholder="#{i18n['Password']}" required="true"/>
+
+                            <p:outputLabel for="firstname" value="#{i18n['Firstname']}"/>
+                            <p:inputText id="firstname" value="#{profileBean.selectedRecord.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" required="true"/>
+
+                            <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
+                            <p:inputText id="lastname" value="#{profileBean.selectedRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
+
+                            <p:outputLabel for="locale" value="#{i18n['Locale']}"/>
+                            <p:selectOneMenu id="locale" value="#{profileBean.selectedRecord.locale}" 
+                                             label="#{i18n['Locale']}" 
+                                             required="true">
+                                <f:selectItems value="#{localeBean.locales}" var="locale" itemLabel="#{locale.getDisplayName(localeBean.locale)}"/>
+                            </p:selectOneMenu>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="#{i18n['Update']}" actionListener="#{profileBean.doUpdateRecord}" update=":growl"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
