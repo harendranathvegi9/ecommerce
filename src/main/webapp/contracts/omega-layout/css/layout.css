@@ -2886,63 +2886,23 @@ h2 {
 .landing-wrapper #mobile .mobile-content .ui-button .ui-button-text {
   padding: 1em 5em;
 }
-.landing-wrapper #pricing {
+.landing-wrapper #indexpage {
   background-color: #ffffff;
   padding: 100px 0;
 }
-.landing-wrapper #pricing .pricing-content {
+.landing-wrapper #indexpage .indexpage-content {
   width: 960px;
   margin: 0 auto;
   text-align: center;
 }
-.landing-wrapper #pricing .pricing-content .ui-g {
+.landing-wrapper #indexpage .indexpage-content .ui-g {
   margin-top: 50px;
 }
-.landing-wrapper #pricing .pricing-content p {
+.landing-wrapper #indexpage .indexpage-content p {
   color: #a4a4a4;
 }
-.landing-wrapper #pricing .pricing-content > p {
+.landing-wrapper #indexpage .indexpage-content > p {
   font-size: 20px;
-}
-.landing-wrapper #pricing .pricing-content .pricing-title {
-  font-size: 32px;
-}
-.landing-wrapper #pricing .pricing-content .pricing-name {
-  font-size: 24px;
-}
-.landing-wrapper #pricing .pricing-content .pricing-box {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  padding: 10px 0;
-  background-color: #e1e6e9;
-  -moz-transition: background-color 0.3s;
-  -o-transition: background-color 0.3s;
-  -webkit-transition: background-color 0.3s;
-  transition: background-color 0.3s;
-}
-.landing-wrapper #pricing .pricing-content .pricing-box .pricing-fee {
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-  border-radius: 50px;
-  background-color: #589cf0;
-  color: #ffffff;
-  width: 100px;
-  height: 100px;
-  margin: 30px auto;
-  font-size: 22px;
-  line-height: 100px;
-}
-.landing-wrapper #pricing .pricing-content .pricing-box:hover {
-  background-color: #006de5;
-  color: #ffffff;
-}
-.landing-wrapper #pricing .pricing-content .pricing-box:hover p {
-  color: #ffffff;
-}
-.landing-wrapper #pricing .pricing-content .pricing-box:hover .pricing-fee {
-  background-color: #eaeeef;
-  color: #589cf0;
 }
 .landing-wrapper #video {
   background-color: #dde2e5;
@@ -3112,10 +3072,10 @@ h2 {
     width: 250px;
     margin: 0 auto;
   }
-  .landing-wrapper #pricing {
+  .landing-wrapper #indexpage {
     padding: 30px 0;
   }
-  .landing-wrapper #pricing .pricing-content {
+  .landing-wrapper #indexpage .indexpage-content {
     width: 100%;
   }
   .landing-wrapper #video {
