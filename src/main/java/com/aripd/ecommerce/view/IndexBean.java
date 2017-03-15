@@ -1,8 +1,5 @@
 package com.aripd.ecommerce.view;
 
-import com.aripd.ecommerce.service.BannerService;
-import com.aripd.ecommerce.entity.BannerEntity;
-import com.aripd.ecommerce.entity.BannerType;
 import com.aripd.ecommerce.entity.ProductEntity;
 import com.aripd.ecommerce.entity.ProductStatus;
 import com.aripd.ecommerce.model.data.LazyProductDataModelByProductStatus;
@@ -28,9 +25,6 @@ public class IndexBean implements Serializable {
     private LazyDataModel<ProductEntity> lazyModel;
 
     @Inject
-    private BannerService bannerService;
-
-    @Inject
     CurrencyBean currencyBean;
 
     @Inject
@@ -48,12 +42,8 @@ public class IndexBean implements Serializable {
         return priceHelper.getPriceTaxedExchanged(product, 1, currencyBean.getCurrency().getCurrencyCode());
     }
 
-    public List<BannerEntity> getBannersTop() {
-        return bannerService.findAllByStatusTrueOrderBySortOrder(BannerType.TOP);
-    }
-
-    public List<BannerEntity> getBannersBottom() {
-        return bannerService.findAllByStatusTrueOrderBySortOrder(BannerType.BOTTOM);
+    public List<ProductEntity> getBanners() {
+        return productService.findByBannerStatusTrue();
     }
 
     public LazyDataModel<ProductEntity> getLazyModel() {

@@ -21,6 +21,8 @@ public interface ProductService extends CrudService<ProductEntity, Long> {
 
     public List<ProductEntity> findByProductStatusActive();
 
+    public List<ProductEntity> findByBannerStatusTrue();
+
     public List<ProductEntity> findByCategory(CategoryEntity category);
 
     public List<ProductEntity> getResultList(List<ProductStatus> list, int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters);

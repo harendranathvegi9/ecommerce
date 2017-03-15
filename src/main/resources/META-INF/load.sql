@@ -122,11 +122,3 @@ VALUES
         (2,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name2'),
         (3,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name3');
 
-INSERT INTO `BANNERENTITY` (`ID`, `BANNERTYPE`, `BYTES`, `DESCRIPTION`, `NAME`, `SORTORDER`, `STATUS`, `TIMEEND`, `TIMESTART`)
-VALUES
-	(1,'TOP','','Banner1 Content','Banner1',1,1,NOW() + INTERVAL 15 DAY,NOW()),
-	(2,'BOTTOM','','Banner2 Content','Banner2',2,1,NOW() + INTERVAL 15 DAY,NOW()),
-	(3,'BOTTOM','','Banner3 Content','Banner3',3,1,NOW() + INTERVAL 15 DAY,NOW()),
-	(4,'BOTTOM','','Banner4 Content','Banner4',4,1,NOW() + INTERVAL 15 DAY,NOW());
-
-

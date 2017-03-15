@@ -3,8 +3,10 @@ package com.aripd.ecommerce.entity;
 import com.aripd.util.StringUtil;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import javax.persistence.CascadeType;
@@ -14,6 +16,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -53,7 +57,21 @@ public class ProductEntity extends AbstractEntity {
     @OneToMany(mappedBy = "product", orphanRemoval = true)
     private List<BasketitemEntity> basketitems = new ArrayList<>();
 
+    private String bannerHeadline;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date bannerStart;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date bannerEnd;
+
     public ProductEntity() {
+    }
+
+    @Transient
+    public boolean getBannerStatus() {
+        Calendar cal = Calendar.getInstance();
+        return cal.after(bannerStart) && cal.before(bannerEnd);
     }
 
     @Transient
@@ -176,6 +194,30 @@ public class ProductEntity extends AbstractEntity {
 
     public void setPrices(List<PriceEntity> prices) {
         this.prices = prices;
+    }
+
+    public String getBannerHeadline() {
+        return bannerHeadline;
+    }
+
+    public void setBannerHeadline(String bannerHeadline) {
+        this.bannerHeadline = bannerHeadline;
+    }
+
+    public Date getBannerStart() {
+        return bannerStart;
+    }
+
+    public void setBannerStart(Date bannerStart) {
+        this.bannerStart = bannerStart;
+    }
+
+    public Date getBannerEnd() {
+        return bannerEnd;
+    }
+
+    public void setBannerEnd(Date bannerEnd) {
+        this.bannerEnd = bannerEnd;
     }
 
 }

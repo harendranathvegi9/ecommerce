@@ -20,11 +20,10 @@
                 <span class="pricing-title">Products</span>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                 <div class="ui-g">
-                    <ui:repeat value="#{indexBean.bannersTop}" var="banner">
+                    <ui:repeat value="#{indexBean.banners}" var="product">
                         <div class="ui-g-12 ui-md-12">
                             <o:graphicImage value="#{banner.bytes}" dataURI="true" alt="#{banner.name}" title="#{banner.name}" rendered="#{not empty banner.bytes}"/>
-                            <h3>#{banner.name}</h3>
-                            <p>#{banner.description}</p>
+                            <h3>#{product.bannerHeadline}</h3>
                         </div>
                     </ui:repeat>
                 </div>
@@ -44,15 +43,6 @@
                             </figure>
                         </p:link>
                     </p:dataScroller>
-                </div>
-                <div class="ui-g">
-                    <ui:repeat value="#{indexBean.bannersBottom}" var="banner">
-                        <div class="ui-g-12 ui-md-12">
-                            <o:graphicImage value="#{banner.bytes}" dataURI="true" alt="#{banner.name}" title="#{banner.name}" rendered="#{not empty banner.bytes}"/>
-                            <h3>#{banner.name}</h3>
-                            <p>#{banner.description}</p>
-                        </div>
-                    </ui:repeat>
                 </div>
             </div>
         </div>
