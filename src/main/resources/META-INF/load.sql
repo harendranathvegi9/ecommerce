@@ -104,11 +104,11 @@ VALUES
 (97,'Kategori50',1,47);
 
 
-INSERT INTO `PRODUCTENTITY` (`ID`, `CODE`, `DESCRIPTION`, `NAME`, `PRODUCTSTATUS`, `TAXRATE`, `CATEGORY_ID`)
+INSERT INTO `PRODUCTENTITY` (`ID`, `CODE`, `DESCRIPTION`, `NAME`, `STATUS`, `TAXRATE`, `CATEGORY_ID`)
 VALUES 
-        (1,'2000000035951','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum1','ACTIVE',.18,2),
-        (2,'2000000035952','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum2','ACTIVE',.18,2),
-        (3,'2000000035953','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum3','ACTIVE',.18,2);
+        (1,'2000000035951','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum1',TRUE,.18,2),
+        (2,'2000000035952','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum2',TRUE,.18,2),
+        (3,'2000000035953','Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Lorem ipsum3',TRUE,.18,2);
 
 INSERT INTO `PRICEENTITY` (`ID`, `AMOUNT`, `CURRENCY`, `QUANTITY`, `PRODUCT_ID`) 
 VALUES 

@@ -5,13 +5,11 @@ import com.aripd.util.MessageUtil;
 import com.aripd.ecommerce.service.ProductService;
 import com.aripd.ecommerce.entity.ProductEntity;
 import com.aripd.ecommerce.entity.PriceEntity;
-import com.aripd.ecommerce.entity.ProductStatus;
 import com.aripd.ecommerce.model.data.LazyProductDataModel;
 import com.aripd.ecommerce.service.CategoryService;
 import com.aripd.ecommerce.service.PriceService;
 import com.aripd.util.RequestUtil;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
@@ -67,10 +65,6 @@ public class ProductController implements Serializable {
             return;
         }
 
-    }
-
-    public List<ProductStatus> getProductStatuses() {
-        return Arrays.asList(ProductStatus.values());
     }
 
     public List<CategoryEntity> getCategories() {

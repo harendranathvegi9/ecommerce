@@ -52,9 +52,8 @@ public class FeedbackServiceBean extends CrudServiceBean<FeedbackEntity, Long> i
         String subject = rb.getString("feedback.subject");
         String msg = MessageFormat.format(rb.getString("feedback.msg"),
                 new Object[]{
-                    feedback.getName(),
-                    feedback.getEmail(),
-                    feedback.getPhone(),
+                    feedback.getCreatedBy().getFullname(),
+                    feedback.getCreatedBy().getEmail(),
                     feedback.getMessage()
                 }
         );

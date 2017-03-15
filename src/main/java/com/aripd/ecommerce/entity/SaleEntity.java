@@ -40,24 +40,16 @@ public class SaleEntity extends AbstractEntity {
 
     private String billFirstname;
     private String billLastname;
-    private String billCompany;
-    private String billLine1;
-    private String billLine2;
+    private String billLine;
     private String billCity;
-    private String billRegion;
     private String billZipcode;
     private String billCountry;
     private String billPhone;
-    private String billFax;
-    private String billEmail;
 
     private String deliveryFirstname;
     private String deliveryLastname;
-    private String deliveryCompany;
-    private String deliveryLine1;
-    private String deliveryLine2;
+    private String deliveryLine;
     private String deliveryCity;
-    private String deliveryRegion;
     private String deliveryZipcode;
     private String deliveryCountry;
     private String deliveryPhone;
@@ -110,24 +102,20 @@ public class SaleEntity extends AbstractEntity {
 
     @Transient
     public String getBillAddress() {
-        return String.format("%s, %s, %s, %s, %s, %s",
-                billLine1,
-                billLine2,
+        return String.format("%s, %s, %s, %s",
+                billLine,
                 billZipcode,
                 billCity,
-                billRegion,
                 billCountry
         );
     }
 
     @Transient
     public String getDeliveryAddress() {
-        return String.format("%s, %s, %s, %s, %s, %s",
-                deliveryLine1,
-                deliveryLine2,
+        return String.format("%s, %s, %s, %s",
+                deliveryLine,
                 deliveryZipcode,
                 deliveryCity,
-                deliveryRegion,
                 deliveryCountry
         );
     }
@@ -226,28 +214,12 @@ public class SaleEntity extends AbstractEntity {
         this.billLastname = billLastname;
     }
 
-    public String getBillCompany() {
-        return billCompany;
+    public String getBillLine() {
+        return billLine;
     }
 
-    public void setBillCompany(String billCompany) {
-        this.billCompany = billCompany;
-    }
-
-    public String getBillLine1() {
-        return billLine1;
-    }
-
-    public void setBillLine1(String billLine1) {
-        this.billLine1 = billLine1;
-    }
-
-    public String getBillLine2() {
-        return billLine2;
-    }
-
-    public void setBillLine2(String billLine2) {
-        this.billLine2 = billLine2;
+    public void setBillLine(String billLine) {
+        this.billLine = billLine;
     }
 
     public String getBillCity() {
@@ -256,14 +228,6 @@ public class SaleEntity extends AbstractEntity {
 
     public void setBillCity(String billCity) {
         this.billCity = billCity;
-    }
-
-    public String getBillRegion() {
-        return billRegion;
-    }
-
-    public void setBillRegion(String billRegion) {
-        this.billRegion = billRegion;
     }
 
     public String getBillZipcode() {
@@ -290,22 +254,6 @@ public class SaleEntity extends AbstractEntity {
         this.billPhone = billPhone;
     }
 
-    public String getBillFax() {
-        return billFax;
-    }
-
-    public void setBillFax(String billFax) {
-        this.billFax = billFax;
-    }
-
-    public String getBillEmail() {
-        return billEmail;
-    }
-
-    public void setBillEmail(String billEmail) {
-        this.billEmail = billEmail;
-    }
-
     public String getDeliveryFirstname() {
         return deliveryFirstname;
     }
@@ -322,44 +270,16 @@ public class SaleEntity extends AbstractEntity {
         this.deliveryLastname = deliveryLastname;
     }
 
-    public String getDeliveryCompany() {
-        return deliveryCompany;
+    public String getDeliveryLine() {
+        return deliveryLine;
     }
 
-    public void setDeliveryCompany(String deliveryCompany) {
-        this.deliveryCompany = deliveryCompany;
-    }
-
-    public String getDeliveryLine1() {
-        return deliveryLine1;
-    }
-
-    public void setDeliveryLine1(String deliveryLine1) {
-        this.deliveryLine1 = deliveryLine1;
-    }
-
-    public String getDeliveryLine2() {
-        return deliveryLine2;
-    }
-
-    public void setDeliveryLine2(String deliveryLine2) {
-        this.deliveryLine2 = deliveryLine2;
-    }
-
-    public String getDeliveryCity() {
-        return deliveryCity;
+    public void setDeliveryLine(String deliveryLine) {
+        this.deliveryLine = deliveryLine;
     }
 
     public void setDeliveryCity(String deliveryCity) {
         this.deliveryCity = deliveryCity;
-    }
-
-    public String getDeliveryRegion() {
-        return deliveryRegion;
-    }
-
-    public void setDeliveryRegion(String deliveryRegion) {
-        this.deliveryRegion = deliveryRegion;
     }
 
     public String getDeliveryZipcode() {

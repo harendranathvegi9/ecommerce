@@ -30,13 +30,8 @@
                                         </p:commandButton>
                                     </f:facet>
 
-                                    <p:outputLabel for="productStatus" value="#{i18n['Product Status']}"/>
-                                    <p:selectOneMenu id="productStatus" value="#{productController.selectedRecord.productStatus}" 
-                                                     converter="#{productStatusConverter}"
-                                                     label="#{i18n['Product Status']}" 
-                                                     required="true">
-                                        <f:selectItems value="#{productController.productStatuses}" var="productStatus" itemValue="#{productStatus}" itemLabel="#{i18n[productStatus]}"/>
-                                    </p:selectOneMenu>
+                                    <p:outputLabel for="status" value="#{i18n['Status']}"/>
+                                    <p:selectBooleanButton id="status" value="#{productController.selectedRecord.status}" onLabel="#{i18n['Active']}" offLabel="#{i18n['Passive']}" />
 
                                     <p:outputLabel for="code" value="#{i18n['Product Code']}"/>
                                     <p:inputText id="code" value="#{productController.selectedRecord.code}" label="#{i18n['Product Code']}" placeholder="#{i18n['Product Code']}" validator="codeValidator" required="true"/>

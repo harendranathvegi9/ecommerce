@@ -1,14 +1,12 @@
 package com.aripd.ecommerce.view;
 
 import com.aripd.ecommerce.entity.ProductEntity;
-import com.aripd.ecommerce.entity.ProductStatus;
-import com.aripd.ecommerce.model.data.LazyProductDataModelByProductStatus;
+import com.aripd.ecommerce.model.data.LazyProductDataModelByStatus;
 import com.aripd.ecommerce.service.ProductService;
 import com.aripd.util.currency.CurrencyBean;
 import com.aripd.util.currency.PriceHelper;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -35,7 +33,7 @@ public class IndexBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        lazyModel = new LazyProductDataModelByProductStatus(productService, Arrays.asList(ProductStatus.ACTIVE));
+        lazyModel = new LazyProductDataModelByStatus(productService, true);
     }
 
     public BigDecimal getPriceTaxedExchanged(ProductEntity product) {

@@ -270,27 +270,19 @@ public class ShoppingBean implements Serializable {
 
         e.setDeliveryFirstname(deliveryAddress.getFirstname());
         e.setDeliveryLastname(deliveryAddress.getLastname());
-        e.setDeliveryCompany("");
-        e.setDeliveryLine1(deliveryAddress.getLine());
-        e.setDeliveryLine2("");
+        e.setDeliveryLine(deliveryAddress.getLine());
         e.setDeliveryCity(deliveryAddress.getCity());
-        e.setDeliveryRegion("");
         e.setDeliveryZipcode(deliveryAddress.getZipcode());
         e.setDeliveryCountry(deliveryAddress.getCountry());
         e.setDeliveryPhone(deliveryAddress.getPhone());
 
         e.setBillFirstname(billAddress.getFirstname());
         e.setBillLastname(billAddress.getLastname());
-        e.setBillCompany("");
-        e.setBillLine1(billAddress.getLine());
-        e.setBillLine2("");
+        e.setBillLine(billAddress.getLine());
         e.setBillCity(billAddress.getCity());
-        e.setBillRegion("");
         e.setBillZipcode(billAddress.getZipcode());
         e.setBillCountry(billAddress.getCountry());
         e.setBillPhone(billAddress.getPhone());
-        e.setBillFax("");
-        e.setBillEmail("");
 
         List<SalelineEntity> salelines = new ArrayList<>();
         for (BasketitemEntity entry : basketitems) {

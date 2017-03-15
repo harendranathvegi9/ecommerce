@@ -31,15 +31,7 @@
                             <p:link outcome="/reminder" value="#{i18n['Forgot Password']}" />
                         </div>
                         <div class="ui-g-12">
-                            <p:splitButton value="#{i18n['Login']}" actionListener="#{loginBean.doLogin}" update="@form, :growl">
-                                <p:menuitem value="Google" url="api/oauth2/google" icon="fa fa-google-plus" />
-                                <p:menuitem value="Microsoft" url="/api/oauth2/microsoft" icon="fa fa-windows" />
-                                <p:menuitem value="Paypal" url="/api/oauth2/paypal" icon="fa fa-paypal" />
-                                <p:menuitem value="Github" url="/api/oauth2/github" icon="fa fa-github" />
-                                <p:menuitem value="Linkedin" url="/api/oauth2/linkedin" icon="fa fa-linkedin" />
-                                <p:menuitem value="Facebook" url="/api/oauth2/facebook" icon="fa fa-facebook" />
-                                <p:menuitem value="Instagram" url="/api/oauth2/instagram" icon="fa fa-instagram" />
-                            </p:splitButton>
+                            <p:commandButton value="#{i18n['Login']}" actionListener="#{loginBean.doLogin}" update="@form, :growl" />
                         </div>
                     </div>
                 </h:form>

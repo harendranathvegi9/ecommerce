@@ -1,7 +1,6 @@
 package com.aripd.ecommerce.model.data;
 
 import com.aripd.ecommerce.entity.ProductEntity;
-import com.aripd.ecommerce.entity.ProductStatus;
 import com.aripd.ecommerce.service.ProductService;
 import java.io.Serializable;
 import java.util.List;
@@ -9,10 +8,10 @@ import java.util.Map;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-public class LazyProductDataModelByProductStatus extends LazyDataModel<ProductEntity> implements Serializable {
+public class LazyProductDataModelByStatus extends LazyDataModel<ProductEntity> implements Serializable {
 
     private final ProductService productService;
-    private final List<ProductStatus> list;
+    private final boolean status;
     private List<ProductEntity> datasource;
     private int pageSize;
     private int rowIndex;
@@ -21,11 +20,11 @@ public class LazyProductDataModelByProductStatus extends LazyDataModel<ProductEn
     /**
      *
      * @param productService ProductService
-     * @param list List
+     * @param status boolean
      */
-    public LazyProductDataModelByProductStatus(ProductService productService, List<ProductStatus> list) {
+    public LazyProductDataModelByStatus(ProductService productService, boolean status) {
         this.productService = productService;
-        this.list = list;
+        this.status = status;
     }
 
     /**
@@ -40,8 +39,8 @@ public class LazyProductDataModelByProductStatus extends LazyDataModel<ProductEn
      */
     @Override
     public List<ProductEntity> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        datasource = productService.getResultList(list, first, pageSize, sortField, sortOrder, filters);
-        setRowCount(productService.count(list, filters));
+        datasource = productService.getResultList(status, first, pageSize, sortField, sortOrder, filters);
+        setRowCount(productService.count(status, filters));
         return datasource;
     }
 

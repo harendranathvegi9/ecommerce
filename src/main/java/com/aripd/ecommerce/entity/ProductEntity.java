@@ -12,8 +12,6 @@ import java.util.NoSuchElementException;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -24,10 +22,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class ProductEntity extends AbstractEntity {
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ProductStatus productStatus;
+    private boolean status;
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -70,7 +65,7 @@ public class ProductEntity extends AbstractEntity {
 
     @Transient
     public boolean getBannerStatus() {
-        if (productStatus.equals(ProductStatus.ACTIVE)) {
+        if (status) {
             Calendar cal = Calendar.getInstance();
             return cal.after(bannerStart) && cal.before(bannerEnd);
         }
@@ -114,12 +109,12 @@ public class ProductEntity extends AbstractEntity {
         return StringUtil.slugify(name);
     }
 
-    public ProductStatus getProductStatus() {
-        return productStatus;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setProductStatus(ProductStatus productStatus) {
-        this.productStatus = productStatus;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getCode() {
