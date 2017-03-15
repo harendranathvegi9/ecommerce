@@ -22,14 +22,9 @@ public class SignupBean implements Serializable {
 
     @EmailAddress
     private String email;
-
     private String firstname;
     private String lastname;
-
-    private String company;
-
-    private String line1;
-    private String line2;
+    private String address;
     private String zipcode;
     private String county;
 
@@ -84,28 +79,12 @@ public class SignupBean implements Serializable {
         }
     }
 
-    public String getCompany() {
-        return company;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getLine1() {
-        return line1;
-    }
-
-    public void setLine1(String line1) {
-        this.line1 = line1;
-    }
-
-    public String getLine2() {
-        return line2;
-    }
-
-    public void setLine2(String line2) {
-        this.line2 = line2;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCounty() {

@@ -3,34 +3,47 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="/template_landing.xhtml">
+                template="/template_login.xhtml">
     <ui:define name="title">#{i18n['Sign Up']}</ui:define>
     <ui:define name="content">
-        <div id="features">
-            <div class="features-content">
-                <h1 class="feature-title">#{i18n['Personal Account']}</h1>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        <div id="login-wrapper">
+            <p:link outcome="/index">
+                <!--<p:graphicImage name="images/login-logo.png" />-->
+                ecommerce
+            </p:link>
 
-                <div class="ui-g">
-                    <div class="ui-g-12">
-                        <h3>#{i18n['Personal Account']}</h3>
-                        <h:form id="signup">
-                            <p:focus context="signup"/>
-                            <h:panelGrid columns="1">
-                                <p:inputText value="#{signupBean.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" required="true"/>
-                                <p:inputText value="#{signupBean.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
-                                <p:inputText value="#{signupBean.email}" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true"/>
-                                <p:inputText value="#{signupBean.line1}" label="#{i18n['Address']}" placeholder="#{i18n['Address']}" maxlength="100" required="true"/>
-                                <p:inputText value="#{signupBean.line2}" label="#{i18n['Address']}" placeholder="#{i18n['Address']}" maxlength="100" required="true"/>
-                                <p:inputText value="#{signupBean.zipcode}" label="#{i18n['Zip Code']}" placeholder="#{i18n['Zip Code']}" required="true"/>
-                                <p:inputText value="#{signupBean.county}" label="#{i18n['County']}" placeholder="#{i18n['County']}" required="true"/>
-                            </h:panelGrid>
-                            <p:commandButton immediate="true" value="prev" action="signup" rendered="false"/>
-                            <p:commandButton immediate="true" value="#{i18n['Return to home']}" action="returnFromSignup" rendered="false" />
+            <div id="login-container">
+                <span class="title">#{i18n['Sign Up']}</span>
+
+                <h:form>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12">
+                            <p:inputText value="#{signupBean.firstname}" autocomplete="off" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" required="true" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:inputText value="#{signupBean.lastname}" autocomplete="off" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:inputText value="#{signupBean.email}" autocomplete="off" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:inputText value="#{signupBean.address}" autocomplete="off" label="#{i18n['Address']}" placeholder="#{i18n['Address']}" required="true" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:inputText value="#{signupBean.zipcode}" autocomplete="off" label="#{i18n['Zip Code']}" placeholder="#{i18n['Zip Code']}" required="true" />
+                        </div>
+                        <div class="ui-g-12">
+                            <p:inputText value="#{signupBean.county}" autocomplete="off" label="#{i18n['County']}" placeholder="#{i18n['County']}" required="true" />
+                        </div>
+                        <div class="ui-g-12">
                             <p:commandButton value="#{i18n['Sign Up']}" actionListener="#{signupBean.doSubmitMember}" update="@form, :growl" />
-                        </h:form>
+                        </div>
                     </div>
-                </div>
+                </h:form>
+            </div>
+
+            <div class="login-footer">
+                ARI <small>Business Management Systems</small>
             </div>
         </div>
     </ui:define>
