@@ -1,4 +1,4 @@
-package com.aripd.ecommerce.view;
+package com.aripd.ecommerce.view.member;
 
 import com.aripd.ecommerce.entity.SaleEntity;
 import com.aripd.util.MessageUtil;
@@ -14,7 +14,7 @@ import com.aripd.util.validator.EmailAddress;
 
 @Named
 @ViewScoped
-public class TrackBean implements Serializable {
+public class TrackView implements Serializable {
 
     @EmailAddress
     private String email;
@@ -26,7 +26,7 @@ public class TrackBean implements Serializable {
     @Inject
     MessageUtil messageUtil;
 
-    public TrackBean() {
+    public TrackView() {
     }
 
     @PostConstruct

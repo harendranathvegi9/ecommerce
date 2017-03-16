@@ -1,4 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
@@ -11,10 +12,13 @@
                 <h1>#{i18n['Contact Us']}</h1>
                 <p>#{i18n['If you need help with our products, please contact us.']}</p>
 
-                <h:form>
-                    <div class="ui-g">
-                        <div class="ui-g-8">
-                            <p:dataTable id="dataTable" value="#{feedbackBean.lazyModel}" var="feedback" emptyMessage="#{i18n['No records found']}"
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <composite:navigationMember/>
+                    </div>
+                    <div class="ui-g-9">
+                        <h:form>
+                            <p:dataTable id="dataTable" value="#{feedbackView.lazyModel}" var="feedback" emptyMessage="#{i18n['No records found']}"
                                          paginator="true" paginatorPosition="bottom" rows="10" 
                                          rowKey="#{feedback.id}" selectionMode="single" selection="#{feedbackController.selectedRecord}"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -39,18 +43,9 @@
                                     <h:outputText value="#{feedback.message}"/>
                                 </p:column>
                             </p:dataTable>
-                        </div>
-                        <div class="ui-g-4">
-                            <h:panelGrid columns="2">
-                                <p:outputLabel for="subject" value="#{i18n['Subject']}"/>
-                                <p:inputText id="subject" value="#{feedbackBean.newRecord.subject}" autocomplete="off" label="#{i18n['Subject']}" placeholder="#{i18n['Subject']}" required="true"/>
-                                <p:outputLabel for="message" value="#{i18n['Message']}"/>
-                                <p:inputTextarea id="message" value="#{feedbackBean.newRecord.message}" label="#{i18n['Message']}" placeholder="#{i18n['Message']}" required="true"/>
-                            </h:panelGrid>
-                            <p:commandButton value="#{i18n['Submit']}" actionListener="#{feedbackBean.doSubmit}" update="@form, :growl" />
-                        </div>
+                        </h:form>
                     </div>
-                </h:form>
+                </div>
             </div>
         </div>
     </ui:define>

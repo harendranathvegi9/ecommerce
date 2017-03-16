@@ -1,4 +1,4 @@
-package com.aripd.ecommerce.view;
+package com.aripd.ecommerce.view.member;
 
 import com.aripd.ecommerce.service.FeedbackService;
 import com.aripd.ecommerce.entity.FeedbackEntity;
@@ -16,7 +16,7 @@ import org.primefaces.model.LazyDataModel;
 
 @Named
 @ViewScoped
-public class FeedbackBean implements Serializable {
+public class FeedbackView implements Serializable {
 
     @Inject
     private FeedbackService feedbackService;
@@ -28,7 +28,7 @@ public class FeedbackBean implements Serializable {
     private UserService userService;
     private UserEntity user;
 
-    public FeedbackBean() {
+    public FeedbackView() {
         newRecord = new FeedbackEntity();
         selectedRecord = new FeedbackEntity();
     }

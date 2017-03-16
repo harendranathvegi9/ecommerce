@@ -68,15 +68,15 @@
                                 </p:column>
                                 <p:column headerText="#{i18n['Unit Price']}">
                                     <h:outputText style="display:block;" title="#{i18n['IPN_TOTAL']}" value="#{of:formatCurrency(saleline.IPN_TOTAL, saleView.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Unit Price']}" value="#{of:formatCurrency(saleline.IPN_PRICE, saleBean.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Unit Tax']}" value="#{of:formatCurrency(saleline.IPN_VAT, saleBean.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Unit Discount']}" value="#{of:formatCurrency(saleline.IPN_DISCOUNT, saleBean.selectedRecord.currency)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Unit Price']}" value="#{of:formatCurrency(saleline.IPN_PRICE, saleView.selectedRecord.currency)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Unit Tax']}" value="#{of:formatCurrency(saleline.IPN_VAT, saleView.selectedRecord.currency)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Unit Discount']}" value="#{of:formatCurrency(saleline.IPN_DISCOUNT, saleView.selectedRecord.currency)}"/>
                                 </p:column>
                                 <p:column headerText="#{i18n['Amount']}">
                                     <h:outputText style="display:block;" title="#{i18n['doCalculateSubtotal']}" value="#{of:formatCurrency(saleView.doCalculateSubtotal(saleline), saleView.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Amount']}" value="#{of:formatCurrency(saleline.priceTotalBeforeTax, saleBean.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Tax']}" value="#{of:formatCurrency(saleline.taxTotal, saleBean.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Discount']}" value="#{of:formatCurrency(saleline.discountTotal, saleBean.selectedRecord.currency)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Amount']}" value="#{of:formatCurrency(saleline.priceTotalBeforeTax, saleView.selectedRecord.currency)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Tax']}" value="#{of:formatCurrency(saleline.taxTotal, saleView.selectedRecord.currency)}"/>
+                                    <h:outputText style="display:block;" title="#{i18n['Discount']}" value="#{of:formatCurrency(saleline.discountTotal, saleView.selectedRecord.currency)}"/>
                                 </p:column>
                                 <p:column headerText="#{i18n['Action']}">
                                     <p:commandLink value="#{i18n['Return']}" update="editForm" oncomplete="PF('editDialog').show()">

@@ -9,8 +9,8 @@
                 template="/template_landing.xhtml">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="id" value="#{feedbackBean.id}"/>
-            <f:event type="preRenderView" listener="#{feedbackBean.onLoad}"/>
+            <f:viewParam name="id" value="#{feedbackView.id}"/>
+            <f:event type="preRenderView" listener="#{feedbackView.onLoad}"/>
         </f:metadata>
 
         <div id="indexpage">
@@ -19,10 +19,12 @@
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 
                 <div class="ui-g">
-                    <div class="ui-g-12">
+                    <div class="ui-g-3">
+                        <composite:navigationMember/>
+                    </div>
+                    <div class="ui-g-9">
                         <h3><h:outputLabel value="#{i18n['Subject']}"/></h3>
-                        <h:outputText value="#{feedbackBean.selectedRecord.subject}"/>
-
+                        <h:outputText value="#{feedbackView.selectedRecord.subject}"/>
                     </div>
                 </div>
             </div>
