@@ -14,12 +14,12 @@
     <composite:implementation>
         <h:form>
             <p:menu>
-                <p:menuitem outcome="/member/membershipinformation" value="#{i18n['Membership Information']}" />
-                <p:menuitem outcome="/member/address" value="#{i18n['Postal Addresses']}" />
-                <p:menuitem outcome="/member/sale/index" value="#{i18n['Orders']}" />
-                <p:menuitem action="shopping" value="#{i18n['Shopping Basket']}" />
-                <p:menuitem outcome="/member/ticket/index" value="#{i18n['Messages']}" />
-                <p:menuitem outcome="/member/changepassword" value="#{i18n['Change Password']}" />
+                <p:menuitem styleClass="#{view.viewId.equals('/member/membershipinformation.xhtml') ? 'ui-state-active' : ''}" outcome="/member/membershipinformation" value="#{i18n['Membership Information']}" />
+                <p:menuitem styleClass="#{view.viewId.equals('/member/address.xhtml') ? 'ui-state-active' : ''}" outcome="/member/address" value="#{i18n['Postal Addresses']}" />
+                <p:menuitem styleClass="#{view.viewId.equals('/member/sale/index.xhtml') ? 'ui-state-active' : ''}" outcome="/member/sale/index" value="#{i18n['Orders']}" />
+                <p:menuitem styleClass="#{view.viewId.equals('/member/shopping/shopping.xhtml') ? 'ui-state-active' : ''}" action="shopping" value="#{i18n['Shopping Basket']}" />
+                <p:menuitem styleClass="#{view.viewId.equals('/member/ticket/index.xhtml') ? 'ui-state-active' : ''}" outcome="/member/ticket/index" value="#{i18n['Messages']}" />
+                <p:menuitem styleClass="#{view.viewId.equals('/member/changepassword.xhtml') ? 'ui-state-active' : ''}" outcome="/member/changepassword" value="#{i18n['Change Password']}" />
                 <p:menuitem action="#{loginBean.doLogout}" value="#{i18n['Logout']}" />
             </p:menu>
         </h:form>
