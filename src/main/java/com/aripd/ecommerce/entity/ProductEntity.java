@@ -22,7 +22,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class ProductEntity extends AbstractEntity {
 
-    private boolean status;
+    @NotNull
+    @Column(nullable = false)
+    private boolean status = false;
 
     @NotNull
     @Column(nullable = false, unique = true)

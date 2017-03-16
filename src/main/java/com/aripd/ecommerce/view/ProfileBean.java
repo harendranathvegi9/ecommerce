@@ -23,6 +23,9 @@ public class ProfileBean implements Serializable {
     private UserService userService;
     private UserEntity selectedRecord;
 
+    private String passwordCurrent;
+    private String passwordNew;
+
     @Inject
     MessageUtil messageUtil;
 
@@ -32,6 +35,16 @@ public class ProfileBean implements Serializable {
     @PostConstruct
     public void init() {
         selectedRecord = userService.getCurrentUser();
+    }
+
+    public void doUpdatePassword(ActionEvent actionEvent) {
+        if (!selectedRecord.getPassword().equals(passwordCurrent)) {
+            messageUtil.addGlobalErrorFlashMessage("Your current password is wrong");
+        } else if (!passwordCurrent.equals(passwordNew)) {
+            selectedRecord.setPassword(passwordNew);
+            userService.update(selectedRecord);
+            messageUtil.addGlobalInfoFlashMessage("Updated");
+        }
     }
 
     public void doUpdateRecord(ActionEvent actionEvent) {
@@ -65,6 +78,22 @@ public class ProfileBean implements Serializable {
 
     public void setSelectedRecord(UserEntity selectedRecord) {
         this.selectedRecord = selectedRecord;
+    }
+
+    public String getPasswordCurrent() {
+        return passwordCurrent;
+    }
+
+    public void setPasswordCurrent(String passwordCurrent) {
+        this.passwordCurrent = passwordCurrent;
+    }
+
+    public String getPasswordNew() {
+        return passwordNew;
+    }
+
+    public void setPasswordNew(String passwordNew) {
+        this.passwordNew = passwordNew;
     }
 
 }

@@ -1,7 +1,7 @@
-INSERT INTO `USERENTITY` (`ID`, `EMAIL`, `FIRSTNAME`, `LASTNAME`, `PASSWORD`, `USERGROUP`, `USERSTATUS`, `UUID`)
+INSERT INTO `USERENTITY` (`ID`, `EMAIL`, `FIRSTNAME`, `LASTNAME`, `MAILING`, `PASSWORD`, `USERGROUP`, `USERSTATUS`, `UUID`)
 VALUES 
-        (1,'cem@aripd.com','Cem','aripd','cem','Administrators','Approved',NULL),
-        (2,'dev@aripd.com','Dev','aripd','dev','Members','Approved',NULL);
+        (1,'cem@aripd.com','Cem','aripd',TRUE,'cem','Administrators','Approved',NULL),
+        (2,'dev@aripd.com','Dev','aripd',TRUE,'dev','Members','Approved',NULL);
 
 INSERT INTO `CATEGORYENTITY` (`ID`, `CODE`, `SORTORDER`, `PARENT_ID`)
 VALUES 

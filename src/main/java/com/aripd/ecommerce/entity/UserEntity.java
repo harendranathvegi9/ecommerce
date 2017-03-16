@@ -29,6 +29,10 @@ public class UserEntity extends AbstractEntity {
 
     private String uuid;
 
+    @NotNull
+    @Column(nullable = false)
+    private boolean mailing = false;
+
     @EmailAddress
     @NotNull
     @Column(unique = true, nullable = false, length = 255)
@@ -109,6 +113,14 @@ public class UserEntity extends AbstractEntity {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public boolean isMailing() {
+        return mailing;
+    }
+
+    public void setMailing(boolean mailing) {
+        this.mailing = mailing;
     }
 
     public String getEmail() {

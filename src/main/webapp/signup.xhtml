@@ -27,15 +27,6 @@
                             <p:inputText value="#{signupBean.email}" autocomplete="off" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true" />
                         </div>
                         <div class="ui-g-12">
-                            <p:inputText value="#{signupBean.address}" autocomplete="off" label="#{i18n['Address']}" placeholder="#{i18n['Address']}" required="true" />
-                        </div>
-                        <div class="ui-g-12">
-                            <p:inputText value="#{signupBean.zipcode}" autocomplete="off" label="#{i18n['Zip Code']}" placeholder="#{i18n['Zip Code']}" required="true" />
-                        </div>
-                        <div class="ui-g-12">
-                            <p:inputText value="#{signupBean.county}" autocomplete="off" label="#{i18n['County']}" placeholder="#{i18n['County']}" required="true" />
-                        </div>
-                        <div class="ui-g-12">
                             <p:commandButton value="#{i18n['Sign Up']}" actionListener="#{signupBean.doSubmitMember}" update="@form, :growl" />
                         </div>
                     </div>
