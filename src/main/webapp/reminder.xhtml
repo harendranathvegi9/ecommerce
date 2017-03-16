@@ -4,7 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/template_login.xhtml">
-    <ui:define name="title">#{i18n['Remind my password']}</ui:define>
+    <ui:define name="title">#{i18n['Remind Password']}</ui:define>
     <ui:define name="content">
         <div id="login-wrapper">
             <p:link outcome="/index">
@@ -22,7 +22,7 @@
                             <p:inputText value="#{reminderBean.email}" autocomplete="off" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true" />
                         </div>
                         <div class="ui-g-12">
-                            <p:commandButton value="#{i18n['Remind my password']}" actionListener="#{reminderBean.doSubmit}" update="@form, :growl" icon="fa fa-check"/>
+                            <p:commandButton value="#{i18n['Remind Password']}" actionListener="#{reminderBean.doSubmit}" update="@form, :growl" icon="fa fa-check"/>
                         </div>
                     </div>
                 </h:form>

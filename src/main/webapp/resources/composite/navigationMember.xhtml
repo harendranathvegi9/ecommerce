@@ -14,28 +14,28 @@
     <composite:implementation>
         <h:form>
             <p:menu>
-                <p:submenu label="#{i18n['My Profile']}">
-                    <p:menuitem outcome="/member/logininformation" value="#{i18n['My Login Information']}" />
-                    <p:menuitem outcome="/member/personalinformation" value="#{i18n['My Personal Information']}" />
+                <p:submenu label="#{i18n['Profile']}">
+                    <p:menuitem outcome="/member/logininformation" value="#{i18n['Login Information']}" />
+                    <p:menuitem outcome="/member/personalinformation" value="#{i18n['Personal Information']}" />
                 </p:submenu>
-                <p:submenu label="#{i18n['My Account']}">
-                    <p:menuitem outcome="/member/address" value="#{i18n['My Postal Addresses']}" />
-                    <p:menuitem action="shopping" value="#{i18n['My Shopping Basket']}" />
-                    <p:menuitem outcome="/member/sale/index" value="#{i18n['My Orders']}" />
+                <p:submenu label="#{i18n['Account']}">
+                    <p:menuitem outcome="/member/address" value="#{i18n['Postal Addresses']}" />
+                    <p:menuitem action="shopping" value="#{i18n['Shopping Basket']}" />
+                    <p:menuitem outcome="/member/sale/index" value="#{i18n['Orders']}" />
                 </p:submenu>
                 <p:menuitem outcome="/member/ticket/index" value="#{i18n['Tickets']}" />
             </p:menu>
 
             <dl>
-                <dt>#{i18n['My Profile']}</dt>
-                <dd><p:link outcome="/member/logininformation" value="#{i18n['My Login Information']}"/></dd>
-                <dd><p:link outcome="/member/personalinformation" value="#{i18n['My Personal Information']}"/></dd>
+                <dt>#{i18n['Profile']}</dt>
+                <dd><p:link outcome="/member/logininformation" value="#{i18n['Login Information']}"/></dd>
+                <dd><p:link outcome="/member/personalinformation" value="#{i18n['Personal Information']}"/></dd>
             </dl>
             <dl>
-                <dt>#{i18n['My Account']}</dt>
-                <dd><p:link outcome="/member/address" value="#{i18n['My Postal Addresses']}"/></dd>
-                <dd><p:commandLink action="shopping" value="#{i18n['My Shopping Basket']}"/></dd>
-                <dd><p:link outcome="/member/sale/index" value="#{i18n['My Orders']}"/></dd>
+                <dt>#{i18n['Account']}</dt>
+                <dd><p:link outcome="/member/address" value="#{i18n['Postal Addresses']}"/></dd>
+                <dd><p:commandLink action="shopping" value="#{i18n['Shopping Basket']}"/></dd>
+                <dd><p:link outcome="/member/sale/index" value="#{i18n['Orders']}"/></dd>
             </dl>
             <dl>
                 <dt>#{i18n['Customer Service']}</dt>
