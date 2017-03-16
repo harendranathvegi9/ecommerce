@@ -22,19 +22,23 @@
                         <composite:navigationMember/>
                     </div>
                     <div class="ui-g-9">
-                        <h3>#{i18n['Shopping Basket']}</h3>
                         <h:form id="form">
                             <p:dataTable id="dataTable" value="#{shoppingBean.basketitems}" var="basketitem" emptyMessage="#{i18n['No records found']}">
                                 <p:column headerText="#{i18n['Image']}">
                                     <p:link outcome="/product">
                                         <f:param name="id" value="#{basketitem.product.id}"/>
                                         <f:param name="slug" value="#{basketitem.product.slug}"/>
-                                        <o:graphicImage value="#{basketitem.product.image.bytes}" dataURI="true" alt="#{basketitem.product.name}" title="#{basketitem.product.name}" rendered="#{not empty basketitem.product.image.bytes}"/>
+                                        <p:graphicImage name="#{basketitem.product.image.name}" alt="#{basketitem.product.name}" title="#{basketitem.product.name}" rendered="#{not empty basketitem.product.image}" />
                                     </p:link>
                                 </p:column>
                                 <p:column headerText="#{i18n['Product']}">
-                                    <h4>#{basketitem.product.name}</h4>
-                                    <p>#{basketitem.product.code}</p>
+                                    <p:link outcome="/product" value="#{basketitem.product.name}">
+                                        <f:param name="id" value="#{basketitem.product.id}"/>
+                                        <f:param name="slug" value="#{basketitem.product.slug}"/>
+                                    </p:link>
+                                    <p:commandLink value="#{i18n['Add a note']}" update="editForm" oncomplete="PF('editDialog').show()" styleClass="fa fa-sticky-note-o" style="font-size: smaller; display: block;">
+                                        <f:setPropertyActionListener value="#{basketitem}" target="#{shoppingBean.selectedBasketitem}" />
+                                    </p:commandLink>
                                 </p:column>
 <!--                                <p:column headerText="#{i18n['Order Note']}">
                                     <p:inputTextarea value="#{basketitem.note}" label="#{i18n['Order Note']}" placeholder="#{i18n['Order Note']}">
@@ -50,20 +54,15 @@
                                     <p:spinner value="#{basketitem.quantity}" converter="javax.faces.Integer" min="1" stepFactor="1" size="2">
                                         <p:ajax listener="#{shoppingBean.ajaxUpdateBasketitem}" partialSubmit="true" process="@this" update="@form" />
                                     </p:spinner>
+                                    <p:commandLink title="#{i18n['Remove']}" update="@form" action="#{shoppingBean.removeBasketitem}" styleClass="fa fa-trash-o">
+                                        <f:setPropertyActionListener value="#{basketitem.product}" target="#{shoppingBean.selectedProduct}"/>
+                                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
+                                    </p:commandLink>
                                 </p:column>
                                 <p:column headerText="#{i18n['Amount']}">
                                     <h:outputText style="display:block;" title="#{i18n['Amount']}" value="#{of:formatCurrency(shoppingBean.getAmountExchanged(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                                     <h:outputText style="display:block;" title="#{i18n['Tax']}" value="#{of:formatCurrency(shoppingBean.doCalculateTaxSubtotal(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                                     <h:outputText style="display:block;" title="#{i18n['Discount']}" value="#{of:formatCurrency(shoppingBean.doCalculateDiscountSubtotal(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
-                                </p:column>
-                                <p:column headerText="#{i18n['Action']}">
-                                    <p:commandLink value="#{i18n['Edit']}" update="editForm" oncomplete="PF('editDialog').show()">
-                                        <f:setPropertyActionListener value="#{basketitem}" target="#{shoppingBean.selectedBasketitem}" />
-                                    </p:commandLink>
-                                    <p:commandLink value="#{i18n['Remove']}" update="@form" action="#{shoppingBean.removeBasketitem}">
-                                        <f:setPropertyActionListener value="#{basketitem.product}" target="#{shoppingBean.selectedProduct}"/>
-                                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
-                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
 
@@ -72,8 +71,6 @@
                                 <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateBasketTotal(currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                                 <h:outputText value="#{i18n['Tax Total']}"/>
                                 <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateTaxTotal(currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
-                                <h:outputText value="#{i18n['Discount Total']}"/>
-                                <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateDiscountTotal(currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                                 <h:outputText value="#{i18n['General Total']}"/>
                                 <h:outputText value="#{of:formatCurrency(shoppingBean.doCalculateGeneralTotal(currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                             </h:panelGrid>

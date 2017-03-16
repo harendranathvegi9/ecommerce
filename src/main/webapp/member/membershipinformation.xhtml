@@ -24,8 +24,8 @@
                                 <p:inputText id="lastname" value="#{profileBean.selectedRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
                                 <p:outputLabel for="email" value="#{i18n['E-mail Address']}"/>
                                 <p:inputText id="email" value="#{profileBean.selectedRecord.email}" label="#{i18n['E-mail Address']}" placeholder="#{i18n['E-mail Address']}" required="true"/>
-                                <p:outputLabel for="mailing" value="#{i18n['Mailing']}"/>
-                                <p:selectBooleanCheckbox id="mailing" value="#{profileBean.selectedRecord.mailing}" label="#{i18n['Mailing']}" itemLabel="#{i18n['I want to be informed about the campaign and products']}" />
+                                <p:outputLabel for="mailing" value="#{i18n['Opt-in emailing']}"/>
+                                <p:selectBooleanCheckbox id="mailing" value="#{profileBean.selectedRecord.mailing}" label="#{i18n['Opt-in emailing']}" itemLabel="#{i18n['I want to be informed about the campaign and products']}" />
                                 <f:facet name="footer">
                                     <p:commandButton value="#{i18n['Update']}" actionListener="#{profileBean.doUpdateRecord}" update="@form, :growl"/>
                                 </f:facet>

@@ -132,7 +132,7 @@ public class ShoppingBean implements Serializable {
 
         Integer quantity = entity.getQuantity();
 
-        BigDecimal priceTaxed = priceHelper.getPriceTaxedExchanged(product, quantity, currencyCode);
+        BigDecimal priceTaxed = priceHelper.getPriceExchanged(product, quantity, currencyCode);
         return priceTaxed.multiply(new BigDecimal(quantity));
     }
 
