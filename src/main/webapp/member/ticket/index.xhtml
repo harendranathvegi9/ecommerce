@@ -5,12 +5,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/template_landing.xhtml">
-    <ui:define name="title">#{i18n['Contact']}</ui:define>
+    <ui:define name="title">#{i18n['Tickets']}</ui:define>
     <ui:define name="content">
         <div id="indexpage">
             <div class="indexpage-content">
-                <h1>#{i18n['Contact Us']}</h1>
-                <p>#{i18n['If you need help with our products, please contact us.']}</p>
+                <h1>#{i18n['Tickets']}</h1>
 
                 <div class="ui-g">
                     <div class="ui-g-3">
@@ -18,26 +17,19 @@
                     </div>
                     <div class="ui-g-9">
                         <h:form>
-                            <p:dataTable id="dataTable" value="#{feedbackView.lazyModel}" var="feedback" emptyMessage="#{i18n['No records found']}"
+                            <p:dataTable id="dataTable" value="#{ticketView.lazyModel}" var="ticket" emptyMessage="#{i18n['No records found']}"
                                          paginator="true" paginatorPosition="bottom" rows="10" 
-                                         rowKey="#{feedback.id}" selectionMode="single" selection="#{feedbackController.selectedRecord}"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
                                          sortMode="multiple" 
-                                         rowStyleClass="#{feedback.viewed ? 'ui-state-disabled' : null}"
                                          lazy="true" rowsPerPageTemplate="10,15,50">
-                                <p:column headerText="#{i18n['Created At']}">
-                                    <h:outputFormat value="#{feedback.createdAt}">
-                                        <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
-                                    </h:outputFormat>
+                                <p:column headerText="#{i18n['Ticket Type']}">
+                                    <p:link outcome="/member/ticket/show" value="#{i18n[ticket.ticketType]}">
+                                        <f:param name="id" value="#{ticket.id}" />
+                                    </p:link>
                                 </p:column>
                                 <p:column headerText="#{i18n['Fullname']}">
-                                    <h:outputText value="#{feedback.user.fullname}"/>
-                                </p:column>
-                                <p:column headerText="#{i18n['Subject']}">
-                                    <p:link outcome="/member/feedback/show" value="#{feedback.subject}">
-                                        <f:param name="uuid" value="#{feedback.uuid}" />
-                                    </p:link>
+                                    <h:outputText value="#{ticket.createdBy.fullname}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:form>

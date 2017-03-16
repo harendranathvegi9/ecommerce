@@ -9,13 +9,13 @@
                 template="/template_landing.xhtml">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="uuid" value="#{feedbackView.uuid}"/>
-            <f:event type="preRenderView" listener="#{feedbackView.onLoad}"/>
+            <f:viewParam name="id" value="#{ticketmessageView.id}"/>
+            <f:event type="preRenderView" listener="#{ticketmessageView.onLoad}"/>
         </f:metadata>
 
         <div id="indexpage">
             <div class="indexpage-content">
-                <h1>#{i18n['Feedback']}</h1>
+                <h1>#{i18n['Ticket']}</h1>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 
                 <div class="ui-g">
@@ -24,20 +24,20 @@
                     </div>
                     <div class="ui-g-9">
                         <h:form>
-                            <ui:repeat value="#{feedbackView.feedbacks}" var="feedback">
-                                <h:outputFormat value="#{feedback.createdAt}">
+                            <ui:repeat value="#{ticketmessageView.ticketmessages}" var="ticketmessage">
+                                <h:outputFormat value="#{ticketmessage.createdAt}">
                                     <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
                                 </h:outputFormat>
-                                <h3><h:outputText value="#{feedback.subject}"/></h3>
-                                <p><h:outputText value="#{feedback.message}"/></p>
+                                <h3><h:outputText value="#{i18n[ticketmessage.ticket.ticketType]}"/></h3>
+                                <p><h:outputText value="#{ticketmessage.content}"/></p>
                                 <hr/>
                             </ui:repeat>
 
                             <h:panelGrid columns="2">
-                                <p:outputLabel for="message" value="#{i18n['Message']}"/>
-                                <p:inputTextarea id="message" value="#{feedbackView.message}" label="#{i18n['Message']}" placeholder="#{i18n['Message']}" required="true"/>
+                                <p:outputLabel for="content" value="#{i18n['Content']}"/>
+                                <p:inputTextarea id="content" value="#{ticketmessageView.newRecord.content}" label="#{i18n['Content']}" placeholder="#{i18n['Content']}" required="true" />
                             </h:panelGrid>
-                            <p:commandButton value="#{i18n['Reply']}" actionListener="#{feedbackView.doReplyRecord}" update="@form, :growl" />
+                            <p:commandButton value="#{i18n['Reply']}" actionListener="#{ticketmessageView.doReplyRecord}" update="@form, :growl" />
                         </h:form>
                     </div>
                 </div>

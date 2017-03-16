@@ -65,9 +65,9 @@
                             <span class="fa fa-bars"></span>
                         </p:link>
                         <ul id="menu">
-                            <li><p:link outcome="/index" fragment="introduction" value="#{i18n['Home']}"/></li>
+                            <li><p:link outcome="/index" value="#{i18n['Home']}"/></li>
                             <li><p:link outcome="/search" value="#{i18n['Search']}"/></li>
-
+                            <li><p:link outcome="/login" value="#{i18n['Login']}" rendered="#{empty request.userPrincipal}"/></li>
                             <li><p:link outcome="/member/index" value="#{i18n['Dashboard']}" rendered="#{not empty request.userPrincipal}"/></li>
                             <li>
                                 <h:form>
@@ -109,7 +109,7 @@
                                     <ul style="font-size: smaller;">
                                         <li><p:link outcome="/login" value="#{i18n['Log In']}"/></li>
                                         <li><p:link outcome="/signup" value="#{i18n['Sign Up']}"/></li>
-                                        <li><p:link outcome="/member/feedback/index" value="#{i18n['Contact Us']}"/></li>
+                                        <li><p:link outcome="/member/ticket/index" value="#{i18n['Contact Us']}"/></li>
                                         <li><p:link outcome="/member/sale/track" value="#{i18n['Order Tracking']}"/></li>
                                     </ul>
                                 </div>

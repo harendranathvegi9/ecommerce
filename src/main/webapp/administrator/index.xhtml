@@ -32,27 +32,19 @@
                                 </p:dataTable>
                             </div>
                             <div class="ui-g-6">
-                                <p:poll interval="60" update="feedbackDataTable"/>
-                                <p:dataTable id="feedbackDataTable" value="#{feedbackController.lazyModel}" var="feedback" emptyMessage="#{i18n['No records found']}" 
+                                <p:poll interval="60" update="ticketDataTable"/>
+                                <p:dataTable id="ticketDataTable" value="#{ticketController.lazyModel}" var="ticket" emptyMessage="#{i18n['No records found']}" 
                                              paginator="true" paginatorPosition="bottom" rows="10" 
-                                             sortBy="#{feedback.id}" sortOrder="descending"
+                                             sortBy="#{ticket.id}" sortOrder="descending"
                                              lazy="true">
-                                    <f:facet name="header">#{i18n['Feedbacks']}</f:facet>
+                                    <f:facet name="header">#{i18n['Tickets']}</f:facet>
                                     <p:column headerText="#{i18n['Fullname']}">
-                                        <p:link outcome="/administrator/feedback/index" value="#{feedback.user.fullname}">
-                                            <f:param name="id" value="#{feedback.id}"/>
+                                        <p:link outcome="/administrator/ticket/index" value="#{ticket.createdBy.fullname}">
+                                            <f:param name="id" value="#{ticket.id}"/>
                                         </p:link>
                                     </p:column>
-                                    <p:column headerText="#{i18n['Subject']}">
-                                        <h:outputText value="#{feedback.subject}"/>
-                                    </p:column>
-                                    <p:column headerText="#{i18n['Message']}">
-                                        <h:outputText value="#{feedback.message}"/>
-                                    </p:column>
-                                    <p:column headerText="#{i18n['Created At']}">
-                                        <h:outputFormat value="#{feedback.createdAt}">
-                                            <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
-                                        </h:outputFormat>
+                                    <p:column headerText="#{i18n['Ticket Type']}">
+                                        <h:outputText value="#{i18n[ticket.ticketType]}"/>
                                     </p:column>
                                 </p:dataTable>
                             </div>

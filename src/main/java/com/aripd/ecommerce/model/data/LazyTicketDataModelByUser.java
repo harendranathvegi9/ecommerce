@@ -1,31 +1,31 @@
 package com.aripd.ecommerce.model.data;
 
-import com.aripd.ecommerce.entity.FeedbackEntity;
+import com.aripd.ecommerce.entity.TicketEntity;
 import com.aripd.ecommerce.entity.UserEntity;
-import com.aripd.ecommerce.service.FeedbackService;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
+import com.aripd.ecommerce.service.TicketService;
 
-public class LazyFeedbackDataModelByUser extends LazyDataModel<FeedbackEntity> implements Serializable {
+public class LazyTicketDataModelByUser extends LazyDataModel<TicketEntity> implements Serializable {
 
-    private final FeedbackService feedbackService;
+    private final TicketService ticketService;
     private final UserEntity user;
-    private List<FeedbackEntity> datasource;
+    private List<TicketEntity> datasource;
     private int pageSize;
     private int rowIndex;
     private int rowCount;
 
     /**
      *
-     * @param feedbackService FeedbackService
+     * @param ticketService TicketService
      * @param user UserEntity
      */
-    public LazyFeedbackDataModelByUser(FeedbackService feedbackService, UserEntity user) {
-        this.feedbackService = feedbackService;
+    public LazyTicketDataModelByUser(TicketService ticketService, UserEntity user) {
+        this.ticketService = ticketService;
         this.user = user;
     }
 
@@ -40,9 +40,9 @@ public class LazyFeedbackDataModelByUser extends LazyDataModel<FeedbackEntity> i
      * @return List
      */
     @Override
-    public List<FeedbackEntity> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        datasource = feedbackService.getResultList(user, first, pageSize, sortField, sortOrder, filters);
-        setRowCount(feedbackService.count(user, filters));
+    public List<TicketEntity> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        datasource = ticketService.getResultList(user, first, pageSize, sortField, sortOrder, filters);
+        setRowCount(ticketService.count(user, filters));
         return datasource;
     }
 
@@ -56,9 +56,9 @@ public class LazyFeedbackDataModelByUser extends LazyDataModel<FeedbackEntity> i
      * @return List
      */
     @Override
-    public List<FeedbackEntity> load(int first, int pageSize, List<SortMeta> multiSortMeta, Map<String, Object> filters) {
-        datasource = feedbackService.getResultList(user, first, pageSize, multiSortMeta, filters);
-        setRowCount(feedbackService.count(user, filters));
+    public List<TicketEntity> load(int first, int pageSize, List<SortMeta> multiSortMeta, Map<String, Object> filters) {
+        datasource = ticketService.getResultList(user, first, pageSize, multiSortMeta, filters);
+        setRowCount(ticketService.count(user, filters));
         return datasource;
     }
 
@@ -83,7 +83,7 @@ public class LazyFeedbackDataModelByUser extends LazyDataModel<FeedbackEntity> i
      * @return Object
      */
     @Override
-    public Object getRowKey(FeedbackEntity e) {
+    public Object getRowKey(TicketEntity e) {
         return e.getId().toString();
     }
 
@@ -93,7 +93,7 @@ public class LazyFeedbackDataModelByUser extends LazyDataModel<FeedbackEntity> i
      * @return Entity
      */
     @Override
-    public FeedbackEntity getRowData() {
+    public TicketEntity getRowData() {
         if (datasource == null) {
             return null;
         }
@@ -111,11 +111,11 @@ public class LazyFeedbackDataModelByUser extends LazyDataModel<FeedbackEntity> i
      * @return Entity
      */
     @Override
-    public FeedbackEntity getRowData(String rowKey) {
+    public TicketEntity getRowData(String rowKey) {
         if (datasource == null) {
             return null;
         }
-        for (FeedbackEntity e : datasource) {
+        for (TicketEntity e : datasource) {
             if (e.getId().toString().equals(rowKey)) {
                 return e;
             }
