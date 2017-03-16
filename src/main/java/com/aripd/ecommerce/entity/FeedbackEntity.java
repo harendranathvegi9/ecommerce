@@ -34,6 +34,8 @@ public class FeedbackEntity extends AbstractEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 
+    private boolean viewed = false;
+
     public FeedbackEntity() {
     }
 
@@ -80,6 +82,14 @@ public class FeedbackEntity extends AbstractEntity {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
     }
 
 }

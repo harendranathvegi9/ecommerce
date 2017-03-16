@@ -7,7 +7,6 @@ import com.aripd.ecommerce.model.data.LazyFeedbackDataModel;
 import com.aripd.ecommerce.service.UserService;
 import com.aripd.util.MessageUtil;
 import java.io.Serializable;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
@@ -23,7 +22,6 @@ public class FeedbackController implements Serializable {
     private FeedbackService feedbackService;
     private FeedbackEntity newRecord;
     private FeedbackEntity selectedRecord;
-    private List<FeedbackEntity> selectedRecords;
     private LazyDataModel<FeedbackEntity> lazyModel;
 
     @Inject
@@ -66,29 +64,12 @@ public class FeedbackController implements Serializable {
         messageUtil.addGlobalInfoFlashMessage("Deleted");
     }
 
-    public void doDeleteRecords(ActionEvent actionEvent) {
-        if (selectedRecords.isEmpty()) {
-            messageUtil.addGlobalErrorFlashMessage("Please select at least one item");
-        } else {
-            feedbackService.deleteItems(selectedRecords);
-            messageUtil.addGlobalInfoFlashMessage("Deleted");
-        }
-    }
-
     public FeedbackEntity getSelectedRecord() {
         return selectedRecord;
     }
 
     public void setSelectedRecord(FeedbackEntity selectedRecord) {
         this.selectedRecord = selectedRecord;
-    }
-
-    public List<FeedbackEntity> getSelectedRecords() {
-        return selectedRecords;
-    }
-
-    public void setSelectedRecords(List<FeedbackEntity> selectedRecords) {
-        this.selectedRecords = selectedRecords;
     }
 
     public FeedbackEntity getNewRecord() {

@@ -3,19 +3,26 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/template_landing.xhtml">
     <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{feedbackBean.id}"/>
+            <f:event type="preRenderView" listener="#{feedbackBean.onLoad}"/>
+        </f:metadata>
+
         <div id="indexpage">
             <div class="indexpage-content">
-                <h1>#{i18n['Dashboard']}</h1>
+                <h1>#{i18n['Feedback']}</h1>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 
                 <div class="ui-g">
-                    <div class="ui-g-3">
-                        <composite:navigationMember/>
-                    </div>
-                    <div class="ui-g-9">
+                    <div class="ui-g-12">
+                        <h3><h:outputLabel value="#{i18n['Subject']}"/></h3>
+                        <h:outputText value="#{feedbackBean.selectedRecord.subject}"/>
+
                     </div>
                 </div>
             </div>

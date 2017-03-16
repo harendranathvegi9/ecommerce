@@ -14,9 +14,9 @@
             <f:event type="preRenderView" listener="#{categoryBean.onLoad}"/>
         </f:metadata>
 
-        <div id="features">
-            <div class="features-content">
-                <h1 class="feature-title"><h:outputText value="#{categoryBean.selectedCategory.code}"/></h1>
+        <div id="indexpage">
+            <div class="indexpage-content">
+                <h1><h:outputText value="#{categoryBean.selectedCategory.code}"/></h1>
                 <p>
                     <h:form>
                         <p:breadCrumb model="#{categoryBean.model}" homeDisplay="text" />

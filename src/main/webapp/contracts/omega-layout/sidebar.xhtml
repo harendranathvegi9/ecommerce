@@ -17,7 +17,10 @@
 
                 <h:form>
                     <div class="profile">
-                        <p:graphicImage name="images/profile.png" library="omega-layout" />
+                        <span class="fa-stack fa-2x" style="color: #0388e5;">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                        </span><br/>
                         <a id="profile-button" href="#">
                             <span class="username">#{loginBean.user.fullname}</span>
                             <i class="fa fa-fw fa-cog"></i>

@@ -25,6 +25,10 @@
                     <dd><p:commandLink action="shopping" value="#{i18n['My Shopping Basket']}"/></dd>
                     <dd><p:link outcome="/member/sale/index" value="#{i18n['My Orders']}"/></dd>
                 </dl>
+                <dl>
+                    <dt>#{i18n['Customer Service']}</dt>
+                    <dd><p:link outcome="/member/feedback/index" value="#{i18n['My Feedbacks']}"/></dd>
+                </dl>
             </h:panelGroup>
 
             <h:panelGroup rendered="#{request.isUserInRole('Administrator')}">
