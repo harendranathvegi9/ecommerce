@@ -18,7 +18,7 @@
                     </div>
                     <div class="ui-g-9">
                         <h:form>
-                            <h:panelGrid columns="2">
+                            <h:panelGrid columns="1">
                                 <p:outputLabel for="ticketType" value="#{i18n['Ticket Type']}" />
                                 <p:selectOneMenu id="ticketType" value="#{ticketView.ticketType}" label="#{i18n['Ticket Type']}" converter="#{ticketTypeConverter}" required="true">
                                     <f:selectItems value="#{ticketView.ticketTypes}" var="ticketType" itemValue="#{ticketType}" itemLabel="#{i18n[ticketType]}" />

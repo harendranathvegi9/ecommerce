@@ -20,18 +20,18 @@
                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 
                     <h:form>
+                        <h3><h:outputText value="#{i18n[ticketmessageController.selectedTicket.ticketType]}"/></h3>
+
                         <ui:repeat value="#{ticketmessageController.ticketmessages}" var="ticketmessage">
                             <h:outputFormat value="#{ticketmessage.createdAt}">
                                 <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
                             </h:outputFormat>
-                            <h3><h:outputText value="#{i18n[ticketmessage.ticket.ticketType]}"/></h3>
                             <p><h:outputText value="#{ticketmessage.content}"/></p>
                             <hr/>
                         </ui:repeat>
 
-                        <h:panelGrid columns="2">
-                            <p:outputLabel for="content" value="#{i18n['Content']}"/>
-                            <p:inputTextarea id="content" value="#{ticketmessageController.newRecord.content}" label="#{i18n['Content']}" placeholder="#{i18n['Content']}" required="true"/>
+                        <h:panelGrid columns="1">
+                            <p:inputTextarea value="#{ticketmessageController.newRecord.content}" label="#{i18n['Content']}" placeholder="#{i18n['Content']}" required="true"/>
                         </h:panelGrid>
                         <p:commandButton value="#{i18n['Reply']}" actionListener="#{ticketmessageController.doReplyRecord}" update="@form, :growl" />
                     </h:form>
