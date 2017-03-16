@@ -23,14 +23,22 @@
                         <composite:navigationMember/>
                     </div>
                     <div class="ui-g-9">
-                        <ui:repeat value="#{feedbackView.feedbacks}" var="feedback">
-                            <h:outputFormat value="#{feedback.createdAt}">
-                                <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
-                            </h:outputFormat>
-                            <h3><h:outputText value="#{feedback.subject}"/></h3>
-                            <p><h:outputText value="#{feedback.message}"/></p>
-                            <hr/>
-                        </ui:repeat>
+                        <h:form>
+                            <ui:repeat value="#{feedbackView.feedbacks}" var="feedback">
+                                <h:outputFormat value="#{feedback.createdAt}">
+                                    <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                </h:outputFormat>
+                                <h3><h:outputText value="#{feedback.subject}"/></h3>
+                                <p><h:outputText value="#{feedback.message}"/></p>
+                                <hr/>
+                            </ui:repeat>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel for="message" value="#{i18n['Message']}"/>
+                                <p:inputTextarea id="message" value="#{feedbackView.message}" label="#{i18n['Message']}" placeholder="#{i18n['Message']}" required="true"/>
+                            </h:panelGrid>
+                            <p:commandButton value="#{i18n['Reply']}" actionListener="#{feedbackView.doReplyRecord}" update="@form, :growl" />
+                        </h:form>
                     </div>
                 </div>
             </div>

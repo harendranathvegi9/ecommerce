@@ -68,6 +68,8 @@ public class FeedbackController implements Serializable {
         replyRecord.setMessage(message);
         feedbackService.create(replyRecord);
         messageUtil.addGlobalInfoFlashMessage("Replied");
+
+        message = "";
     }
 
     public void doUpdateRecord(ActionEvent actionEvent) {

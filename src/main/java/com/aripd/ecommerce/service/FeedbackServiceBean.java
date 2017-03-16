@@ -79,7 +79,7 @@ public class FeedbackServiceBean extends CrudServiceBean<FeedbackEntity, Long> i
             CriteriaQuery<FeedbackEntity> cq = cb.createQuery(FeedbackEntity.class);
             Root<FeedbackEntity> root = cq.from(FeedbackEntity.class);
 
-            Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.createdBy), user);
+            Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.user), user);
             Predicate predicate2 = cb.equal(root.get(FeedbackEntity_.id), id);
             Predicate predicate = cb.and(predicate1, predicate2);
             cq.where(predicate);
@@ -100,8 +100,8 @@ public class FeedbackServiceBean extends CrudServiceBean<FeedbackEntity, Long> i
         String subject = rb.getString("feedback.subject");
         String msg = MessageFormat.format(rb.getString("feedback.msg"),
                 new Object[]{
-                    feedback.getCreatedBy().getFullname(),
-                    feedback.getCreatedBy().getEmail(),
+                    feedback.getUser().getFullname(),
+                    feedback.getUser().getEmail(),
                     feedback.getMessage()
                 }
         );
@@ -129,7 +129,7 @@ public class FeedbackServiceBean extends CrudServiceBean<FeedbackEntity, Long> i
         CriteriaQuery cq = cb.createQuery();
         Root<FeedbackEntity> root = cq.from(FeedbackEntity.class);
 
-        Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.createdBy), user);
+        Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.user), user);
         Predicate predicate2 = this.getFilterCondition(cb, root, filters);
         Predicate predicate = cb.and(predicate1, predicate2);
         cq.where(predicate);
@@ -152,7 +152,7 @@ public class FeedbackServiceBean extends CrudServiceBean<FeedbackEntity, Long> i
         CriteriaQuery cq = cb.createQuery();
         Root<FeedbackEntity> root = cq.from(FeedbackEntity.class);
 
-        Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.createdBy), user);
+        Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.user), user);
         Predicate predicate2 = this.getFilterCondition(cb, root, filters);
         Predicate predicate = cb.and(predicate1, predicate2);
         cq.where(predicate);
@@ -186,7 +186,7 @@ public class FeedbackServiceBean extends CrudServiceBean<FeedbackEntity, Long> i
             CriteriaQuery<Long> cq = cb.createQuery(Long.class);
             Root<FeedbackEntity> root = cq.from(FeedbackEntity.class);
 
-            Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.createdBy), user);
+            Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.user), user);
             Predicate predicate2 = this.getFilterCondition(cb, root, filters);
             Predicate predicate = cb.and(predicate1, predicate2);
             cq.where(predicate);

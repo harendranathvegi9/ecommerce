@@ -39,7 +39,7 @@
                                              lazy="true">
                                     <f:facet name="header">#{i18n['Feedbacks']}</f:facet>
                                     <p:column headerText="#{i18n['Fullname']}">
-                                        <p:link outcome="/administrator/feedback/index" value="#{feedback.createdBy.fullname}">
+                                        <p:link outcome="/administrator/feedback/index" value="#{feedback.user.fullname}">
                                             <f:param name="id" value="#{feedback.id}"/>
                                         </p:link>
                                     </p:column>

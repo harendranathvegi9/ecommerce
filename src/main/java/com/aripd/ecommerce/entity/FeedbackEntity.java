@@ -16,7 +16,7 @@ public class FeedbackEntity extends AbstractEntity {
     @NotNull
     @JoinColumn(nullable = false)
     @ManyToOne
-    private UserEntity createdBy;
+    private UserEntity user;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -44,12 +44,12 @@ public class FeedbackEntity extends AbstractEntity {
         createdAt = new Date();
     }
 
-    public UserEntity getCreatedBy() {
-        return createdBy;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setCreatedBy(UserEntity createdBy) {
-        this.createdBy = createdBy;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public Date getCreatedAt() {

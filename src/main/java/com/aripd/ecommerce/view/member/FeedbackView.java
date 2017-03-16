@@ -28,6 +28,8 @@ public class FeedbackView implements Serializable {
 
     private String uuid;
 
+    private String message;
+
     @Inject
     private UserService userService;
     private UserEntity user;
@@ -56,12 +58,21 @@ public class FeedbackView implements Serializable {
     }
 
     public void doSubmit(ActionEvent actionEvent) {
-        newRecord.setCreatedBy(user);
+        newRecord.setUser(user);
         newRecord.setUuid(UUID.randomUUID().toString());
         FeedbackEntity feedback = feedbackService.create(newRecord);
 //        feedbackService.sendFeedback(feedback);
 
         newRecord = new FeedbackEntity();
+    }
+
+    public void doReplyRecord(ActionEvent actionEvent) {
+        FeedbackEntity replyRecord = feedbacks.get(0);
+        replyRecord.setMessage(message);
+        feedbackService.create(replyRecord);
+        messageUtil.addGlobalInfoFlashMessage("Replied");
+        
+        message = "";
     }
 
     public FeedbackEntity getNewRecord() {
@@ -98,6 +109,14 @@ public class FeedbackView implements Serializable {
 
     public void setFeedbacks(List<FeedbackEntity> feedbacks) {
         this.feedbacks = feedbacks;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

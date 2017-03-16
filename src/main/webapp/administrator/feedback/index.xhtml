@@ -25,7 +25,7 @@
                                 </h:outputFormat>
                             </p:column>
                             <p:column headerText="#{i18n['Fullname']}">
-                                <h:outputText value="#{feedback.createdBy.fullname}"/>
+                                <h:outputText value="#{feedback.user.fullname}"/>
                             </p:column>
                             <p:column headerText="#{i18n['Subject']}">
                                 <p:link outcome="/administrator/feedback/show" value="#{feedback.subject}">
