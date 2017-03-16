@@ -11,6 +11,8 @@ import org.primefaces.model.SortOrder;
 @Local
 public interface FeedbackService extends CrudService<FeedbackEntity, Long> {
 
+    public List<FeedbackEntity> findByUuid(String uuid);
+
     public FeedbackEntity findOneByUserAndId(UserEntity user, Long id);
 
     public void sendFeedback(FeedbackEntity feedback);

@@ -57,6 +57,22 @@ public class FeedbackServiceBean extends CrudServiceBean<FeedbackEntity, Long> i
     }
 
     @Override
+    public List<FeedbackEntity> findByUuid(String uuid) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<FeedbackEntity> cq = cb.createQuery(FeedbackEntity.class);
+        Root<FeedbackEntity> root = cq.from(FeedbackEntity.class);
+
+        Predicate predicate = cb.equal(root.get(FeedbackEntity_.uuid), uuid);
+        cq.where(predicate);
+
+        List<Order> orderList = new ArrayList();
+        orderList.add(cb.asc(root.get(FeedbackEntity_.createdAt)));
+        cq.orderBy(orderList);
+
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+
+    @Override
     public FeedbackEntity findOneByUserAndId(UserEntity user, Long id) {
         try {
             CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();

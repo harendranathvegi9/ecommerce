@@ -7,6 +7,7 @@ import com.aripd.ecommerce.model.data.LazyFeedbackDataModelByUser;
 import com.aripd.ecommerce.service.UserService;
 import com.aripd.util.MessageUtil;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
@@ -22,10 +23,10 @@ public class FeedbackView implements Serializable {
     @Inject
     private FeedbackService feedbackService;
     private FeedbackEntity newRecord;
-    private FeedbackEntity selectedRecord;
     private LazyDataModel<FeedbackEntity> lazyModel;
+    private List<FeedbackEntity> feedbacks;
 
-    private Long id;
+    private String uuid;
 
     @Inject
     private UserService userService;
@@ -36,7 +37,6 @@ public class FeedbackView implements Serializable {
 
     public FeedbackView() {
         newRecord = new FeedbackEntity();
-        selectedRecord = new FeedbackEntity();
     }
 
     @PostConstruct
@@ -46,22 +46,12 @@ public class FeedbackView implements Serializable {
     }
 
     public void onLoad() {
-        if (id == null) {
+        if (uuid == null) {
             messageUtil.addGlobalErrorFlashMessage("Bad request. Please use a link from within the system.");
             return;
         }
 
-        selectedRecord = feedbackService.findOneByUserAndId(user, id);
-
-        if (selectedRecord == null) {
-            messageUtil.addGlobalErrorFlashMessage("Bad request. Unknown record.");
-            return;
-        }
-
-        if (!selectedRecord.isViewed()) {
-            selectedRecord.setViewed(true);
-            feedbackService.update(selectedRecord);
-        }
+        feedbacks = feedbackService.findByUuid(uuid);
 
     }
 
@@ -82,14 +72,6 @@ public class FeedbackView implements Serializable {
         this.newRecord = newRecord;
     }
 
-    public FeedbackEntity getSelectedRecord() {
-        return selectedRecord;
-    }
-
-    public void setSelectedRecord(FeedbackEntity selectedRecord) {
-        this.selectedRecord = selectedRecord;
-    }
-
     public UserEntity getUser() {
         return user;
     }
@@ -102,12 +84,20 @@ public class FeedbackView implements Serializable {
         return lazyModel;
     }
 
-    public Long getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public List<FeedbackEntity> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<FeedbackEntity> feedbacks) {
+        this.feedbacks = feedbacks;
     }
 
 }

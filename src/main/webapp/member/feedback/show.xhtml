@@ -9,7 +9,7 @@
                 template="/template_landing.xhtml">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="id" value="#{feedbackView.id}"/>
+            <f:viewParam name="uuid" value="#{feedbackView.uuid}"/>
             <f:event type="preRenderView" listener="#{feedbackView.onLoad}"/>
         </f:metadata>
 
@@ -23,8 +23,14 @@
                         <composite:navigationMember/>
                     </div>
                     <div class="ui-g-9">
-                        <h3><h:outputLabel value="#{i18n['Subject']}"/></h3>
-                        <h:outputText value="#{feedbackView.selectedRecord.subject}"/>
+                        <ui:repeat value="#{feedbackView.feedbacks}" var="feedback">
+                            <h:outputFormat value="#{feedback.createdAt}">
+                                <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                            </h:outputFormat>
+                            <h3><h:outputText value="#{feedback.subject}"/></h3>
+                            <p><h:outputText value="#{feedback.message}"/></p>
+                            <hr/>
+                        </ui:repeat>
                     </div>
                 </div>
             </div>

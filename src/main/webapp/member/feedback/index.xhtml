@@ -36,11 +36,8 @@
                                 </p:column>
                                 <p:column headerText="#{i18n['Subject']}">
                                     <p:link outcome="/member/feedback/show" value="#{feedback.subject}">
-                                        <f:param name="id" value="#{feedback.id}" />
+                                        <f:param name="uuid" value="#{feedback.uuid}" />
                                     </p:link>
-                                </p:column>
-                                <p:column headerText="#{i18n['Message']}">
-                                    <h:outputText value="#{feedback.message}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:form>

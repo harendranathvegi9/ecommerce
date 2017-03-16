@@ -7,6 +7,7 @@ import com.aripd.ecommerce.model.data.LazyFeedbackDataModel;
 import com.aripd.ecommerce.service.UserService;
 import com.aripd.util.MessageUtil;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
@@ -23,6 +24,11 @@ public class FeedbackController implements Serializable {
     private FeedbackEntity newRecord;
     private FeedbackEntity selectedRecord;
     private LazyDataModel<FeedbackEntity> lazyModel;
+    private List<FeedbackEntity> feedbacks;
+
+    private String uuid;
+
+    private String message;
 
     @Inject
     private UserService userService;
@@ -42,16 +48,26 @@ public class FeedbackController implements Serializable {
         lazyModel = new LazyFeedbackDataModel(feedbackService);
     }
 
+    public void onLoad() {
+        if (uuid == null) {
+            messageUtil.addGlobalErrorFlashMessage("Bad request. Please use a link from within the system.");
+            return;
+        }
+
+        feedbacks = feedbackService.findByUuid(uuid);
+
+    }
+
     public void doCreateRecord(ActionEvent actionEvent) {
         feedbackService.create(newRecord);
         messageUtil.addGlobalInfoFlashMessage("Created");
     }
 
     public void doReplyRecord(ActionEvent actionEvent) {
-        newRecord = selectedRecord;
-        newRecord.setCreatedBy(user);
-        feedbackService.update(selectedRecord);
-        messageUtil.addGlobalInfoFlashMessage("Updated");
+        FeedbackEntity replyRecord = feedbacks.get(0);
+        replyRecord.setMessage(message);
+        feedbackService.create(replyRecord);
+        messageUtil.addGlobalInfoFlashMessage("Replied");
     }
 
     public void doUpdateRecord(ActionEvent actionEvent) {
@@ -90,6 +106,30 @@ public class FeedbackController implements Serializable {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public List<FeedbackEntity> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<FeedbackEntity> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
