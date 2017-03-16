@@ -270,7 +270,7 @@ public class ShoppingBean implements Serializable {
 
         e.setDeliveryFirstname(deliveryAddress.getFirstname());
         e.setDeliveryLastname(deliveryAddress.getLastname());
-        e.setDeliveryLine(deliveryAddress.getLine());
+        e.setDeliveryLine(deliveryAddress.getAddress());
         e.setDeliveryCity(deliveryAddress.getCity());
         e.setDeliveryZipcode(deliveryAddress.getZipcode());
         e.setDeliveryCountry(deliveryAddress.getCountry());
@@ -278,7 +278,7 @@ public class ShoppingBean implements Serializable {
 
         e.setBillFirstname(billAddress.getFirstname());
         e.setBillLastname(billAddress.getLastname());
-        e.setBillLine(billAddress.getLine());
+        e.setBillLine(billAddress.getAddress());
         e.setBillCity(billAddress.getCity());
         e.setBillZipcode(billAddress.getZipcode());
         e.setBillCountry(billAddress.getCountry());

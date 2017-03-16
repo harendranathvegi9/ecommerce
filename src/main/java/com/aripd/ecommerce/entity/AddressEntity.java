@@ -29,7 +29,7 @@ public class AddressEntity extends AbstractEntity {
 
     @NotNull
     @Column(nullable = false)
-    private String line;
+    private String address;
 
     @NotNull
     @Column(nullable = false, length = 5)
@@ -50,7 +50,7 @@ public class AddressEntity extends AbstractEntity {
     @Transient
     public String getFulladdress() {
         return String.format("%s, %s, %s, %s, %s",
-                line,
+                address,
                 zipcode,
                 county,
                 city,
@@ -85,12 +85,12 @@ public class AddressEntity extends AbstractEntity {
         this.phone = phone;
     }
 
-    public String getLine() {
-        return line;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLine(String line) {
-        this.line = line;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getZipcode() {

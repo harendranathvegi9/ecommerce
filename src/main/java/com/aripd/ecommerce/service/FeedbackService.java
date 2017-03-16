@@ -11,6 +11,8 @@ import org.primefaces.model.SortOrder;
 @Local
 public interface FeedbackService extends CrudService<FeedbackEntity, Long> {
 
+    public FeedbackEntity findOneByUserAndId(UserEntity user, Long id);
+
     public void sendFeedback(FeedbackEntity feedback);
 
     public List<FeedbackEntity> getResultList(UserEntity user, int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters);

@@ -57,6 +57,24 @@ public class FeedbackServiceBean extends CrudServiceBean<FeedbackEntity, Long> i
     }
 
     @Override
+    public FeedbackEntity findOneByUserAndId(UserEntity user, Long id) {
+        try {
+            CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+            CriteriaQuery<FeedbackEntity> cq = cb.createQuery(FeedbackEntity.class);
+            Root<FeedbackEntity> root = cq.from(FeedbackEntity.class);
+
+            Predicate predicate1 = cb.equal(root.get(FeedbackEntity_.createdBy), user);
+            Predicate predicate2 = cb.equal(root.get(FeedbackEntity_.id), id);
+            Predicate predicate = cb.and(predicate1, predicate2);
+            cq.where(predicate);
+
+            return getEntityManager().createQuery(cq).getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
+    @Override
     public void sendFeedback(FeedbackEntity feedback) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getFlash().setKeepMessages(true);

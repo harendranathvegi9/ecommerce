@@ -5,6 +5,7 @@ import com.aripd.ecommerce.entity.FeedbackEntity;
 import com.aripd.ecommerce.entity.UserEntity;
 import com.aripd.ecommerce.model.data.LazyFeedbackDataModelByUser;
 import com.aripd.ecommerce.service.UserService;
+import com.aripd.util.MessageUtil;
 import java.io.Serializable;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
@@ -24,9 +25,14 @@ public class FeedbackView implements Serializable {
     private FeedbackEntity selectedRecord;
     private LazyDataModel<FeedbackEntity> lazyModel;
 
+    private Long id;
+
     @Inject
     private UserService userService;
     private UserEntity user;
+
+    @Inject
+    MessageUtil messageUtil;
 
     public FeedbackView() {
         newRecord = new FeedbackEntity();
@@ -37,6 +43,26 @@ public class FeedbackView implements Serializable {
     public void init() {
         user = userService.getCurrentUser();
         lazyModel = new LazyFeedbackDataModelByUser(feedbackService, user);
+    }
+
+    public void onLoad() {
+        if (id == null) {
+            messageUtil.addGlobalErrorFlashMessage("Bad request. Please use a link from within the system.");
+            return;
+        }
+
+        selectedRecord = feedbackService.findOneByUserAndId(user, id);
+
+        if (selectedRecord == null) {
+            messageUtil.addGlobalErrorFlashMessage("Bad request. Unknown record.");
+            return;
+        }
+
+        if (!selectedRecord.isViewed()) {
+            selectedRecord.setViewed(true);
+            feedbackService.update(selectedRecord);
+        }
+
     }
 
     public void doSubmit(ActionEvent actionEvent) {
@@ -74,6 +100,14 @@ public class FeedbackView implements Serializable {
 
     public LazyDataModel<FeedbackEntity> getLazyModel() {
         return lazyModel;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }
