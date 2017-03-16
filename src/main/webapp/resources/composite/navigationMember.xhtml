@@ -13,28 +13,34 @@
     </composite:interface>
     <composite:implementation>
         <h:form>
-            <h:panelGroup rendered="#{not empty request.userPrincipal}">
-                <dl>
-                    <dt>#{i18n['My Profile']}</dt>
-                    <dd><p:link outcome="/member/logininformation" value="#{i18n['My Login Information']}"/></dd>
-                    <dd><p:link outcome="/member/personalinformation" value="#{i18n['My Personal Information']}"/></dd>
-                </dl>
-                <dl>
-                    <dt>#{i18n['My Account']}</dt>
-                    <dd><p:link outcome="/member/address" value="#{i18n['My Postal Addresses']}"/></dd>
-                    <dd><p:commandLink action="shopping" value="#{i18n['My Shopping Basket']}"/></dd>
-                    <dd><p:link outcome="/member/sale/index" value="#{i18n['My Orders']}"/></dd>
-                </dl>
-                <dl>
-                    <dt>#{i18n['Customer Service']}</dt>
-                    <dd><p:link outcome="/member/ticket/index" value="#{i18n['My Tickets']}"/></dd>
-                    <dd><p:link outcome="/member/ticket/new" value="#{i18n['New Ticket']}"/></dd>
-                </dl>
-            </h:panelGroup>
+            <p:menu>
+                <p:submenu label="#{i18n['My Profile']}">
+                    <p:menuitem outcome="/member/logininformation" value="#{i18n['My Login Information']}" />
+                    <p:menuitem outcome="/member/personalinformation" value="#{i18n['My Personal Information']}" />
+                </p:submenu>
+                <p:submenu label="#{i18n['My Account']}">
+                    <p:menuitem outcome="/member/address" value="#{i18n['My Postal Addresses']}" />
+                    <p:menuitem action="shopping" value="#{i18n['My Shopping Basket']}" />
+                    <p:menuitem outcome="/member/sale/index" value="#{i18n['My Orders']}" />
+                </p:submenu>
+                <p:menuitem outcome="/member/ticket/index" value="#{i18n['Tickets']}" />
+            </p:menu>
 
-            <h:panelGroup rendered="#{request.isUserInRole('Administrator')}">
-                <p:link outcome="/administrator/index" value="#{i18n['Admin Dashboard']}"/>
-            </h:panelGroup>
+            <dl>
+                <dt>#{i18n['My Profile']}</dt>
+                <dd><p:link outcome="/member/logininformation" value="#{i18n['My Login Information']}"/></dd>
+                <dd><p:link outcome="/member/personalinformation" value="#{i18n['My Personal Information']}"/></dd>
+            </dl>
+            <dl>
+                <dt>#{i18n['My Account']}</dt>
+                <dd><p:link outcome="/member/address" value="#{i18n['My Postal Addresses']}"/></dd>
+                <dd><p:commandLink action="shopping" value="#{i18n['My Shopping Basket']}"/></dd>
+                <dd><p:link outcome="/member/sale/index" value="#{i18n['My Orders']}"/></dd>
+            </dl>
+            <dl>
+                <dt>#{i18n['Customer Service']}</dt>
+                <dd><p:link outcome="/member/ticket/index" value="#{i18n['Tickets']}"/></dd>
+            </dl>
 
         </h:form>
 
