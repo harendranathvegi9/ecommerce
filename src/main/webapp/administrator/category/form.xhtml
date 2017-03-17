@@ -26,8 +26,10 @@
                             </f:facet>
 
                             <p:outputLabel for="parent" value="#{i18n['parent']}"/>
-                            <p:selectOneMenu id="parent" value="#{categoryController.selectedRecord.parent}" converter="#{categoryConverter}"
-                                             filter="true" filterMatchMode="contains">
+                            <p:selectOneMenu id="parent" value="#{categoryController.selectedRecord.parent}" 
+                                             converter="#{categoryConverter}"
+                                             filter="true" filterMatchMode="contains"
+                                             label="#{i18n['parent']}">
                                 <f:selectItem itemLabel="#{i18n['Select One']}" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{categoryController.categories}" var="category" itemValue="#{category}" itemLabel="#{category.code}"/>
                             </p:selectOneMenu>

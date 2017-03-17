@@ -18,7 +18,7 @@
         <div id="indexpage">
             <div class="indexpage-content">
                 <div class="ui-g">
-                    <ui:repeat value="#{indexBean.banners}" var="product">
+                    <ui:repeat value="#{productBean.banners}" var="product">
                         <div class="ui-g-12 ui-md-12">
                             <o:graphicImage value="#{banner.bytes}" dataURI="true" alt="#{banner.name}" title="#{banner.name}" rendered="#{not empty banner.bytes}"/>
                             <h3>#{product.bannerHeadline}</h3>
@@ -26,17 +26,17 @@
                     </ui:repeat>
                 </div>
                 <div class="ui-g">
-                    <p:dataScroller id="product" value="#{indexBean.lazyModel}" var="product" 
+                    <p:dataScroller id="product" value="#{productBean.lazyModel}" var="product" 
                                     chunkSize="20" 
                                     lazy="true">
                         <p:link outcome="/product">
                             <f:param name="id" value="#{product.id}"/>
                             <f:param name="slug" value="#{product.slug}"/>
                             <figure>
-                                <o:graphicImage value="#{product.image.bytes}" dataURI="true" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image.bytes}"/>
+                                <p:graphicImage name="#{product.image.name}" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image}" />
                                 <figcaption>
                                     <p><h:outputText value="#{product.name}"/></p>
-                                    <small><h:outputText value="#{of:formatCurrency(indexBean.getPriceTaxedExchanged(product), currencyBean.currency.currencyCode)}"/></small>
+                                    <small><h:outputText value="#{of:formatCurrency(productBean.getPriceTaxedExchanged(product, 1), currencyBean.currency.currencyCode)}"/></small>
                                 </figcaption>
                             </figure>
                         </p:link>

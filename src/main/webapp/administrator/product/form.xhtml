@@ -45,6 +45,7 @@
                                     <p:outputLabel for="category" value="#{i18n['Category']}"/>
                                     <p:selectOneMenu id="category" value="#{productController.selectedRecord.category}" 
                                                      converter="#{categoryConverter}" 
+                                                     filter="true" filterMatchMode="contains"
                                                      label="#{i18n['Category']}">
                                         <f:selectItem itemLabel="#{i18n['Select One']}" itemValue="" noSelectionOption="true"/>
                                         <f:selectItems value="#{productController.categories}" var="category" itemValue="#{category}" itemLabel="#{category.code}"/>

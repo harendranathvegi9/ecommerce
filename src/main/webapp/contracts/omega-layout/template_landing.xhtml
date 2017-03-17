@@ -99,14 +99,22 @@
                                     </ul>
                                 </div>
                                 <div class="ui-g-2">
-                                    <ul style="font-size: smaller;">
+                                    <ul>
                                         <li><p:link outcome="/index" fragment="introduction" value="#{i18n['Home']}"/></li>
                                         <li><p:link outcome="/search" value="#{i18n['Search for Products']}"/></li>
                                         <li><p:link outcome="/categories" value="#{i18n['Categories']}"/></li>
+                                        <ui:repeat value="#{pageBean.pages}" var="page">
+                                            <li>
+                                                <p:link outcome="/page" value="#{page.name}">
+                                                    <f:param name="id" value="#{page.id}" />
+                                                </p:link>
+                                            </li>
+                                        </ui:repeat>
                                     </ul>
+
                                 </div>
                                 <div class="ui-g-2">
-                                    <ul style="font-size: smaller;">
+                                    <ul>
                                         <li><p:link outcome="/login" value="#{i18n['Log In']}"/></li>
                                         <li><p:link outcome="/signup" value="#{i18n['Sign Up']}"/></li>
                                         <li><p:link outcome="/member/ticket/index" value="#{i18n['Contact Us']}"/></li>
@@ -115,7 +123,7 @@
                                 </div>
                                 <div class="ui-g-2">
                                     <h:form>
-                                        <ul style="font-size: smaller;">
+                                        <ul>
                                             <ui:repeat value="#{localeBean.locales}" var="locale">
                                                 <li>
                                                     <p:commandLink immediate="true" value="#{locale.getDisplayName(localeBean.locale)}" action="#{localeBean.onSet}">
@@ -128,7 +136,7 @@
                                 </div>
                                 <div class="ui-g-1">
                                     <h:form>
-                                        <ul style="font-size: smaller;">
+                                        <ul>
                                             <ui:repeat value="#{currencyBean.currencies}" var="currency">
                                                 <li>
                                                     <p:commandLink immediate="true" value="#{currency.currencyCode}" action="#{currencyBean.onSet}">

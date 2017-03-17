@@ -18,21 +18,15 @@ public class SignupModel {
     private final String firstname;
     private final String lastname;
 
-    private final String company;
-
-    private final int credit;
-
     private final AddressEntity address;
 
-    public SignupModel(UserGroup group, UserStatus status, String email, String password, String firstname, String lastname, String company, int credit, AddressEntity address) {
+    public SignupModel(UserGroup group, UserStatus status, String email, String password, String firstname, String lastname, AddressEntity address) {
         this.group = group;
         this.status = status;
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.company = company;
-        this.credit = credit;
         this.address = address;
     }
 
@@ -60,14 +54,6 @@ public class SignupModel {
         return lastname;
     }
 
-    public String getCompany() {
-        return company;
-    }
-
-    public int getCredit() {
-        return credit;
-    }
-
     public AddressEntity getAddress() {
         return address;
     }
@@ -82,8 +68,6 @@ public class SignupModel {
         private String firstname = "";
         private String lastname = "";
 
-        private String company = "";
-        private int credit = 100;
         private AddressEntity address = null;
 
         public Builder setGroup(UserGroup group) {
@@ -116,23 +100,13 @@ public class SignupModel {
             return this;
         }
 
-        public Builder setCompany(String company) {
-            this.company = company;
-            return this;
-        }
-
-        public Builder setCredit(int credit) {
-            this.credit = credit;
-            return this;
-        }
-
         public Builder setAddress(AddressEntity address) {
             this.address = address;
             return this;
         }
 
         public SignupModel build() {
-            return new SignupModel(group, status, email, password, firstname, lastname, company, credit, address);
+            return new SignupModel(group, status, email, password, firstname, lastname, address);
         }
     }
 

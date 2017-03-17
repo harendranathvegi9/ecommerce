@@ -5,17 +5,21 @@ import com.aripd.ecommerce.service.ProductService;
 import com.aripd.ecommerce.service.UserService;
 import com.aripd.ecommerce.entity.ProductEntity;
 import com.aripd.ecommerce.entity.UserEntity;
+import com.aripd.ecommerce.model.data.LazyProductDataModelByStatus;
 import com.aripd.ecommerce.service.BasketitemService;
 import com.aripd.util.MessageUtil;
 import com.aripd.util.currency.CurrencyBean;
 import com.aripd.util.currency.PriceHelper;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.model.LazyDataModel;
 
 @Named
 @ViewScoped
@@ -24,6 +28,7 @@ public class ProductBean implements Serializable {
     @Inject
     private ProductService productService;
     private ProductEntity selectedRecord;
+    private LazyDataModel<ProductEntity> lazyModel;
 
     private Long id;
     private String slug;
@@ -50,6 +55,7 @@ public class ProductBean implements Serializable {
     @PostConstruct
     public void init() {
         user = userService.getCurrentUser();
+        lazyModel = new LazyProductDataModelByStatus(productService, true);
     }
 
     public void onLoad() {
@@ -64,15 +70,10 @@ public class ProductBean implements Serializable {
             messageUtil.addGlobalErrorFlashMessage("Bad request. Unknown record.");
             return;
         }
+    }
 
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        ExternalContext externalContext = facesContext.getExternalContext();
-//        Map<String, String> headers = externalContext.getRequestHeaderMap();
-//        boolean ajax = "XMLHttpRequest".equals(headers.get("X-Requested-With"));
-//        if (!ajax) {
-//            HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-//            productService.saveRating(user, selectedRecord, request);
-//        }
+    public List<ProductEntity> getBanners() {
+        return new ArrayList<>();
     }
 
     public BigDecimal getPriceTaxedExchanged(ProductEntity product, Integer quantity) {
@@ -133,6 +134,10 @@ public class ProductBean implements Serializable {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public LazyDataModel<ProductEntity> getLazyModel() {
+        return lazyModel;
     }
 
 }
