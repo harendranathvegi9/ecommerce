@@ -27,9 +27,6 @@
                             <p:column headerText="#{i18n['Name']}" width="300">
                                 <h:outputText value="#{page.name}"/>
                             </p:column>
-                            <p:column headerText="#{i18n['Description']}">
-                                <h:outputText value="#{page.description}"/>
-                            </p:column>
                             <p:column exportable="false" width="100">
                                 <p:link outcome="/administrator/page/form" value="#{i18n['Edit']}">
                                     <f:param name="id" value="#{page.id}"/>

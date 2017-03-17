@@ -14,7 +14,7 @@
                         <p:dataTable id="dataTable" value="#{postController.lazyModel}" var="post" emptyMessage="#{i18n['No records found']}"
                                      paginator="true" paginatorPosition="bottom" rows="10" 
                                      rowKey="#{post.id}" selectionMode="single" selection="#{postController.selectedRecord}"
-                                     paginatorTemplate="{CurrentPostReport}  {FirstPostLink} {PreviousPostLink} {PostLinks} {NextPostLink} {LastPostLink} {RowsPerPostDropdown}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      currentPageReportTemplate="Showing {startRecord}-{endRecord} out of {totalRecords}"
                                      sortMode="multiple" 
                                      lazy="true" rowsPerPageTemplate="10,15,50">
@@ -26,9 +26,6 @@
                             </p:column>
                             <p:column headerText="#{i18n['Name']}" width="300">
                                 <h:outputText value="#{post.name}"/>
-                            </p:column>
-                            <p:column headerText="#{i18n['Description']}">
-                                <h:outputText value="#{post.description}"/>
                             </p:column>
                             <p:column exportable="false" width="100">
                                 <p:link outcome="/administrator/post/form" value="#{i18n['Edit']}">
