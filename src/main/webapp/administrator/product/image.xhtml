@@ -62,14 +62,14 @@
                                         </p:lightBox>
                                         <f:facet name="footer">
                                             <p:commandButton title="#{i18n['Download']}" 
-                                                             actionListener="#{productController.prepareFile(file)}" 
+                                                             actionListener="#{productController.prepareFile(image)}" 
                                                              ajax="false" 
                                                              onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              icon="fa fa-cloud-download">
                                                 <p:fileDownload value="#{productController.streamedContent}" />
                                             </p:commandButton>
                                             <p:commandButton title="#{i18n['Delete']}" 
-                                                             actionListener="#{productController.deleteFile(file)}"
+                                                             actionListener="#{productController.deleteFile(image)}"
                                                              update="@form, :growl"
                                                              styleClass="red-button"
                                                              icon="fa fa-trash">
