@@ -54,10 +54,10 @@
                                     <p:panelGrid columns="1" style="width:100%">
                                         <p:lightBox>
                                             <p:commandLink title="#{image.name}">
-                                                <p:graphicImage name="#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" width="80" height="80" rendered="#{not empty image}" />
+                                                <p:graphicImage value="/product/#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" width="80" height="80" rendered="#{not empty image}" />
                                             </p:commandLink>
                                             <f:facet name="inline">
-                                                <p:graphicImage name="#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" width="512" height="512" rendered="#{not empty image}" />
+                                                <p:graphicImage value="/product/#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" width="512" height="512" rendered="#{not empty image}" />
                                             </f:facet>
                                         </p:lightBox>
                                         <f:facet name="footer">
