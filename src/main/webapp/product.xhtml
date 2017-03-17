@@ -20,7 +20,7 @@
                 <div class="ui-g">
                     <div class="ui-g-8">
                         <p:galleria value="#{productBean.selectedRecord.images}" var="image" showCaption="true">
-                            <p:graphicImage name="#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" rendered="#{not empty image}" />
+                            <p:graphicImage value="/product/#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" rendered="#{not empty image}" />
                         </p:galleria>
                     </div>
                     <div class="ui-g-4">

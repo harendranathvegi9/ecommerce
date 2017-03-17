@@ -43,7 +43,7 @@
                                 <f:param name="id" value="#{product.id}"/>
                                 <f:param name="slug" value="#{product.slug}"/>
                                 <figure>
-                                    <p:graphicImage name="#{product.image.name}" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image}" />
+                                    <p:graphicImage value="/product/#{product.image.name}" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image}" />
                                     <figcaption>
                                         <p><h:outputText value="#{product.name}"/></p>
                                         <small><h:outputText value="#{of:formatCurrency(categoryBean.getPriceTaxedExchanged(product), currencyBean.currency.currencyCode)}"/></small>

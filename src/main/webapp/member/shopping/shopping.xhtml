@@ -28,7 +28,7 @@
                                     <p:link outcome="/product">
                                         <f:param name="id" value="#{basketitem.product.id}"/>
                                         <f:param name="slug" value="#{basketitem.product.slug}"/>
-                                        <p:graphicImage name="#{basketitem.product.image.name}" alt="#{basketitem.product.name}" title="#{basketitem.product.name}" rendered="#{not empty basketitem.product.image}" />
+                                        <p:graphicImage value="/product/#{basketitem.product.image.name}" alt="#{basketitem.product.name}" title="#{basketitem.product.name}" rendered="#{not empty basketitem.product.image}" />
                                     </p:link>
                                 </p:column>
                                 <p:column headerText="#{i18n['Product']}">
