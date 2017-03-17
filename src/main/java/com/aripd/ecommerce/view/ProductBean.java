@@ -73,7 +73,7 @@ public class ProductBean implements Serializable {
     }
 
     public List<ProductEntity> getBanners() {
-        return new ArrayList<>();
+        return productService.findByBannerStatusTrue();
     }
 
     public BigDecimal getPriceTaxedExchanged(ProductEntity product, Integer quantity) {

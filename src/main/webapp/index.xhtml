@@ -26,6 +26,13 @@
                     </ui:repeat>
                 </div>
                 <div class="ui-g">
+                    <p:imageSwitch effect="fade">
+                        <ui:repeat value="#{productBean.banners}" var="product">
+                            <p:graphicImage value="/product/#{product.image.name}" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image}" />
+                        </ui:repeat>
+                    </p:imageSwitch>
+                </div>
+                <div class="ui-g">
                     <p:dataScroller id="product" value="#{productBean.lazyModel}" var="product" 
                                     chunkSize="20" 
                                     lazy="true">
