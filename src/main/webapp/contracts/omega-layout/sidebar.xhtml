@@ -27,12 +27,12 @@
                         </a>
                         <ul>
                             <li>
-                                <p:link outcome="/administrator/profile" rendered="#{request.isUserInRole('Administrator')}">
+                                <p:link outcome="/administrator/profile">
                                     <i class="fa fa-fw fa-user"></i><span>#{i18n['Account']}</span>
                                 </p:link>
                             </li>
                             <li>
-                                <p:link outcome="/administrator/ticket/index" rendered="#{request.isUserInRole('Administrator')}">
+                                <p:link outcome="/administrator/ticket/index">
                                     <i class="fa fa-fw fa-bell"></i>
                                     <span>#{i18n['Notifications']}</span>
                                     <span class="menu-badge">5</span>
@@ -49,8 +49,9 @@
 
                 <div class="menu">
                     <h:form>
-                        <po:menu rendered="#{request.isUserInRole('Administrator')}">
+                        <po:menu>
                             <p:menuitem outcome="/administrator/index" value="#{i18n['Dashboard']}" icon="fa fa-tachometer fa-fw" />
+                            <p:menuitem outcome="/administrator/post/index" value="#{i18n['Posts']}" icon="fa fa-file-text-o fa-fw" />
                             <p:menuitem outcome="/administrator/page/index" value="#{i18n['Pages']}" icon="fa fa-files-o fa-fw" />
                             <p:menuitem outcome="/administrator/user/index" value="#{i18n['Users']}" icon="fa fa-users fa-fw" />
                             <p:menuitem outcome="/administrator/category/index" value="#{i18n['Categories']}" icon="fa fa-tags fa-fw" />

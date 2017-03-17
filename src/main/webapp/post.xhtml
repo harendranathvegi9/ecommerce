@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template_landing.xhtml">
+    <ui:define name="title">#{postBean.selectedRecord.name}</ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{postBean.id}"/>
+            <f:event type="preRenderView" listener="#{postBean.onLoad}"/>
+        </f:metadata>
+
+        <div id="mainsection">
+            <div class="mainsection-content">
+
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <p:dataScroller value="#{postBean.lazyModel}" var="post" 
+                                        chunkSize="10" 
+                                        mode="inline"
+                                        scrollHeight="250"
+                                        lazy="true">
+                            <h:panelGrid style="padding-bottom: 10px;">
+                                <p:link outcome="/post" value="#{post.name}">
+                                    <f:param name="id" value="#{post.id}"/>
+                                </p:link>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </div>
+                    <div class="ui-g-9">
+                        <h1><h:outputText value="#{postBean.selectedRecord.name}"/></h1>
+                        <p style="text-align: right;">
+                            <h:outputFormat value="#{postBean.selectedRecord.createdAt}">
+                                <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                            </h:outputFormat>
+                        </p>
+                        <h2><h:outputText value="#{postBean.selectedRecord.description}" /></h2>
+                        <p><h:outputText value="#{postBean.selectedRecord.content}" escape="false" /></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>
