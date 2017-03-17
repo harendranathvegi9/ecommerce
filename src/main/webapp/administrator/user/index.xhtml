@@ -71,6 +71,8 @@
                     <p:selectOneMenu id="userStatus" value="#{userController.selectedRecord.userStatus}" label="#{i18n['Status']}" converter="#{userStatusConverter}" required="true">
                         <f:selectItems value="#{userController.userStatuses}" var="userStatus" itemValue="#{userStatus}" itemLabel="#{i18n[userStatus.label]}"/>
                     </p:selectOneMenu>
+                    <p:outputLabel for="mailing" value="#{i18n['Opt-in emailing']}"/>
+                    <p:selectBooleanCheckbox id="mailing" value="#{userController.selectedRecord.mailing}" label="#{i18n['Opt-in emailing']}" itemLabel="#{i18n['I want to be informed about the campaign and products']}" />
                 </p:panelGrid>
                 <f:facet name="footer">
                     <p:commandButton value="#{i18n['Update']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{userController.doUpdateRecord}"/>
@@ -99,6 +101,8 @@
                     <p:selectOneMenu id="userStatus" value="#{userController.newRecord.userStatus}" label="#{i18n['Status']}" converter="#{userStatusConverter}" required="true">
                         <f:selectItems value="#{userController.userStatuses}" var="userStatus" itemValue="#{userStatus}" itemLabel="#{i18n[userStatus.label]}"/>
                     </p:selectOneMenu>
+                    <p:outputLabel for="mailing" value="#{i18n['Opt-in emailing']}"/>
+                    <p:selectBooleanCheckbox id="mailing" value="#{userController.newRecord.mailing}" label="#{i18n['Opt-in emailing']}" itemLabel="#{i18n['I want to be informed about the campaign and products']}" />
                 </p:panelGrid>
                 <f:facet name="footer">
                     <p:commandButton value="#{i18n['Save']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'newDlg','newForm','newDialog');" actionListener="#{userController.doCreateRecord}"/>

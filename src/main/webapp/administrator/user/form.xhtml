@@ -45,6 +45,8 @@
                                     <p:inputText id="firstname" value="#{userController.selectedRecord.firstname}" label="#{i18n['Firstname']}" placeholder="#{i18n['Firstname']}" required="true"/>
                                     <p:outputLabel for="lastname" value="#{i18n['Lastname']}"/>
                                     <p:inputText id="lastname" value="#{userController.selectedRecord.lastname}" label="#{i18n['Lastname']}" placeholder="#{i18n['Lastname']}" required="true"/>
+                                    <p:outputLabel for="mailing" value="#{i18n['Opt-in emailing']}"/>
+                                    <p:selectBooleanCheckbox id="mailing" value="#{userController.selectedRecord.mailing}" label="#{i18n['Opt-in emailing']}" itemLabel="#{i18n['I want to be informed about the campaign and products']}" />
                                 </p:panelGrid>
                             </h:form>
                         </div>

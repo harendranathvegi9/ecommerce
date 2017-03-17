@@ -21,10 +21,10 @@
                             <f:facet name="header">
                                 <p:commandButton value="#{i18n['Create a new record']}" title="#{i18n['Create a new record']}" action="/administrator/page/new?faces-redirect=true" icon="ui-icon-plus"/>
                             </f:facet>
-                            <p:column headerText="#{i18n['Id']}">
+                            <p:column headerText="#{i18n['Id']}" width="100" filterBy="#{page.id}">
                                 <h:outputText value="#{page.id}"/>
                             </p:column>
-                            <p:column headerText="#{i18n['Name']}" width="300">
+                            <p:column headerText="#{i18n['Name']}" filterBy="#{page.name}">
                                 <h:outputText value="#{page.name}"/>
                             </p:column>
                             <p:column exportable="false" width="100">
