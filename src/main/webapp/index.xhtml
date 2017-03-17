@@ -6,28 +6,42 @@
                 xmlns:of="http://omnifaces.org/functions"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/template_landing.xhtml">
+    <ui:define name="head">
+        <style>
+            .w3-content{max-width:980px;margin:auto}
+            .w3-display-container{position:relative;}
+            .w3-button{border:none;display:inline-block;outline:0;padding:6px 16px;vertical-align:middle;overflow:hidden;text-decoration:none!important;color:#fff;background-color:#000;text-align:center;cursor:pointer;white-space:nowrap}
+            .w3-button{color:#000;background-color:#f1f1f1;padding:8px 16px}
+            .w3-button:hover{color:#000!important;background-color:#ccc!important}
+            .w3-display-left{position:absolute;top:50%;left:0%;transform:translate(0%,-50%);-ms-transform:translate(-0%,-50%)}
+            .w3-display-right{position:absolute;top:50%;right:0%;transform:translate(0%,-50%);-ms-transform:translate(0%,-50%)}
+        </style>
+    </ui:define>
     <ui:define name="content">
-<!--        <div id="introduction">
-            <div class="introduction-content">
-                <span class="title">ecommerce</span>
-                <span class="subtitle">#{i18n['Start your online business']}</span>
-                <p:graphicImage name="images/landing/section1_logo.png" />
-                <p:button outcome="/login" value="#{i18n['Log In']}"/>
-            </div>
-        </div>-->
+        <!--        <div id="introduction">
+                    <div class="introduction-content">
+                        <span class="title">ecommerce</span>
+                        <span class="subtitle">#{i18n['Start your online business']}</span>
+                        <p:graphicImage name="images/landing/section1_logo.png" />
+                        <p:button outcome="/login" value="#{i18n['Log In']}"/>
+                    </div>
+                </div>-->
         <div id="mainsection">
             <div class="mainsection-content">
                 <div class="ui-g">
-                    <h:form>
+                    <h:form rendered="#{not empty productBean.banners}">
                         <p:commandButton type="button" onclick="PF('switcher').previous();"
-                                         icon="ui-icon-circle-triangle-w" id="prev"/>
+                                         icon="ui-icon-circle-triangle-w" styleClass="w3-button w3-display-left"/>
                         <p:commandButton type="button" onclick="PF('switcher').next();"
-                                         icon="ui-icon-circle-triangle-e" id="next"/>
-                        <p:imageSwitch effect="fade" widgetVar="switcher">
+                                         icon="ui-icon-circle-triangle-e" styleClass="w3-button w3-display-right"/>
+                        <p:imageSwitch styleClass="w3-content w3-display-container" effect="fade" widgetVar="switcher">
                             <ui:repeat value="#{productBean.banners}" var="product">
-                                <p:graphicImage value="/product/#{product.image.name}" alt="#{product.name}" title="#{product.name}" width="600" height="100" rendered="#{not empty product.image}" />
+                                <p:graphicImage value="/product/#{product.image.name}" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image}" />
                             </ui:repeat>
                         </p:imageSwitch>
+                        <ui:repeat value="#{productBean.banners}" var="product" varStatus="varStatus">
+                            <p:commandLink styleClass="fa fa-circle-thin" title="#{varStatus.index+1}" onclick="PF('switcher').switchTo(#{varStatus.index});" />
+                        </ui:repeat>
                     </h:form>
                 </div>
                 <div class="ui-g">

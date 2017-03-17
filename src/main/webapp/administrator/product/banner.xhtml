@@ -35,8 +35,16 @@
 
                                     <p:outputLabel for="bannerEnd" value="#{i18n['Ending Time']}"/>
                                     <p:calendar id="bannerEnd" value="#{productController.selectedRecord.bannerEnd}" label="#{i18n['Ending Time']}" placeholder="#{i18n['Ending Time']}" locale="#{localeBean.locale}" />
-
                                 </p:panelGrid>
+
+                                <p:fileUpload fileUploadListener="#{productController.handleFileUpload}" 
+                                              mode="advanced" 
+                                              dragDropSupport="false"
+                                              sizeLimit="500000" 
+                                              fileLimit="1" 
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                              update="@form, :growl" />
+
                             </h:form>
                         </div>
                     </div>
