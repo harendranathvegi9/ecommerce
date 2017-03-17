@@ -48,7 +48,6 @@
                                 <p:column headerText="#{i18n['Unit Price']}">
                                     <h:outputText style="display:block;" title="#{i18n['Unit Price']}" value="#{of:formatCurrency(shoppingBean.getPriceExchanged(basketitem.product, basketitem.quantity, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                                     <h:outputText style="display:block;" title="#{i18n['Unit Tax']}" value="#{of:formatCurrency(shoppingBean.getTaxExchanged(basketitem.product, basketitem.quantity, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Unit Discount']}" value="#{of:formatCurrency(shoppingBean.getDiscountExchanged(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                                 </p:column>
                                 <p:column headerText="#{i18n['Quantity']}">
                                     <p:spinner value="#{basketitem.quantity}" converter="javax.faces.Integer" min="1" stepFactor="1" size="2">
@@ -62,7 +61,6 @@
                                 <p:column headerText="#{i18n['Amount']}">
                                     <h:outputText style="display:block;" title="#{i18n['Amount']}" value="#{of:formatCurrency(shoppingBean.getAmountExchanged(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                                     <h:outputText style="display:block;" title="#{i18n['Tax']}" value="#{of:formatCurrency(shoppingBean.doCalculateTaxSubtotal(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Discount']}" value="#{of:formatCurrency(shoppingBean.doCalculateDiscountSubtotal(basketitem.product, currencyBean.currency.currencyCode), currencyBean.currency.currencyCode)}"/>
                                 </p:column>
                             </p:dataTable>
 
@@ -79,7 +77,7 @@
                         <div class="clearfix"></div>
 
                         <h:form>
-                            <h:panelGrid columns="1" rendered="#{not empty shoppingBean.basketitems}">
+                            <h:panelGrid columns="1" styleClass="ui-g-12" rendered="#{not empty shoppingBean.basketitems}">
                                 <p:outputLabel for="billAddress" value="#{i18n['Bill Address']}"/>
                                 <p:selectOneMenu id="billAddress" value="#{shoppingBean.billAddress}" 
                                                  converter="#{addressConverter}"

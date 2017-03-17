@@ -37,7 +37,7 @@
                                 <h:outputText value="#{i18n[sale.saleStatus]}"/>
                             </p:column>
                             <p:column headerText="#{i18n['Total Price']}">
-                                <h:outputText value="#{of:formatCurrency(sale.priceTotalAfterTaxAfterDiscount, sale.currency)}"/>
+                                <h:outputText value="#{of:formatCurrency(sale.priceTotalAfterTax, sale.currency)}"/>
                             </p:column>
                             <p:column exportable="false" width="100">
                                 <p:link outcome="/member/sale/show" value="#{i18n['Order Details']}">

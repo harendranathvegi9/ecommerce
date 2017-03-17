@@ -88,18 +88,14 @@
                                     </p:column>
                                 </p:dataTable>
                                 <h:panelGrid columns="2">
-                                    <h:panelGroup rendered="#{saleController.selectedRecord.PAYMETHOD_CODE eq 'CCVISAMC'}">
+                                    <h:panelGroup rendered="#{saleController.selectedRecord.paymentMethod eq 'CCVISAMC'}">
                                         <h:outputFormat value="{0} - {1} {2} - {3}">
                                             <f:param value="#{i18n['Delay Interest']}"/>
                                             <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_NUMBER}"/>
                                             <f:param value="#{i18n['Installment']}"/>
                                             <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_PROGRAM}"/>
                                         </h:outputFormat>
-                                        <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.IPN_COMMISSION, saleController.selectedRecord.currency)}"/>
                                     </h:panelGroup>
-
-                                    <h:outputText value="#{i18n['Shipping Cost']}"/>
-                                    <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.IPN_SHIPPING, saleController.selectedRecord.currency)}"/>
 
                                     <h:outputText value="#{i18n['General Total']}"/>
                                     <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.IPN_TOTALGENERAL, saleController.selectedRecord.currency)}"/>

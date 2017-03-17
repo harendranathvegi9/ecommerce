@@ -36,9 +36,6 @@
                             <p:column headerText="#{i18n['Unit Tax']}">
                                 <h:outputText value="#{of:formatCurrency(shoppingBean.getTaxExchanged(basketitem.product, basketitem.quantity, 'TRY'), 'TRY')}"/>
                             </p:column>
-                            <p:column headerText="#{i18n['Unit Discount']}">
-                                <h:outputText value="#{of:formatCurrency(shoppingBean.getDiscountExchanged(basketitem.product, 'TRY'), 'TRY')}"/>
-                            </p:column>
                             <p:column headerText="#{i18n['Amount']}">
                                 <h:outputText value="#{of:formatCurrency(shoppingBean.getAmountExchanged(basketitem.product, 'TRY'), 'TRY')}"/>
                             </p:column>

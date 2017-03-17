@@ -40,11 +40,6 @@ public class SalelineEntity extends AbstractEntity {
     private BigDecimal IPN_PRICE;
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
     private BigDecimal IPN_VAT;
-    private String IPN_VER;
-    @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
-    private BigDecimal IPN_DISCOUNT;
-    private String IPN_PROMONAME;
-    private String IPN_DELIVEREDCODES;
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
     private BigDecimal IPN_TOTAL;
 
@@ -65,18 +60,6 @@ public class SalelineEntity extends AbstractEntity {
     public BigDecimal getPriceTotalAfterTax() {
 //        return IPN_PRICE.add(IPN_VAT).multiply(new BigDecimal(IPN_QTY));
         return IPN_TOTAL.multiply(new BigDecimal(IPN_QTY));
-    }
-
-    @Transient
-    public BigDecimal getDiscountTotal() {
-        return IPN_DISCOUNT.multiply(new BigDecimal(IPN_QTY));
-    }
-
-    @Transient
-    public BigDecimal getPriceTotalAfterTaxAfterDiscount() {
-//        return IPN_PRICE.add(IPN_VAT).multiply(new BigDecimal(IPN_QTY)).subtract(IPN_DISCOUNT.multiply(new BigDecimal(IPN_QTY)));
-//        return IPN_TOTAL.multiply(new BigDecimal(IPN_QTY)).subtract(IPN_DISCOUNT.multiply(new BigDecimal(IPN_QTY)));
-        return IPN_TOTAL.subtract(IPN_DISCOUNT).multiply(new BigDecimal(IPN_QTY));
     }
 
     public SaleEntity getSale() {
@@ -165,38 +148,6 @@ public class SalelineEntity extends AbstractEntity {
 
     public void setIPN_VAT(BigDecimal IPN_VAT) {
         this.IPN_VAT = IPN_VAT;
-    }
-
-    public String getIPN_VER() {
-        return IPN_VER;
-    }
-
-    public void setIPN_VER(String IPN_VER) {
-        this.IPN_VER = IPN_VER;
-    }
-
-    public BigDecimal getIPN_DISCOUNT() {
-        return IPN_DISCOUNT;
-    }
-
-    public void setIPN_DISCOUNT(BigDecimal IPN_DISCOUNT) {
-        this.IPN_DISCOUNT = IPN_DISCOUNT;
-    }
-
-    public String getIPN_PROMONAME() {
-        return IPN_PROMONAME;
-    }
-
-    public void setIPN_PROMONAME(String IPN_PROMONAME) {
-        this.IPN_PROMONAME = IPN_PROMONAME;
-    }
-
-    public String getIPN_DELIVEREDCODES() {
-        return IPN_DELIVEREDCODES;
-    }
-
-    public void setIPN_DELIVEREDCODES(String IPN_DELIVEREDCODES) {
-        this.IPN_DELIVEREDCODES = IPN_DELIVEREDCODES;
     }
 
     public BigDecimal getIPN_TOTAL() {

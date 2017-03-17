@@ -102,23 +102,6 @@ public class ShoppingBean implements Serializable {
         return priceHelper.getTaxExchanged(product, quantity, currencyCode);
     }
 
-    public BigDecimal getDiscountExchanged(ProductEntity product, String currencyCode) {
-        BasketitemEntity entity = (BasketitemEntity) IterableUtils.find(basketitems, new Predicate() {
-
-            @Override
-            public boolean evaluate(Object o) {
-                BasketitemEntity element = (BasketitemEntity) o;
-                return element.getProduct().equals(product);
-            }
-
-        });
-
-        Integer quantity = entity.getQuantity();
-
-        BigDecimal priceTaxed = priceHelper.getPriceTaxedExchanged(product, quantity, currencyCode);
-        return priceTaxed;
-    }
-
     public BigDecimal getAmountExchanged(ProductEntity product, String currencyCode) {
         BasketitemEntity entity = (BasketitemEntity) IterableUtils.find(basketitems, new Predicate() {
 
@@ -150,23 +133,6 @@ public class ShoppingBean implements Serializable {
         Integer quantity = entity.getQuantity();
 
         return priceHelper.getTaxExchanged(product, quantity, currencyCode).multiply(new BigDecimal(quantity));
-    }
-
-    public BigDecimal doCalculateDiscountSubtotal(ProductEntity product, String currencyCode) {
-        BasketitemEntity entity = (BasketitemEntity) IterableUtils.find(basketitems, new Predicate() {
-
-            @Override
-            public boolean evaluate(Object o) {
-                BasketitemEntity element = (BasketitemEntity) o;
-                return element.getProduct().equals(product);
-            }
-
-        });
-
-        Integer quantity = entity.getQuantity();
-
-        BigDecimal priceTaxed = priceHelper.getPriceTaxedExchanged(product, quantity, currencyCode).multiply(new BigDecimal(quantity));
-        return priceTaxed;
     }
 
     public BigDecimal doCalculateTaxTotal(String currencyCode) {
@@ -302,11 +268,7 @@ public class ShoppingBean implements Serializable {
             saleline.setIPN_QTY(basketAmount);
             saleline.setIPN_PRICE(priceHelper.getPriceExchanged(basketProduct, basketAmount, "TRY"));
             saleline.setIPN_VAT(priceHelper.getTaxExchanged(basketProduct, basketAmount, "TRY"));
-            saleline.setIPN_VER("");
-            saleline.setIPN_PROMONAME("");
-            saleline.setIPN_DELIVEREDCODES("");
             saleline.setIPN_TOTAL(saleline.getIPN_PRICE().add(saleline.getIPN_VAT()));
-            saleline.setIPN_DISCOUNT(BigDecimal.ZERO);
 
             salelines.add(saleline);
         }
@@ -319,21 +281,15 @@ public class ShoppingBean implements Serializable {
         e.setREFNOEXT(orderRef);
         e.setORDERNO("");
         e.setSaleStatus(SaleStatus.WAITING_FOR_PAYMENT);
-        e.setPAYMETHOD("");
-        e.setPAYMETHOD_CODE(paymentMethod);
+        e.setPaymentMethod(paymentMethod);
 
         e.setIPN_PAID_AMOUNT(BigDecimal.ZERO);
         e.setIPN_INSTALLMENTS_PROGRAM("");
         e.setIPN_INSTALLMENTS_NUMBER("");
-        e.setIPN_INSTALLMENTS_PROFIT(BigDecimal.ZERO);
 
         e.setCurrency("TRY");
-        e.setIPN_COMMISSION(BigDecimal.ZERO);
-        e.setIPN_SHIPPING(BigDecimal.ZERO);
-        e.setIPN_TOTALGENERAL(e.getPriceTotalAfterTax().add(e.getIPN_COMMISSION().add(e.getIPN_SHIPPING())));
-        e.setIPN_GLOBALDISCOUNT(BigDecimal.ZERO);
+        e.setIPN_TOTALGENERAL(e.getPriceTotalAfterTax());
         e.setIPN_DATE("");
-        e.setHASH("");
 
         SaleEntity sale = saleService.create(e);
 

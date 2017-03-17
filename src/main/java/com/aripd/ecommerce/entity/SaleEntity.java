@@ -69,28 +69,19 @@ public class SaleEntity extends AbstractEntity {
 
     private String ORDERNO;
 
-    private String PAYMETHOD;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PaymentMethod PAYMETHOD_CODE;
+    private PaymentMethod paymentMethod;
 
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
     private BigDecimal IPN_PAID_AMOUNT = BigDecimal.ZERO;
     private String IPN_INSTALLMENTS_PROGRAM;
     private String IPN_INSTALLMENTS_NUMBER;
-    private BigDecimal IPN_INSTALLMENTS_PROFIT = BigDecimal.ZERO;
 
     private String currency;
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
     private BigDecimal IPN_TOTALGENERAL = BigDecimal.ZERO;
-    @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
-    private BigDecimal IPN_SHIPPING = BigDecimal.ZERO;
-    private BigDecimal IPN_GLOBALDISCOUNT = BigDecimal.ZERO;
-    @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
-    private BigDecimal IPN_COMMISSION = BigDecimal.ZERO;
     private String IPN_DATE;
-    private String HASH;
 
     public SaleEntity() {
     }
@@ -141,31 +132,10 @@ public class SaleEntity extends AbstractEntity {
     }
 
     @Transient
-    public BigDecimal getPriceTotalAfterTaxAfterDiscount() {
-        BigDecimal s = BigDecimal.ZERO;
-        for (SalelineEntity e : this.getSalelines()) {
-            BigDecimal sl = e.getPriceTotalAfterTaxAfterDiscount();
-            s = s.add(sl);
-        }
-        return s;
-    }
-
-    @Transient
     public BigDecimal getTaxTotal() {
         BigDecimal s = BigDecimal.ZERO;
         for (SalelineEntity e : this.getSalelines()) {
             BigDecimal sl = e.getIPN_VAT().multiply(new BigDecimal(e.getIPN_QTY()));
-            s = s.add(sl);
-        }
-        return s;
-
-    }
-
-    @Transient
-    public BigDecimal getDiscountTotal() {
-        BigDecimal s = BigDecimal.ZERO;
-        for (SalelineEntity e : this.getSalelines()) {
-            BigDecimal sl = e.getIPN_DISCOUNT().multiply(new BigDecimal(e.getIPN_QTY()));
             s = s.add(sl);
         }
         return s;
@@ -362,20 +332,12 @@ public class SaleEntity extends AbstractEntity {
         this.saleStatus = saleStatus;
     }
 
-    public String getPAYMETHOD() {
-        return PAYMETHOD;
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPAYMETHOD(String PAYMETHOD) {
-        this.PAYMETHOD = PAYMETHOD;
-    }
-
-    public PaymentMethod getPAYMETHOD_CODE() {
-        return PAYMETHOD_CODE;
-    }
-
-    public void setPAYMETHOD_CODE(PaymentMethod PAYMETHOD_CODE) {
-        this.PAYMETHOD_CODE = PAYMETHOD_CODE;
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public BigDecimal getIPN_PAID_AMOUNT() {
@@ -402,14 +364,6 @@ public class SaleEntity extends AbstractEntity {
         this.IPN_INSTALLMENTS_NUMBER = IPN_INSTALLMENTS_NUMBER;
     }
 
-    public BigDecimal getIPN_INSTALLMENTS_PROFIT() {
-        return IPN_INSTALLMENTS_PROFIT;
-    }
-
-    public void setIPN_INSTALLMENTS_PROFIT(BigDecimal IPN_INSTALLMENTS_PROFIT) {
-        this.IPN_INSTALLMENTS_PROFIT = IPN_INSTALLMENTS_PROFIT;
-    }
-
     public String getCurrency() {
         return currency;
     }
@@ -426,44 +380,12 @@ public class SaleEntity extends AbstractEntity {
         this.IPN_TOTALGENERAL = IPN_TOTALGENERAL;
     }
 
-    public BigDecimal getIPN_SHIPPING() {
-        return IPN_SHIPPING;
-    }
-
-    public void setIPN_SHIPPING(BigDecimal IPN_SHIPPING) {
-        this.IPN_SHIPPING = IPN_SHIPPING;
-    }
-
-    public BigDecimal getIPN_GLOBALDISCOUNT() {
-        return IPN_GLOBALDISCOUNT;
-    }
-
-    public void setIPN_GLOBALDISCOUNT(BigDecimal IPN_GLOBALDISCOUNT) {
-        this.IPN_GLOBALDISCOUNT = IPN_GLOBALDISCOUNT;
-    }
-
-    public BigDecimal getIPN_COMMISSION() {
-        return IPN_COMMISSION;
-    }
-
-    public void setIPN_COMMISSION(BigDecimal IPN_COMMISSION) {
-        this.IPN_COMMISSION = IPN_COMMISSION;
-    }
-
     public String getIPN_DATE() {
         return IPN_DATE;
     }
 
     public void setIPN_DATE(String IPN_DATE) {
         this.IPN_DATE = IPN_DATE;
-    }
-
-    public String getHASH() {
-        return HASH;
-    }
-
-    public void setHASH(String HASH) {
-        this.HASH = HASH;
     }
 
     public Date getCreatedAt() {

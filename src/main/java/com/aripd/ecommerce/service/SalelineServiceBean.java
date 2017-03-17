@@ -51,10 +51,8 @@ public class SalelineServiceBean extends CrudServiceBean<SalelineEntity, Long> i
 
         Expression<String> eLabel = product.get(ProductEntity_.name);
         Expression<BigDecimal> eTotal = root.get(SalelineEntity_.IPN_TOTAL);
-        Expression<BigDecimal> eDiscount = root.get(SalelineEntity_.IPN_DISCOUNT);
         Expression<BigDecimal> eQuantity = root.get(SalelineEntity_.IPN_QTY).as(BigDecimal.class);
-        Expression<BigDecimal> eRevenuePerUnit = cb.diff(eTotal, eDiscount);
-        Expression<BigDecimal> eRevenue = cb.prod(eRevenuePerUnit, eQuantity);
+        Expression<BigDecimal> eRevenue = cb.prod(eTotal, eQuantity);
         Expression<BigDecimal> eSum = cb.sum(eRevenue);
 
         cq.multiselect(eLabel.alias("LABEL"), eSum.alias("SUM"));
