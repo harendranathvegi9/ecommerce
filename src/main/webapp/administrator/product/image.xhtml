@@ -22,42 +22,58 @@
                             <composite:navigationProduct product="#{productController.selectedRecord}"/>
                         </div>
                         <div class="ui-g-9">
-                            <h:form enctype="multipart/form-data">
-                                <p:panelGrid columns="2">
-                                    <p:outputLabel for="sortOrder" value="#{i18n['Sort Order']}"/>
-                                    <p:inputText id="sortOrder" value="#{productController.imageFormModel.sortOrder}" label="#{i18n['Sort Order']}" placeholder="#{i18n['Sort Order']}" required="true"/>
-                                    <p:outputLabel for="name" value="#{i18n['Name']}"/>
-                                    <p:inputText id="name" value="#{productController.imageFormModel.name}" label="#{i18n['Name']}" placeholder="#{i18n['Name']}" required="true"/>
-                                    <p:outputLabel value="#{i18n['Images']}"/>
-                                    <p:fileUpload value="#{productController.imageFormModel.file}" label="#{i18n['Choose']}" mode="simple" skinSimple="true" validator="uploadImageValidator" required="true"/>
-
-                                    <f:facet name="footer">
-                                        <p:commandButton value="#{i18n['Upload']}" actionListener="#{productController.onUploadImage}" update="@form, :growl" ajax="false"/>
-                                    </f:facet>
-                                </p:panelGrid>
-                            </h:form>
+                            <!--                            <h:form enctype="multipart/form-data">
+                                                            <p:panelGrid columns="2">
+                                                                <p:outputLabel for="sortOrder" value="#{i18n['Sort Order']}"/>
+                                                                <p:inputText id="sortOrder" value="#{productController.imageFormModel.sortOrder}" label="#{i18n['Sort Order']}" placeholder="#{i18n['Sort Order']}" required="true"/>
+                                                                <p:outputLabel for="name" value="#{i18n['Name']}"/>
+                                                                <p:inputText id="name" value="#{productController.imageFormModel.name}" label="#{i18n['Name']}" placeholder="#{i18n['Name']}" required="true"/>
+                                                                <p:outputLabel value="#{i18n['Images']}"/>
+                                                                <p:fileUpload value="#{productController.imageFormModel.file}" label="#{i18n['Choose']}" mode="simple" skinSimple="true" validator="uploadImageValidator" required="true"/>
+                            
+                                                                <f:facet name="footer">
+                                                                    <p:commandButton value="#{i18n['Upload']}" actionListener="#{productController.onUploadImage}" update="@form, :growl" ajax="false"/>
+                                                                </f:facet>
+                                                            </p:panelGrid>
+                                                        </h:form>-->
 
                             <h:form>
+                                <p:fileUpload fileUploadListener="#{productController.handleFileUpload}" 
+                                              sequential="true"
+                                              mode="advanced" 
+                                              auto="false"
+                                              dragDropSupport="true" 
+                                              multiple="true" 
+                                              sizeLimit="500000"
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                              update="@form, :growl" />
+
                                 <p:dataGrid value="#{productController.selectedRecord.images}" var="image" 
                                             emptyMessage="#{i18n['No records found']}" rendered="#{not empty productController.selectedRecord.images}"
                                             layout="grid" columns="15">
                                     <p:panelGrid columns="1" style="width:100%">
                                         <p:lightBox>
                                             <p:commandLink title="#{image.name}">
-                                                <o:graphicImage value="#{image.bytes}" dataURI="true" width="80" height="80" alt="#{image.name}" title="#{image.name}" rendered="#{not empty image.bytes}"/>
+                                                <p:graphicImage name="#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" width="80" height="80" rendered="#{not empty image}" />
                                             </p:commandLink>
                                             <f:facet name="inline">
-                                                <o:graphicImage value="#{image.bytes}" dataURI="true" width="512" height="512" alt="#{image.name}" title="#{image.name}" rendered="#{not empty image.bytes}"/>
+                                                <p:graphicImage name="#{image.name}" alt="#{image.product.name}" title="#{image.product.name}" width="512" height="512" rendered="#{not empty image}" />
                                             </f:facet>
                                         </p:lightBox>
                                         <f:facet name="footer">
-                                            <p:commandButton value="#{i18n['Download']}" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" action="#{productController.onDownloadImage}" ajax="false">
-                                                <f:setPropertyActionListener value="#{image}" target="#{productController.selectedImage}"/>
-                                                <p:fileDownload value="#{productController.imageToDownload}" />
+                                            <p:commandButton title="#{i18n['Download']}" 
+                                                             actionListener="#{productController.prepareFile(file)}" 
+                                                             ajax="false" 
+                                                             onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                             icon="fa fa-cloud-download">
+                                                <p:fileDownload value="#{productController.streamedContent}" />
                                             </p:commandButton>
-                                            <p:commandButton value="#{i18n['Delete']}" action="#{productController.onDeleteImage}" update="@form, :growl" icon="ui-icon-trash">
+                                            <p:commandButton title="#{i18n['Delete']}" 
+                                                             actionListener="#{productController.deleteFile(file)}"
+                                                             update="@form, :growl"
+                                                             styleClass="red-button"
+                                                             icon="fa fa-trash">
                                                 <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
-                                                <f:setPropertyActionListener value="#{image}" target="#{productController.selectedImage}"/>
                                             </p:commandButton>
                                         </f:facet>
                                     </p:panelGrid>

@@ -1,6 +1,7 @@
 package com.aripd.ecommerce.view.administrator;
 
 import com.aripd.ecommerce.entity.CategoryEntity;
+import com.aripd.ecommerce.entity.ImageEntity;
 import com.aripd.util.MessageUtil;
 import com.aripd.ecommerce.service.ProductService;
 import com.aripd.ecommerce.entity.ProductEntity;
@@ -9,14 +10,26 @@ import com.aripd.ecommerce.model.data.LazyProductDataModel;
 import com.aripd.ecommerce.service.CategoryService;
 import com.aripd.ecommerce.service.PriceService;
 import com.aripd.util.RequestUtil;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 @Named
 @ViewScoped
@@ -30,6 +43,8 @@ public class ProductController implements Serializable {
     private LazyDataModel<ProductEntity> lazyModel;
 
     private Long id;
+
+    private StreamedContent streamedContent;
 
     @Inject
     private PriceService priceService;
@@ -69,6 +84,52 @@ public class ProductController implements Serializable {
 
     public List<CategoryEntity> getCategories() {
         return categoryService.findAll();
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        try {
+            UploadedFile uploadedFile = event.getFile();
+            String contentType = uploadedFile.getContentType();
+            byte[] contents = uploadedFile.getContents();
+            String fileName = uploadedFile.getFileName();
+            InputStream inputStream = uploadedFile.getInputstream();
+            long size = uploadedFile.getSize();
+
+            String newFileName = productService.uploadToLocal("product", uploadedFile);
+
+            ImageEntity newFile = new ImageEntity();
+            newFile.setContentType(contentType);
+            newFile.setProduct(selectedRecord);
+            newFile.setName(newFileName);
+            newFile.setNameOriginal(fileName);
+            newFile.setSize(size);
+
+            selectedRecord.getImages().add(newFile);
+            productService.update(selectedRecord);
+
+            FacesMessage message = new FacesMessage("Succesful", fileName + " is uploaded as " + newFileName);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+//            messageUtil.addGlobalInfoFlashMessage("Uploaded");
+        } catch (IOException ex) {
+            messageUtil.addGlobalCustomFlashMessage("An error occured: " + ex.getMessage());
+        }
+    }
+
+    public void prepareFile(ImageEntity file) {
+        try {
+            Path path = Paths.get(productService.getUploadPath("product").toString(), file.getName());
+            byte[] bytes = Files.readAllBytes(path);
+            InputStream stream = new ByteArrayInputStream(bytes);
+            streamedContent = new DefaultStreamedContent(stream, file.getContentType(), file.getNameOriginal());
+        } catch (IOException ex) {
+        }
+    }
+
+    public void deleteFile(ImageEntity file) {
+        productService.removeFromLocal("product", file.getName());
+        selectedRecord.getImages().remove(file);
+        productService.update(selectedRecord);
+        messageUtil.addGlobalInfoFlashMessage("Deleted");
     }
 
     public void doCreatePrice(ActionEvent actionEvent) {
@@ -171,6 +232,10 @@ public class ProductController implements Serializable {
 
     public void setSelectedPrice(PriceEntity selectedPrice) {
         this.selectedPrice = selectedPrice;
+    }
+
+    public StreamedContent getStreamedContent() {
+        return streamedContent;
     }
 
 }

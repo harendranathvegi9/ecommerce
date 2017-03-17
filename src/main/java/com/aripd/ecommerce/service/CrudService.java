@@ -15,6 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.UploadedFile;
 
 public interface CrudService<T, PK extends Serializable> {
 
@@ -72,7 +73,7 @@ public interface CrudService<T, PK extends Serializable> {
      */
     public void writeBais(String filePath, byte[] buf);
 
-    public String uploadToLocal(String directory, InputStream inputStream);
+    public String uploadToLocal(String directory, UploadedFile uploadedFile);
 
     public boolean removeFromLocal(String directory, String fileName);
 

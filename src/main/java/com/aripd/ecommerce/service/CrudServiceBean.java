@@ -1,6 +1,7 @@
 package com.aripd.ecommerce.service;
 
 import com.aripd.util.Resizer;
+import com.aripd.util.StringUtil;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -31,6 +32,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.UploadedFile;
 
 /**
  * @param <T> Entity
@@ -433,10 +435,10 @@ public abstract class CrudServiceBean<T, PK extends Serializable> implements Cru
     }
 
     @Override
-    public String uploadToLocal(String directory, InputStream inputStream) {
+    public String uploadToLocal(String directory, UploadedFile uploadedFile) {
         try {
-            java.nio.file.Path path = Files.createTempFile(getUploadPath(directory), "somefilename-", ".jpg");
-            Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+            java.nio.file.Path path = Files.createTempFile(getUploadPath(directory), "somefilename-", StringUtil.filenameToExtensionWithDot(uploadedFile.getFileName()));
+            Files.copy(uploadedFile.getInputstream(), path, StandardCopyOption.REPLACE_EXISTING);
             String fileName = path.getFileName().toString();
             return fileName;
         } catch (IOException ex) {

@@ -22,8 +22,36 @@ public class StringUtil {
         if (i > 0) {
             extension = fileName.substring(i + 1);
         }
-        
+
         return extension;
+    }
+
+    public static String filenameToExtensionByContentType(String contentType) {
+        switch (contentType) {
+            case "application/pdf":
+                return "pdf";
+            case "application/vnd.ms-excel":
+                return "xls";
+            case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                return "xlsx";
+            case "application/msword":
+                return "doc";
+            case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+                return "docx";
+            case "image/jpeg":
+                return "jpg";
+            case "image/png":
+            case "image/x-png":
+                return "png";
+            case "application/zip":
+                return "zip";
+            default:
+                return null;
+        }
+    }
+
+    public static String filenameToExtensionWithDot(String fileName) {
+        return "." + filenameToExtension(fileName);
     }
 
     public static String slugify(String input) {
