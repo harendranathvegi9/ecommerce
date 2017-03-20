@@ -153,7 +153,7 @@ public class ProductEntity extends AbstractEntity {
     public List<ImageEntity> getImages() {
         return images
                 .stream()
-                .filter(i -> i.getImageType().equals(ImageType.SHOWCASE))
+//                .filter(i -> i.getImageType().equals(ImageType.SHOWCASE))
                 .sorted((p1, p2) -> Integer.compare(p1.getSortOrder(), p2.getSortOrder()))
                 .collect(Collectors.toList());
     }
