@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 public class ImageEntity extends AbstractEntity {
 
     @NotNull
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ImageType imageType = ImageType.SHOWCASE;
 
     @NotNull
