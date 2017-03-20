@@ -12,7 +12,6 @@ import com.aripd.util.currency.CurrencyBean;
 import com.aripd.util.currency.PriceHelper;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;

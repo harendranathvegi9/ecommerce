@@ -1,12 +1,20 @@
 package com.aripd.ecommerce.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class ImageEntity extends AbstractEntity {
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ImageType imageType = ImageType.SHOWCASE;
 
     @NotNull
     @JoinColumn(nullable = false)
@@ -24,6 +32,14 @@ public class ImageEntity extends AbstractEntity {
     private int sortOrder;
 
     public ImageEntity() {
+    }
+
+    public ImageType getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(ImageType imageType) {
+        this.imageType = imageType;
     }
 
     public ProductEntity getProduct() {

@@ -22,21 +22,6 @@
                             <composite:navigationProduct product="#{productController.selectedRecord}"/>
                         </div>
                         <div class="ui-g-9">
-                            <!--                            <h:form enctype="multipart/form-data">
-                                                            <p:panelGrid columns="2">
-                                                                <p:outputLabel for="sortOrder" value="#{i18n['Sort Order']}"/>
-                                                                <p:inputText id="sortOrder" value="#{productController.imageFormModel.sortOrder}" label="#{i18n['Sort Order']}" placeholder="#{i18n['Sort Order']}" required="true"/>
-                                                                <p:outputLabel for="name" value="#{i18n['Name']}"/>
-                                                                <p:inputText id="name" value="#{productController.imageFormModel.name}" label="#{i18n['Name']}" placeholder="#{i18n['Name']}" required="true"/>
-                                                                <p:outputLabel value="#{i18n['Images']}"/>
-                                                                <p:fileUpload value="#{productController.imageFormModel.file}" label="#{i18n['Choose']}" mode="simple" skinSimple="true" validator="uploadImageValidator" required="true"/>
-                            
-                                                                <f:facet name="footer">
-                                                                    <p:commandButton value="#{i18n['Upload']}" actionListener="#{productController.onUploadImage}" update="@form, :growl" ajax="false"/>
-                                                                </f:facet>
-                                                            </p:panelGrid>
-                                                        </h:form>-->
-
                             <h:form>
                                 <p:fileUpload fileUploadListener="#{productController.handleFileUpload}" 
                                               sequential="true"

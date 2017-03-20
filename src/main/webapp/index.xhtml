@@ -29,18 +29,20 @@
             <h:form rendered="#{not empty productBean.banners}">
                 <p:imageSwitch effect="fade" widgetVar="switcher">
                     <ui:repeat value="#{productBean.banners}" var="product">
-                        <p:graphicImage value="/product/#{product.image.name}" alt="#{product.name}" title="#{product.name}" style="width:100%;height:500px" rendered="#{not empty product.image}" />
+                        <p:graphicImage value="/product/#{product.banner.name}" alt="#{product.name}" title="#{product.name}" style="width:100%;height:500px" rendered="#{not empty product.banner}" />
                     </ui:repeat>
                 </p:imageSwitch>
                 <p:commandLink onclick="PF('switcher').previous();"
-                               styleClass="fa fa-chevron-left w3-button w3-display-left"/>
+                               styleClass="fa fa-chevron-left w3-button w3-display-left" 
+                               rendered="#{productBean.banners.size() gt 1}" />
                 <p:commandLink onclick="PF('switcher').next();"
-                               styleClass="fa fa-chevron-right w3-button w3-display-right"/>
-                <div class="w3-button w3-display-bottommiddle">
+                               styleClass="fa fa-chevron-right w3-button w3-display-right" 
+                               rendered="#{productBean.banners.size() gt 1}" />
+                <h:panelGroup class="w3-button w3-display-bottommiddle" rendered="#{productBean.banners.size() gt 1}">
                     <ui:repeat value="#{productBean.banners}" var="product" varStatus="varStatus">
                         <p:commandLink styleClass="fa fa-circle-thin" title="#{varStatus.index+1}" onclick="PF('switcher').switchTo(#{varStatus.index});" />
                     </ui:repeat>
-                </div>
+                </h:panelGroup>
             </h:form>
         </div>
         <div id="mainsection">

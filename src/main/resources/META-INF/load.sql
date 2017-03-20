@@ -116,6 +116,15 @@ VALUES
         (2,200.00,'TRY',1,2),
         (3,300.00,'TRY',1,3);
 
+INSERT INTO `IMAGEENTITY` (`ID`, `CONTENTTYPE`, `IMAGETYPE`, `NAME`, `NAMEORIGINAL`, `SIZE`, `SORTORDER`, `PRODUCT_ID`)
+VALUES
+	(1,'image/jpeg','SHOWCASE','somefilename-2399775872817584948.jpg','banner1.jpg',10166,0,1),
+	(2,'image/jpeg','SHOWCASE','somefilename-5992712021340386923.jpg','banner2.jpg',26957,0,2),
+	(3,'image/jpeg','SHOWCASE','somefilename-3472402674351790039.jpg','banner3.jpg',21062,0,3),
+	(4,'image/jpeg','BANNER','somefilename-6562287623374037271.jpg','banner4.jpg',51111,0,1),
+	(5,'image/jpeg','BANNER','somefilename-79182089484382947.jpg','banner5.jpg',13728,0,2),
+	(6,'image/jpeg','BANNER','somefilename-79182089484382948.jpg','banner6.jpg',36761,0,3);
+
 INSERT INTO `PAGEENTITY` (`ID`, `CONTENT`, `DESCRIPTION`, `NAME`) 
 VALUES 
         (1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name1'),

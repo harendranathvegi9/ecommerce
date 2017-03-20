@@ -3,8 +3,10 @@ package com.aripd.ecommerce.service;
 import com.aripd.ecommerce.entity.ProductEntity;
 import com.aripd.ecommerce.entity.ProductEntity_;
 import com.aripd.ecommerce.entity.CategoryEntity;
+import com.aripd.ecommerce.entity.ImageEntity;
+import com.aripd.ecommerce.entity.ImageEntity_;
+import com.aripd.ecommerce.entity.ImageType;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -15,6 +17,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.primefaces.model.SortOrder;
@@ -87,11 +90,12 @@ public class ProductServiceBean extends CrudServiceBean<ProductEntity, Long> imp
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<ProductEntity> cq = cb.createQuery(ProductEntity.class);
         Root<ProductEntity> root = cq.from(ProductEntity.class);
+        Join<ProductEntity, ImageEntity> images = root.join(ProductEntity_.images);
 
-        Predicate predicate = cb.between(cb.literal(new Date()), root.get(ProductEntity_.bannerStart), root.get(ProductEntity_.bannerEnd));
+        Predicate predicate = cb.equal(images.get(ImageEntity_.imageType), ImageType.BANNER);
         cq.where(predicate);
 
-        cq.orderBy(cb.desc(root.get(ProductEntity_.bannerEnd)));
+        cq.orderBy(cb.desc(root.get(ProductEntity_.id)));
 
         return getEntityManager().createQuery(cq).getResultList();
     }
@@ -117,8 +121,9 @@ public class ProductServiceBean extends CrudServiceBean<ProductEntity, Long> imp
         Predicate predicate1 = cb.equal(root.get(ProductEntity_.status), status);
         Predicate predicate2 = this.getFilterCondition(cb, root, filters);
         Predicate predicate4 = cb.isNotEmpty(root.get(ProductEntity_.prices));
+        Predicate predicate5 = cb.isNotEmpty(root.get(ProductEntity_.images));
 
-        Predicate predicate = cb.and(predicate1, predicate2, predicate4);
+        Predicate predicate = cb.and(predicate1, predicate2, predicate4, predicate5);
         cq.where(predicate);
 
         if (sortField != null) {
@@ -145,8 +150,9 @@ public class ProductServiceBean extends CrudServiceBean<ProductEntity, Long> imp
             Predicate predicate1 = cb.equal(root.get(ProductEntity_.status), status);
             Predicate predicate2 = this.getFilterCondition(cb, root, filters);
             Predicate predicate4 = cb.isNotEmpty(root.get(ProductEntity_.prices));
+            Predicate predicate5 = cb.isNotEmpty(root.get(ProductEntity_.images));
 
-            Predicate predicate = cb.and(predicate1, predicate2, predicate4);
+            Predicate predicate = cb.and(predicate1, predicate2, predicate4, predicate5);
             cq.where(predicate);
 
             cq.select(cb.count(root));

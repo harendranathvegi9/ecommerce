@@ -3,19 +3,13 @@ package com.aripd.ecommerce.entity;
 import com.aripd.util.StringUtil;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -54,56 +48,45 @@ public class ProductEntity extends AbstractEntity {
     @OneToMany(mappedBy = "product", orphanRemoval = true)
     private List<BasketitemEntity> basketitems = new ArrayList<>();
 
-    private String bannerHeadline;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date bannerStart;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date bannerEnd;
-
     public ProductEntity() {
     }
 
     @Transient
     public boolean getBannerStatus() {
         if (status) {
-            Calendar cal = Calendar.getInstance();
-            return cal.after(bannerStart) && cal.before(bannerEnd);
+            return !images
+                    .stream()
+                    .filter(i -> i.getImageType().equals(ImageType.BANNER))
+                    .collect(Collectors.toList())
+                    .isEmpty();
         }
         return false;
     }
 
     @Transient
     public PriceEntity getPrice() {
-//        return prices.stream().min((p1, p2) -> Integer.compare(p1.getQuantity(), p2.getQuantity())).get();
-        return Collections.min(prices, new Comparator<PriceEntity>() {
-            @Override
-            public int compare(PriceEntity o1, PriceEntity o2) {
-                int rollno1 = o1.getQuantity();
-                int rollno2 = o2.getQuantity();
-                return rollno1 - rollno2;//For ascending order
-                //return rollno2-rollno1;//For descending order
-            }
-        });
+        return prices
+                .stream()
+                .min((p1, p2) -> Integer.compare(p1.getQuantity(), p2.getQuantity()))
+                .get();
     }
 
     @Transient
     public ImageEntity getImage() {
-//        return images.stream().min((p1, p2) -> Integer.compare(p1.getSortOrder(), p2.getSortOrder())).get();
-        try {
-            return Collections.min(images, new Comparator<ImageEntity>() {
-                @Override
-                public int compare(ImageEntity o1, ImageEntity o2) {
-                    int rollno1 = o1.getSortOrder();
-                    int rollno2 = o2.getSortOrder();
-                    return rollno1 - rollno2;//For ascending order
-                    //return rollno2-rollno1;//For descending order
-                }
-            });
-        } catch (NoSuchElementException ex) {
-            return null;
-        }
+        return images
+                .stream()
+                .filter(i -> i.getImageType().equals(ImageType.SHOWCASE))
+                .min((p1, p2) -> Integer.compare(p1.getSortOrder(), p2.getSortOrder()))
+                .get();
+    }
+
+    @Transient
+    public ImageEntity getBanner() {
+        return images
+                .stream()
+                .filter(i -> i.getImageType().equals(ImageType.BANNER))
+                .min((p1, p2) -> Integer.compare(p1.getSortOrder(), p2.getSortOrder()))
+                .get();
     }
 
     @Transient
@@ -168,20 +151,11 @@ public class ProductEntity extends AbstractEntity {
     }
 
     public List<ImageEntity> getImages() {
-        Collections.sort(images, new Comparator<ImageEntity>() {
-
-            @Override
-            public int compare(ImageEntity o1, ImageEntity o2) {
-
-                int rollno1 = o1.getSortOrder();
-                int rollno2 = o2.getSortOrder();
-
-                return rollno1 - rollno2;//For ascending order
-                //return rollno2-rollno1;//For descending order
-            }
-        });
-
-        return images;
+        return images
+                .stream()
+                .filter(i -> i.getImageType().equals(ImageType.SHOWCASE))
+                .sorted((p1, p2) -> Integer.compare(p1.getSortOrder(), p2.getSortOrder()))
+                .collect(Collectors.toList());
     }
 
     public void setImages(List<ImageEntity> images) {
@@ -194,30 +168,6 @@ public class ProductEntity extends AbstractEntity {
 
     public void setPrices(List<PriceEntity> prices) {
         this.prices = prices;
-    }
-
-    public String getBannerHeadline() {
-        return bannerHeadline;
-    }
-
-    public void setBannerHeadline(String bannerHeadline) {
-        this.bannerHeadline = bannerHeadline;
-    }
-
-    public Date getBannerStart() {
-        return bannerStart;
-    }
-
-    public void setBannerStart(Date bannerStart) {
-        this.bannerStart = bannerStart;
-    }
-
-    public Date getBannerEnd() {
-        return bannerEnd;
-    }
-
-    public void setBannerEnd(Date bannerEnd) {
-        this.bannerEnd = bannerEnd;
     }
 
 }
