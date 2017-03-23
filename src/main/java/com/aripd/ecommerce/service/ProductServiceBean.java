@@ -5,7 +5,6 @@ import com.aripd.ecommerce.entity.ProductEntity_;
 import com.aripd.ecommerce.entity.CategoryEntity;
 import com.aripd.ecommerce.entity.ImageEntity;
 import com.aripd.ecommerce.entity.ImageEntity_;
-import com.aripd.ecommerce.entity.ImageType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +91,7 @@ public class ProductServiceBean extends CrudServiceBean<ProductEntity, Long> imp
         Root<ProductEntity> root = cq.from(ProductEntity.class);
         Join<ProductEntity, ImageEntity> images = root.join(ProductEntity_.images);
 
-        Predicate predicate = cb.equal(images.get(ImageEntity_.imageType), ImageType.BANNER);
+        Predicate predicate = cb.equal(images.get(ImageEntity_.banner), true);
         cq.where(predicate);
 
         cq.orderBy(cb.desc(root.get(ProductEntity_.id)));

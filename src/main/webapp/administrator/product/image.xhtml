@@ -79,7 +79,11 @@
                                     <p:column headerText="#{i18n['File Name']}">#{image.nameOriginal}</p:column>
                                     <p:column headerText="#{i18n['Content Type']}" width="150">#{image.contentType}</p:column>
                                     <p:column headerText="#{i18n['Size']}" width="100">#{image.size}</p:column>
-                                    <p:column headerText="#{i18n['Image Type']}" width="100">#{i18n[image.imageType.label]}</p:column>
+                                    <p:column headerText="#{i18n['Type']}" width="100">
+                                        <p:selectBooleanButton value="#{image.banner}" onLabel="#{i18n['Banner']}" offLabel="#{i18n['Showcase']}" onIcon="ui-icon-check" offIcon="ui-icon-close">
+                                            <p:ajax listener="#{productController.onValueChange(image)}" update="@form, :growl" />
+                                        </p:selectBooleanButton>
+                                    </p:column>
                                     <p:column width="70">
                                         <p:commandButton title="#{i18n['Download']}" 
                                                          actionListener="#{productController.prepareFile(image)}" 

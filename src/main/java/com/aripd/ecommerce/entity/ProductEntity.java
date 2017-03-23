@@ -56,7 +56,7 @@ public class ProductEntity extends AbstractEntity {
         if (status) {
             return !images
                     .stream()
-                    .filter(i -> i.getImageType().equals(ImageType.BANNER))
+                    .filter(i -> i.isBanner())
                     .collect(Collectors.toList())
                     .isEmpty();
         }
@@ -75,7 +75,7 @@ public class ProductEntity extends AbstractEntity {
     public ImageEntity getImage() {
         return images
                 .stream()
-                .filter(i -> i.getImageType().equals(ImageType.SHOWCASE))
+                .filter(i -> !i.isBanner())
                 .min((p1, p2) -> Integer.compare(p1.getSortOrder(), p2.getSortOrder()))
                 .get();
     }
@@ -84,7 +84,7 @@ public class ProductEntity extends AbstractEntity {
     public ImageEntity getBanner() {
         return images
                 .stream()
-                .filter(i -> i.getImageType().equals(ImageType.BANNER))
+                .filter(i -> i.isBanner())
                 .min((p1, p2) -> Integer.compare(p1.getSortOrder(), p2.getSortOrder()))
                 .get();
     }

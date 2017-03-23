@@ -8,6 +8,7 @@ import com.aripd.ecommerce.entity.ProductEntity;
 import com.aripd.ecommerce.entity.PriceEntity;
 import com.aripd.ecommerce.model.data.LazyProductDataModel;
 import com.aripd.ecommerce.service.CategoryService;
+import com.aripd.ecommerce.service.ImageService;
 import com.aripd.ecommerce.service.PriceService;
 import com.aripd.util.RequestUtil;
 import java.io.ByteArrayInputStream;
@@ -55,6 +56,9 @@ public class ProductController implements Serializable {
     private CategoryService categoryService;
 
     @Inject
+    private ImageService imageService;
+
+    @Inject
     MessageUtil messageUtil;
 
     public ProductController() {
@@ -80,6 +84,15 @@ public class ProductController implements Serializable {
             return;
         }
 
+    }
+
+    public void onValueChange(ImageEntity image) {
+        if (image.isBanner()) {
+            imageService.updateAllImagesAsBannerFalseByProduct(image.getProduct());
+        }
+
+        imageService.update(image);
+        messageUtil.addGlobalInfoFlashMessage("Updated");
     }
 
     public List<CategoryEntity> getCategories() {

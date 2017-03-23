@@ -116,14 +116,14 @@ VALUES
         (2,200.00,'TRY',1,2),
         (3,300.00,'TRY',1,3);
 
-INSERT INTO `IMAGEENTITY` (`ID`, `CONTENTTYPE`, `IMAGETYPE`, `NAME`, `NAMEORIGINAL`, `SIZE`, `SORTORDER`, `PRODUCT_ID`)
+INSERT INTO `IMAGEENTITY` (`ID`, `BANNER`, `CONTENTTYPE`, `NAME`, `NAMEORIGINAL`, `SIZE`, `SORTORDER`, `PRODUCT_ID`)
 VALUES
-	(1,'image/jpeg','SHOWCASE','banner1.jpg','banner1.jpg',10166,0,1),
-	(2,'image/jpeg','SHOWCASE','banner2.jpg','banner2.jpg',26957,0,2),
-	(3,'image/jpeg','SHOWCASE','banner3.jpg','banner3.jpg',21062,0,3),
-	(4,'image/jpeg','BANNER','banner4.jpg','banner4.jpg',51111,0,1),
-	(5,'image/jpeg','BANNER','banner5.jpg','banner5.jpg',13728,0,2),
-	(6,'image/jpeg','BANNER','banner6.jpg','banner6.jpg',36761,0,3);
+	(1,FALSE,'image/jpeg','banner1.jpg','banner1.jpg',10166,0,1),
+	(2,FALSE,'image/jpeg','banner2.jpg','banner2.jpg',26957,0,2),
+	(3,FALSE,'image/jpeg','banner3.jpg','banner3.jpg',21062,0,3),
+	(4,TRUE,'image/jpeg','banner4.jpg','banner4.jpg',51111,0,1),
+	(5,TRUE,'image/jpeg','banner5.jpg','banner5.jpg',13728,0,2),
+	(6,TRUE,'image/jpeg','banner6.jpg','banner6.jpg',36761,0,3);
 
 INSERT INTO `PAGEENTITY` (`ID`, `CONTENT`, `DESCRIPTION`, `NAME`) 
 VALUES 
