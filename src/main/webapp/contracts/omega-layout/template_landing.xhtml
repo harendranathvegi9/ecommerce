@@ -68,7 +68,7 @@
                             <li><p:link outcome="/index" value="#{i18n['Home']}"/></li>
                             <li><p:link outcome="/search" value="#{i18n['Search']}"/></li>
                             <li><p:link outcome="/login" value="#{i18n['Login']}" rendered="#{empty request.userPrincipal}"/></li>
-                            <li><p:link outcome="/member/index" value="#{i18n['Dashboard']}" rendered="#{not empty request.userPrincipal}"/></li>
+                            <li><p:link outcome="/member/index" value="#{i18n['My Account']}" rendered="#{not empty request.userPrincipal}"/></li>
                             <li>
                                 <h:form>
                                     <p:commandLink value="#{i18n['Logout']}" action="#{loginBean.doLogout}" rendered="#{not empty request.userPrincipal}"/>
