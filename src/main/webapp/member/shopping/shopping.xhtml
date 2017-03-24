@@ -96,6 +96,13 @@
                                 </p:selectOneMenu>
                                 <p:link outcome="/member/address" value="#{i18n['Create a new record']}" />
 
+                                <p:outputLabel for="paymentMethod" value="#{i18n['Payment Method']}"/>
+                                <p:selectOneMenu id="paymentMethod" value="#{shoppingBean.paymentMethod}" 
+                                                 converter="#{paymentMethodConverter}"
+                                                 label="#{i18n['Payment Method']}">
+                                    <f:selectItems value="#{shoppingBean.paymentMethods}" var="paymentMethod" itemValue="#{paymentMethod}" itemLabel="#{i18n[paymentMethod]}"/>
+                                </p:selectOneMenu>
+                                
                                 <p:commandButton value="#{i18n['Continue']}" update="@form, :growl" action="go-to-payment"/>
                             </h:panelGrid>
                         </h:form>

@@ -154,3 +154,15 @@ VALUES
         (19,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.',NOW(),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name19'),
         (20,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis. Nullam consectetur sapien consectetur, tempus nisl vitae, vulputate metus. Donec eros tortor, varius quis quam et, tristique efficitur felis. In feugiat, neque nec finibus blandit, nisi ex tristique eros, non egestas magna ex in ipsum. Nulla congue mattis eros, et lacinia nunc sodales quis. Nam semper tempor orci, vitae ullamcorper felis ultricies eu. Fusce ut pharetra ante. Pellentesque lobortis mi et tortor facilisis, a blandit lacus dignissim. Vivamus aliquet hendrerit justo ut iaculis.',NOW(),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin tincidunt turpis, ut porta felis eleifend quis.','Name20');
 
+
+
+
+INSERT INTO `ADDRESSENTITY` (`ID`, `ADDRESS`, `CITY`, `COUNTRY`, `COUNTY`, `FIRSTNAME`, `LASTNAME`, `PHONE`, `ZIPCODE`, `CREATEDBY_ID`)
+VALUES
+	(1,'adres','il','ülke','ilçe','dev','aripd','5551234567','34000',2);
+
+INSERT INTO `BASKETITEMENTITY` (`ID`, `NOTE`, `QUANTITY`, `CREATEDBY_ID`, `PRODUCT_ID`)
+VALUES
+	(1,NULL,1,2,3),
+	(2,NULL,2,2,2),
+	(3,NULL,3,2,1);

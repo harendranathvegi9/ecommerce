@@ -17,10 +17,8 @@ public class Shopping implements Serializable {
 
         flowBuilder.viewNode(flowId, "/member/" + flowId + "/" + flowId + ".xhtml").markAsStartNode();
         flowBuilder.viewNode("shopping_0062", "/member/" + flowId + "/shopping_0062.xhtml");
-        flowBuilder.viewNode("shopping_iyzipay", "/member/" + flowId + "/shopping_iyzipay.xhtml");
-        flowBuilder.viewNode("shopping_paypal", "/member/" + flowId + "/shopping_paypal.xhtml");
-        flowBuilder.viewNode("shopping_payu", "/member/" + flowId + "/shopping_payu.xhtml");
         flowBuilder.viewNode("shopping_wire", "/member/" + flowId + "/shopping_wire.xhtml");
+        flowBuilder.viewNode("shopping_pod", "/member/" + flowId + "/shopping_pod.xhtml");
 
         flowBuilder.methodCallNode("go-to-payment").expression("#{shoppingBean.doProcessPayment()}");
 
