@@ -23,15 +23,18 @@
                         <h3><h:outputText value="#{i18n[ticketmessageController.selectedTicket.ticketType]}"/></h3>
 
                         <ui:repeat value="#{ticketmessageController.ticketmessages}" var="ticketmessage">
-                            <h:outputFormat value="#{ticketmessage.createdAt}">
-                                <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
-                            </h:outputFormat>
-                            <p><h:outputText value="#{ticketmessage.content}"/></p>
-                            <hr/>
+                            <h:panelGroup layout="block" style="margin-bottom: 10px; border-bottom: 1px solid #e4e4de;">
+                                <h:outputText value="#{ticketmessage.createdBy.fullname}"/>
+                                <h:outputFormat value="#{ticketmessage.createdAt}" style="font-size: smaller; float: right;">
+                                    <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                                </h:outputFormat>
+                                <div class="clearfix"></div>
+                                <p><h:outputText value="#{ticketmessage.content}" /></p>
+                            </h:panelGroup>
                         </ui:repeat>
 
-                        <h:panelGrid columns="1">
-                            <p:inputTextarea value="#{ticketmessageController.newRecord.content}" label="#{i18n['Content']}" placeholder="#{i18n['Content']}" required="true"/>
+                        <h:panelGrid columns="1" styleClass="ui-g-12">
+                            <p:inputTextarea value="#{ticketmessageController.newRecord.content}" label="#{i18n['Content']}" placeholder="#{i18n['Content']}" styleClass="ui-g-12" required="true"/>
                         </h:panelGrid>
                         <p:commandButton value="#{i18n['Reply']}" actionListener="#{ticketmessageController.doReplyRecord}" update="@form, :growl" />
                     </h:form>
