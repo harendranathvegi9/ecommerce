@@ -37,17 +37,13 @@
                         <h3><h:outputLabel value="#{i18n['Bill Address']}"/></h3>
                         <h:panelGrid columns="1">
                             <h:outputText value="#{saleView.selectedRecord.billFirstname} #{saleView.selectedRecord.billLastname}"/>
-                            <h:outputText value="#{saleView.selectedRecord.billCompany}"/>
                             <h:outputText value="#{saleView.selectedRecord.billAddress}"/>
                             <h:outputText value="#{saleView.selectedRecord.billPhone}"/>
-                            <h:outputText value="#{saleView.selectedRecord.billFax}"/>
-                            <h:outputText value="#{saleView.selectedRecord.billEmail}"/>
                         </h:panelGrid>
 
                         <h3><h:outputLabel value="#{i18n['Delivery Address']}"/></h3>
                         <h:panelGrid columns="1">
                             <h:outputText value="#{saleView.selectedRecord.deliveryFirstname} #{saleView.selectedRecord.deliveryLastname}"/>
-                            <h:outputText value="#{saleView.selectedRecord.deliveryCompany}"/>
                             <h:outputText value="#{saleView.selectedRecord.deliveryAddress}"/>
                             <h:outputText value="#{saleView.selectedRecord.deliveryPhone}"/>
                         </h:panelGrid>
@@ -75,15 +71,6 @@
                                     <h:outputText style="display:block;" title="#{i18n['doCalculateSubtotal']}" value="#{of:formatCurrency(saleView.doCalculateSubtotal(saleline), saleView.selectedRecord.currency)}"/>
                                     <h:outputText style="display:block;" title="#{i18n['Amount']}" value="#{of:formatCurrency(saleline.priceTotalBeforeTax, saleView.selectedRecord.currency)}"/>
                                     <h:outputText style="display:block;" title="#{i18n['Tax']}" value="#{of:formatCurrency(saleline.taxTotal, saleView.selectedRecord.currency)}"/>
-                                </p:column>
-                                <p:column headerText="#{i18n['Action']}">
-                                    <p:commandLink value="#{i18n['Return']}" update="editForm" oncomplete="PF('editDialog').show()">
-                                        <f:setPropertyActionListener value="#{saleline}" target="#{saleView.selectedSaleline}" />
-                                    </p:commandLink>
-                                    <p:commandLink value="#{i18n['Cancel']}" action="#{saleView.doCancelSaleline}">
-                                        <f:setPropertyActionListener value="#{saleline}" target="#{saleView.selectedSaleline}"/>
-                                        <p:confirm header="#{i18n['Confirmation']}" message="#{i18n['Are you sure?']}" icon="ui-icon-alert"/>
-                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </h:form>
@@ -118,23 +105,5 @@
                 </div>
             </div>
         </div>
-    </ui:define>
-    <ui:define name="dialog">
-        <h:form id="editForm">
-            <p:dialog id="editDlg" header="#{i18n['Return']}" widgetVar="editDialog" resizable="false" closeOnEscape="true" modal="true">
-                <p:panelGrid columns="2">
-                    <p:outputLabel value="#{i18n['Product']}"/>
-                    <h:outputText value="#{saleView.selectedSaleline.product.name}"/>
-                    <p:outputLabel value="#{i18n['Quantity']}"/>
-                    <h:outputText value="#{saleView.selectedSaleline.IPN_QTY}"/>
-                    <p:outputLabel value="#{i18n['Return Reason']}"/>
-                    <p:inputTextarea value="#{saleView.returnReason}" label="#{i18n['Return Reason']}" placeholder="#{i18n['Return Reason']}" required="true" />
-                </p:panelGrid>
-                <f:facet name="footer">
-                    <p:commandButton value="#{i18n['Submit']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{saleView.doSubmitReturn}"/>
-                    <p:commandButton value="#{i18n['Close']}" onclick="PF('editDialog').hide();"/>
-                </f:facet>
-            </p:dialog>
-        </h:form>
     </ui:define>
 </ui:composition>

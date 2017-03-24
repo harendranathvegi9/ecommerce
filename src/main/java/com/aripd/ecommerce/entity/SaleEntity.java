@@ -61,13 +61,9 @@ public class SaleEntity extends AbstractEntity {
     private String PAYMENTDATE;
     private String COMPLETE_DATE;
 
-    private String REFNO;
-
     @NotNull
     @Column(nullable = false, unique = true)
     private String REFNOEXT;
-
-    private String ORDERNO;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -81,7 +77,6 @@ public class SaleEntity extends AbstractEntity {
     private String currency;
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
     private BigDecimal IPN_TOTALGENERAL = BigDecimal.ZERO;
-    private String IPN_DATE;
 
     public SaleEntity() {
     }
@@ -308,22 +303,6 @@ public class SaleEntity extends AbstractEntity {
         this.COMPLETE_DATE = COMPLETE_DATE;
     }
 
-    public String getREFNO() {
-        return REFNO;
-    }
-
-    public void setREFNO(String REFNO) {
-        this.REFNO = REFNO;
-    }
-
-    public String getORDERNO() {
-        return ORDERNO;
-    }
-
-    public void setORDERNO(String ORDERNO) {
-        this.ORDERNO = ORDERNO;
-    }
-
     public SaleStatus getSaleStatus() {
         return saleStatus;
     }
@@ -378,14 +357,6 @@ public class SaleEntity extends AbstractEntity {
 
     public void setIPN_TOTALGENERAL(BigDecimal IPN_TOTALGENERAL) {
         this.IPN_TOTALGENERAL = IPN_TOTALGENERAL;
-    }
-
-    public String getIPN_DATE() {
-        return IPN_DATE;
-    }
-
-    public void setIPN_DATE(String IPN_DATE) {
-        this.IPN_DATE = IPN_DATE;
     }
 
     public Date getCreatedAt() {

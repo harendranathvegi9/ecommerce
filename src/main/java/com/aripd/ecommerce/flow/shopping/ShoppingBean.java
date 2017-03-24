@@ -177,6 +177,31 @@ public class ShoppingBean implements Serializable {
         return "shopping";
     }
 
+    public String doProcessPayment() {
+        switch (paymentMethod) {
+            case WIRE:
+            default:
+                return "shopping_wire";
+            case Payment_On_Delivery:
+                return "shopping_pod";
+            case CCVISAMC:
+                return "shopping_0062";
+        }
+    }
+
+    public void doProcessOrderForWire(ActionEvent actionEvent) {
+        orderRef = getOrderNumber();
+        orderDate = getDate();
+        SaleEntity sale = doCreateSale(orderRef, orderDate, PaymentMethod.WIRE);
+
+        saleService.sendToAdministrator(sale);
+        saleService.sendToMember(sale);
+        messageUtil.addGlobalInfoFlashMessage("Order information is sent to {0}", new Object[]{sale.getCreatedBy().getEmail()});
+
+        String navigation = "/member/sale/show.xhtml?id=" + sale.getId() + "&amp;faces-redirect=true";
+        RequestUtil.doNavigate(navigation);
+    }
+
     private static String getOrderNumber() {
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMddHHmmss");
         f.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -190,43 +215,6 @@ public class ShoppingBean implements Serializable {
             return f.format(new Date());
         } catch (Exception ex) {
             throw new FacesException(ex);
-        }
-    }
-
-    public void doProcessOrderForIyzipay(ActionEvent actionEvent) {
-        doCreateSale(orderRef, orderDate, PaymentMethod.CCVISAMC);
-    }
-
-    public void doProcessOrderForPayPal(ActionEvent actionEvent) {
-        doCreateSale(orderRef, orderDate, PaymentMethod.CCVISAMC);
-    }
-
-    public void doProcessOrderForPayU(ActionEvent actionEvent) {
-        doCreateSale(orderRef, orderDate, PaymentMethod.CCVISAMC);
-    }
-
-    public void doProcessOrderForMT(ActionEvent actionEvent) {
-        orderRef = getOrderNumber();
-        orderDate = getDate();
-        SaleEntity sale = doCreateSale(orderRef, orderDate, PaymentMethod.WIRE);
-
-        saleService.sendToAdministrator(sale);
-        saleService.sendToMember(sale);
-        messageUtil.addGlobalInfoFlashMessage("Order information has been sent to {0}", new Object[]{sale.getCreatedBy().getEmail()});
-
-        String navigation = "/sale.xhtml?orderRef=" + sale.getREFNOEXT() + "&amp;faces-redirect=true";
-        RequestUtil.doNavigate(navigation);
-    }
-
-    public String doProcessPayment() {
-        switch (paymentMethod) {
-            case WIRE:
-            default:
-                return "shopping_wire";
-            case Payment_On_Delivery:
-                return "shopping_pod";
-            case CCVISAMC:
-                return "shopping_0062";
         }
     }
 
@@ -277,9 +265,8 @@ public class ShoppingBean implements Serializable {
         e.setSALEDATE(orderDate);
         e.setPAYMENTDATE("");
         e.setCOMPLETE_DATE("");
-        e.setREFNO("");
+
         e.setREFNOEXT(orderRef);
-        e.setORDERNO("");
         e.setSaleStatus(SaleStatus.WAITING_FOR_PAYMENT);
         e.setPaymentMethod(paymentMethod);
 
@@ -289,7 +276,6 @@ public class ShoppingBean implements Serializable {
 
         e.setCurrency("TRY");
         e.setIPN_TOTALGENERAL(e.getPriceTotalAfterTax());
-        e.setIPN_DATE("");
 
         SaleEntity sale = saleService.create(e);
 

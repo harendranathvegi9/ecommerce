@@ -36,7 +36,7 @@ public class TrackView implements Serializable {
     public void doSubmit(ActionEvent actionEvent) {
         SaleEntity sale = saleService.findOneByUserEmailAndOrderRef(email, orderRef);
         if (sale != null) {
-            String navigation = String.format("/sale.jsf?orderRef=%s&amp;faces-redirect=true", sale.getREFNOEXT());
+            String navigation = String.format("/member/sale/show.jsf?id=%s&amp;faces-redirect=true", sale.getId());
             RequestUtil.doNavigate(navigation);
         } else {
             messageUtil.addGlobalErrorFlashMessage("Not found");

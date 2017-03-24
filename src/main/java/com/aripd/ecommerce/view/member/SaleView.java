@@ -4,7 +4,6 @@ import com.aripd.ecommerce.entity.ProductEntity;
 import com.aripd.ecommerce.service.UserService;
 import com.aripd.ecommerce.entity.SaleEntity;
 import com.aripd.ecommerce.entity.SalelineEntity;
-import com.aripd.ecommerce.entity.SalelineStatus;
 import com.aripd.ecommerce.entity.UserEntity;
 import com.aripd.ecommerce.model.data.LazySaleDataModelByUser;
 import com.aripd.ecommerce.service.ProductService;
@@ -75,13 +74,6 @@ public class SaleView implements Serializable {
             return;
         }
 
-    }
-
-    public String doCancelSaleline() {
-        selectedSaleline.setSalelineStatus(SalelineStatus.CANCELLED);
-        salelineService.update(selectedSaleline);
-        messageUtil.addGlobalInfoFlashMessage("Cancelled");
-        return "/member/sale/show.jsf?id=" + selectedSaleline.getSale().getId() + "&amp;faces-redirect=true";
     }
 
     public void doUpdateRecord(ActionEvent actionEvent) {

@@ -168,7 +168,7 @@ public class SaleServiceBean extends CrudServiceBean<SaleEntity, Long> implement
                     sale.getCreatedBy().getFullname(),
                     sale.getREFNOEXT(),
                     messageUtil.getI18nResource(String.valueOf(sale.getSaleStatus())),
-                    RequestUtil.getFullAddress("/sale.jsf?orderRef=" + sale.getREFNOEXT())
+                    RequestUtil.getFullAddress("/member/sale/show.jsf?id=" + sale.getId())
                 }
         );
 

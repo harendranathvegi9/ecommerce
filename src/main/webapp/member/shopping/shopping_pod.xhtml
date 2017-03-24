@@ -68,7 +68,7 @@
 
                         <h:form>
                             <p:commandButton value="#{i18n['Return to shopping basket']}" action="shopping"/>
-                            <p:commandButton id="button" value="#{i18n['Complete the order']}" actionListener="#{shoppingBean.doProcessOrderForMT}" onclick="this.childNodes[0].innerHTML = '#{i18n['Please wait']}'; this.disabled = true;"/>
+                            <p:commandButton id="button" value="#{i18n['Complete the order']}" actionListener="#{shoppingBean.doProcessOrderForPod}" onclick="this.childNodes[0].innerHTML = '#{i18n['Please wait']}'; this.disabled = true;"/>
                             <p:blockUI block=":body" trigger="button" />
                         </h:form>
                     </div>
