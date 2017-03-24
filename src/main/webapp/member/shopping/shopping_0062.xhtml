@@ -52,7 +52,7 @@
                             </h:panelGrid>
                         </div>
                         <div class="ui-g-12">
-                            <strong>#{i18n['Bill Address']}</strong>
+                            <strong>#{i18n['Bill Address']}</strong><br/>
                             <address>
                                 #{shoppingBean.billAddress.firstname} #{shoppingBean.billAddress.lastname}<br/>
                                 #{shoppingBean.billAddress.fulladdress}<br/>
@@ -60,7 +60,7 @@
                             </address>
                         </div>
                         <div class="ui-g-12">
-                            <strong>#{i18n['Delivery Address']}</strong>
+                            <strong>#{i18n['Delivery Address']}</strong><br/>
                             <address>
                                 #{shoppingBean.deliveryAddress.firstname} #{shoppingBean.deliveryAddress.lastname}<br/>
                                 #{shoppingBean.deliveryAddress.fulladdress}<br/>
@@ -68,7 +68,7 @@
                             </address>
                         </div>
                         <div class="ui-g-12">
-                            <strong>#{i18n['Payment Method']}</strong>
+                            <strong>#{i18n['Payment Method']}</strong><br/>
                             #{i18n[shoppingBean.paymentMethod]}
                         </div>
                         <div class="ui-g-12">

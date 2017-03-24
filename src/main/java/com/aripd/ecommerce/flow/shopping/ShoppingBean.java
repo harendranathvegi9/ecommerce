@@ -29,8 +29,6 @@ import com.aripd.ecommerce.service.SaleService;
 import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.faces.FacesException;
-import org.apache.commons.collections4.Predicate;
-import org.apache.commons.collections4.IterableUtils;
 
 @Named
 @FlowScoped("shopping")
@@ -102,15 +100,11 @@ public class ShoppingBean implements Serializable {
     }
 
     public BigDecimal getAmountExchanged(ProductEntity product, String currencyCode) {
-        BasketitemEntity entity = (BasketitemEntity) IterableUtils.find(basketitems, new Predicate() {
-
-            @Override
-            public boolean evaluate(Object o) {
-                BasketitemEntity element = (BasketitemEntity) o;
-                return element.getProduct().equals(product);
-            }
-
-        });
+        BasketitemEntity entity = basketitems
+                .stream()
+                .filter(i -> i.getProduct().equals(product))
+                .findFirst()
+                .get();
 
         Integer quantity = entity.getQuantity();
 
@@ -119,15 +113,11 @@ public class ShoppingBean implements Serializable {
     }
 
     public BigDecimal doCalculateTaxSubtotal(ProductEntity product, String currencyCode) {
-        BasketitemEntity entity = (BasketitemEntity) IterableUtils.find(basketitems, new Predicate() {
-
-            @Override
-            public boolean evaluate(Object o) {
-                BasketitemEntity element = (BasketitemEntity) o;
-                return element.getProduct().equals(product);
-            }
-
-        });
+        BasketitemEntity entity = basketitems
+                .stream()
+                .filter(i -> i.getProduct().equals(product))
+                .findFirst()
+                .get();
 
         Integer quantity = entity.getQuantity();
 
