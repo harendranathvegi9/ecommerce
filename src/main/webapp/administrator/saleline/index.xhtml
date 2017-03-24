@@ -33,7 +33,7 @@
                                 <h:outputText value="#{saleline.sale.createdBy.fullname}"/>
                             </p:column>
                             <p:column headerText="#{i18n['Status']}">
-                                <h:outputText value="#{i18n[saleline.salelineStatus]}"/>
+                                <h:outputText value="#{i18n[saleline.saleStatus]}"/>
                             </p:column>
                             <p:column headerText="#{i18n['Total Price']}" rendered="false">
                                 <h:outputText value="#{of:formatCurrency(saleline.priceTotalAfterTax, saleline.sale.currency)}"/>

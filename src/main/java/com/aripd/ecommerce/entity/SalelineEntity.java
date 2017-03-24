@@ -21,7 +21,7 @@ public class SalelineEntity extends AbstractEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private SalelineStatus salelineStatus;
+    private SaleStatus saleStatus;
 
     @NotNull
     @JoinColumn(nullable = false, updatable = false)
@@ -70,12 +70,12 @@ public class SalelineEntity extends AbstractEntity {
         this.sale = sale;
     }
 
-    public SalelineStatus getSalelineStatus() {
-        return salelineStatus;
+    public SaleStatus getSaleStatus() {
+        return saleStatus;
     }
 
-    public void setSalelineStatus(SalelineStatus salelineStatus) {
-        this.salelineStatus = salelineStatus;
+    public void setSaleStatus(SaleStatus saleStatus) {
+        this.saleStatus = saleStatus;
     }
 
     public String getNote() {

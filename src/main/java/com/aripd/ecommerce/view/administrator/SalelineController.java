@@ -1,8 +1,8 @@
 package com.aripd.ecommerce.view.administrator;
 
+import com.aripd.ecommerce.entity.SaleStatus;
 import com.aripd.util.MessageUtil;
 import com.aripd.ecommerce.entity.SalelineEntity;
-import com.aripd.ecommerce.entity.SalelineStatus;
 import com.aripd.ecommerce.model.data.LazySalelineDataModel;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -55,8 +55,8 @@ public class SalelineController implements Serializable {
 
     }
 
-    public List<SalelineStatus> getSalelineStatuses() {
-        return Arrays.asList(SalelineStatus.values());
+    public List<SaleStatus> getSaleStatuses() {
+        return Arrays.asList(SaleStatus.values());
     }
 
     public void doCreateRecord(ActionEvent actionEvent) {

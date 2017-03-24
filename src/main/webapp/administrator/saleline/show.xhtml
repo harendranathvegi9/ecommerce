@@ -56,9 +56,9 @@
                                 <f:facet name="footer">
                                     <h:form>
                                         <p:outputLabel value="#{i18n['Status']}" />
-                                        <p:selectOneMenu value="#{salelineController.selectedRecord.salelineStatus}" label="#{i18n['Status']}" converter="#{salelineStatusConverter}" required="true">
+                                        <p:selectOneMenu value="#{salelineController.selectedRecord.saleStatus}" label="#{i18n['Status']}" converter="#{saleStatusConverter}" required="true">
                                             <f:ajax execute="@form :growl" render="@form" listener="#{salelineController.doUpdateStatus}"/>
-                                            <f:selectItems value="#{salelineController.salelineStatuses}" var="salelineStatus" itemValue="#{salelineStatus}" itemLabel="#{i18n[salelineStatus]}" />
+                                            <f:selectItems value="#{salelineController.saleStatuses}" var="saleStatus" itemValue="#{saleStatus}" itemLabel="#{i18n[saleStatus]}" />
                                         </p:selectOneMenu>
                                     </h:form>
                                 </f:facet>

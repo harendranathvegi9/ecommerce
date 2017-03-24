@@ -11,7 +11,6 @@ import com.aripd.ecommerce.service.BasketitemService;
 import com.aripd.util.MessageUtil;
 import com.aripd.ecommerce.entity.SaleStatus;
 import com.aripd.ecommerce.entity.PaymentMethod;
-import com.aripd.ecommerce.entity.SalelineStatus;
 import com.aripd.ecommerce.service.AddressService;
 import com.aripd.util.RequestUtil;
 import com.aripd.util.currency.PriceHelper;
@@ -189,10 +188,10 @@ public class ShoppingBean implements Serializable {
         }
     }
 
-    public void doProcessOrderForWire(ActionEvent actionEvent) {
+    public void doProcessOrder(ActionEvent actionEvent) {
         orderRef = getOrderNumber();
         orderDate = getDate();
-        SaleEntity sale = doCreateSale(orderRef, orderDate, PaymentMethod.WIRE);
+        SaleEntity sale = doCreateSale(orderRef, orderDate, paymentMethod);
 
         saleService.sendToAdministrator(sale);
         saleService.sendToMember(sale);
@@ -247,7 +246,7 @@ public class ShoppingBean implements Serializable {
             SalelineEntity saleline = new SalelineEntity();
             saleline.setSale(e);
             saleline.setProduct(basketProduct);
-            saleline.setSalelineStatus(SalelineStatus.WAITING_FOR_PAYMENT);
+            saleline.setSaleStatus(SaleStatus.WAITING_FOR_PAYMENT);
             saleline.setNote(basketNote);
             saleline.setIPN_PID(String.valueOf(basketProduct.getId()));
             saleline.setIPN_PNAME(basketProduct.getName());
