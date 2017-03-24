@@ -15,7 +15,7 @@
 
         <div id="mainsection">
             <div class="mainsection-content">
-                <h1>#{i18n['Orders']}</h1>
+                <h1>#{i18n['Order Details']}</h1>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 
                 <div class="ui-g">
@@ -23,57 +23,37 @@
                         <composite:navigationMember/>
                     </div>
                     <div class="ui-g-9">
-                        <h3><h:outputLabel value="#{i18n['Order Ref']}"/></h3>
-                        <h:outputText value="#{saleView.selectedRecord.REFNOEXT}"/>
+                        <p:dataTable value="#{saleView.selectedRecord.salelines}" var="saleline">
+                            <p:column width="30">
+                                <h:outputText id="saleStatus" styleClass="fa fa-info-circle" style="padding-right: 3px;" />
+                                <p:tooltip for="saleStatus" value="#{i18n[saleline.saleStatus]}" position="top" />
 
-                        <h3><h:outputLabel value="#{i18n['Status']}"/></h3>
-                        <h:outputText value="#{i18n[saleView.selectedRecord.saleStatus]}"/>
-
-                        <h3><h:outputLabel value="#{i18n['Date']}"/></h3>
-                        <h:outputFormat value="#{saleView.selectedRecord.createdAt}">
-                            <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
-                        </h:outputFormat>
-
-                        <h3><h:outputLabel value="#{i18n['Bill Address']}"/></h3>
-                        <h:panelGrid columns="1">
-                            <h:outputText value="#{saleView.selectedRecord.billFirstname} #{saleView.selectedRecord.billLastname}"/>
-                            <h:outputText value="#{saleView.selectedRecord.billAddress}"/>
-                            <h:outputText value="#{saleView.selectedRecord.billPhone}"/>
-                        </h:panelGrid>
-
-                        <h3><h:outputLabel value="#{i18n['Delivery Address']}"/></h3>
-                        <h:panelGrid columns="1">
-                            <h:outputText value="#{saleView.selectedRecord.deliveryFirstname} #{saleView.selectedRecord.deliveryLastname}"/>
-                            <h:outputText value="#{saleView.selectedRecord.deliveryAddress}"/>
-                            <h:outputText value="#{saleView.selectedRecord.deliveryPhone}"/>
-                        </h:panelGrid>
-
-                        <h:form id="form">
-                            <p:dataTable id="dataTable" value="#{saleView.selectedRecord.salelines}" var="saleline">
-                                <p:column headerText="#{i18n['Product']}">
-                                    <h4>#{saleline.IPN_PNAME}</h4>
-                                    <p:link outcome="/product" value="#{saleline.IPN_PCODE}">
-                                        <f:param name="id" value="#{saleline.product.id}"/>
-                                        <f:param name="slug" value="#{saleline.product.slug}"/>
-                                    </p:link>
-                                    <div><small><i>#{saleline.note}</i></small></div>
-                                    <div><small><i>#{i18n[saleline.saleStatus]}</i></small></div>
-                                </p:column>
-                                <p:column headerText="#{i18n['Unit(s)']}">
-                                    <h:outputText value="#{saleline.IPN_QTY}"/>
-                                </p:column>
-                                <p:column headerText="#{i18n['Unit Price']}">
-                                    <h:outputText style="display:block;" title="#{i18n['IPN_TOTAL']}" value="#{of:formatCurrency(saleline.IPN_TOTAL, saleView.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Unit Price']}" value="#{of:formatCurrency(saleline.IPN_PRICE, saleView.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Unit Tax']}" value="#{of:formatCurrency(saleline.IPN_VAT, saleView.selectedRecord.currency)}"/>
-                                </p:column>
-                                <p:column headerText="#{i18n['Amount']}">
-                                    <h:outputText style="display:block;" title="#{i18n['doCalculateSubtotal']}" value="#{of:formatCurrency(saleView.doCalculateSubtotal(saleline), saleView.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Amount']}" value="#{of:formatCurrency(saleline.priceTotalBeforeTax, saleView.selectedRecord.currency)}"/>
-                                    <h:outputText style="display:block;" title="#{i18n['Tax']}" value="#{of:formatCurrency(saleline.taxTotal, saleView.selectedRecord.currency)}"/>
-                                </p:column>
-                            </p:dataTable>
-                        </h:form>
+                                <h:outputText id="note" styleClass="fa fa-sticky-note-o" style="padding-right: 3px;" rendered="#{not empty saleline.note}" />
+                                <p:tooltip for="note" value="#{saleline.note}" position="top" rendered="#{not empty saleline.note}" />
+                            </p:column>
+                            <p:column headerText="#{i18n['Product']}">
+                                <p:link outcome="/product" value="#{saleline.product.name}">
+                                    <f:param name="id" value="#{saleline.product.id}"/>
+                                    <f:param name="slug" value="#{saleline.product.slug}"/>
+                                </p:link>
+                            </p:column>
+                            <p:column headerText="#{i18n['Unit(s)']}">
+                                <h:outputText value="#{saleline.IPN_QTY}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Unit Price']}">
+                                <h:outputText style="display:block;" title="#{i18n['IPN_TOTAL']}" value="#{of:formatCurrency(saleline.IPN_TOTAL, saleView.selectedRecord.currency)}" rendered="false" />
+                                <h:outputText style="display:block;" title="#{i18n['Unit Price']}" value="#{of:formatCurrency(saleline.IPN_PRICE, saleView.selectedRecord.currency)}" rendered="true" />
+                                <h:outputText style="display:block;" title="#{i18n['Unit Tax']}" value="#{of:formatCurrency(saleline.IPN_VAT, saleView.selectedRecord.currency)}" rendered="false" />
+                            </p:column>
+                            <p:column headerText="#{i18n['Unit Tax']}">
+                                <h:outputText style="display:block;" title="#{i18n['Unit Tax']}" value="#{of:formatCurrency(saleline.IPN_VAT, saleView.selectedRecord.currency)}"/>
+                            </p:column>
+                            <p:column headerText="#{i18n['Amount']}">
+                                <h:outputText style="display:block;" title="#{i18n['doCalculateSubtotal']}" value="#{of:formatCurrency(saleView.doCalculateSubtotal(saleline), saleView.selectedRecord.currency)}" rendered="true" />
+                                <h:outputText style="display:block;" title="#{i18n['Amount']}" value="#{of:formatCurrency(saleline.priceTotalBeforeTax, saleView.selectedRecord.currency)}" rendered="false" />
+                                <h:outputText style="display:block;" title="#{i18n['Tax']}" value="#{of:formatCurrency(saleline.taxTotal, saleView.selectedRecord.currency)}" rendered="false" />
+                            </p:column>
+                        </p:dataTable>
 
                         <h:panelGrid columns="2" style="text-align: right; float: right;">
                             <h:outputText value="#{i18n['Sale Total']}"/>
@@ -98,9 +78,45 @@
                             </h:panelGroup>
 
                             <h:outputText value="#{i18n['General Total']}"/>
+                            <h:outputText value="#{of:formatCurrency(saleView.selectedRecord.priceTotalAfterTax, saleView.selectedRecord.currency)}" rendered="#{saleView.selectedRecord.paymentMethod eq 'Payment_On_Delivery'}"/>
                             <h:outputText value="#{of:formatCurrency(saleView.selectedRecord.priceTotalAfterTax, saleView.selectedRecord.currency)}" rendered="#{saleView.selectedRecord.paymentMethod eq 'WIRE'}"/>
                             <h:outputText value="#{of:formatCurrency(saleView.selectedRecord.IPN_TOTALGENERAL, saleView.selectedRecord.currency)}" rendered="#{saleView.selectedRecord.paymentMethod eq 'CCVISAMC'}"/>
                         </h:panelGrid>
+
+                        <h:panelGrid columns="2" cellpadding="5" style="clear: both;">
+                            <h:outputLabel value="#{i18n['Bill Address']}" style="font-weight: bolder;" />
+                            <h:panelGroup>
+                                <address>
+                                    #{saleView.selectedRecord.billFirstname} #{saleView.selectedRecord.billLastname}<br/>
+                                    #{saleView.selectedRecord.billAddress}<br/>
+                                    <abbr title="#{i18n['Phone Number']}">P:</abbr> #{saleView.selectedRecord.billPhone}<br/>
+                                </address>
+                            </h:panelGroup>
+
+                            <h:outputLabel value="#{i18n['Delivery Address']}" style="font-weight: bolder;" />
+                            <h:panelGroup>
+                                <address>
+                                    #{saleView.selectedRecord.deliveryFirstname} #{saleView.selectedRecord.deliveryLastname}<br/>
+                                    #{saleView.selectedRecord.deliveryAddress}<br/>
+                                    <abbr title="#{i18n['Phone Number']}">P:</abbr> #{saleView.selectedRecord.deliveryPhone}<br/>
+                                </address>
+                            </h:panelGroup>
+
+                            <h:outputLabel value="#{i18n['Payment Method']}" style="font-weight: bolder;" />
+                            <h:outputText value="#{i18n[saleView.selectedRecord.paymentMethod]}"/>
+
+                            <h:outputLabel value="#{i18n['Order Ref']}" style="font-weight: bolder;" />
+                            <h:outputText value="#{saleView.selectedRecord.REFNOEXT}"/>
+
+                            <h:outputLabel value="#{i18n['Status']}" style="font-weight: bolder;" />
+                            <h:outputText value="#{i18n[saleView.selectedRecord.saleStatus]}"/>
+
+                            <h:outputLabel value="#{i18n['Date']}" style="font-weight: bolder;" />
+                            <h:outputFormat value="#{saleView.selectedRecord.createdAt}">
+                                <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
+                            </h:outputFormat>
+                        </h:panelGrid>
+
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ import javax.inject.Named;
 import org.primefaces.model.LazyDataModel;
 import com.aripd.ecommerce.service.SaleService;
 import com.aripd.ecommerce.service.SalelineService;
+import com.aripd.util.RequestUtil;
 
 @Named
 @ViewScoped
@@ -63,15 +64,13 @@ public class SaleView implements Serializable {
 
     public void onLoad() {
         if (id == null) {
-            messageUtil.addGlobalErrorFlashMessage("Bad request. Please use a link from within the system.");
-            return;
+            RequestUtil.doNavigate("/member/index?faces-redirect=true");
         }
 
         selectedRecord = saleService.findOneByUserAndId(user, id);
 
         if (selectedRecord == null) {
-            messageUtil.addGlobalErrorFlashMessage("Bad request. Unknown record.");
-            return;
+            RequestUtil.doNavigate("/member/index?faces-redirect=true");
         }
 
     }
