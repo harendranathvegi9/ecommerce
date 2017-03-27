@@ -64,9 +64,26 @@
                         <p:link id="menu-button" outcome="/index" fragment="introduction">
                             <span class="fa fa-bars"></span>
                         </p:link>
+                        <p:notificationBar position="top" effect="slide" widgetVar="bar" style="z-index:6;margin-top:80px">
+                            <h:form>
+                                <div class="ui-g">
+                                    <div class="ui-g-11">
+                                        <p:remoteCommand name="search" action="#{searchBean.doSearch}"/>
+                                        <p:inputText value="#{searchBean.searchTerm}" label="#{i18n['Search']}" placeholder="#{i18n['Search for Products']}" onkeypress="if (event.keyCode == 13) { search(); return false; }" style="width:100%;font-size:4em;border:0;box-shadow: 0 0 0 transparent;" required="true"/>
+                                    </div>
+                                    <div class="ui-g-1">
+                                        <p:commandLink value="#{i18n['Close']}" immediate="true" onclick="PF('bar').hide()" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </p:notificationBar>
                         <ul id="menu">
                             <li><p:link outcome="/index" value="#{i18n['Home']}"/></li>
-                            <li><p:link outcome="/search" value="#{i18n['Search']}"/></li>
+                            <li>
+                                <h:form>
+                                    <p:commandLink value="#{i18n['Search']}" onclick="PF('bar').show()" />
+                                </h:form>
+                            </li>
                             <li><p:link outcome="/login" value="#{i18n['Login']}" rendered="#{empty request.userPrincipal}"/></li>
                             <li><p:link outcome="/member/index" value="#{i18n['My Account']}" rendered="#{not empty request.userPrincipal}"/></li>
                             <li>

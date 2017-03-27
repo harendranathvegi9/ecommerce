@@ -19,8 +19,14 @@
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 
                 <h:form>
-                    <p:inputText value="#{searchBean.searchTerm}" label="#{i18n['Search']}" placeholder="#{i18n['Search for Products']}" required="true"/>
-                    <p:commandButton value="#{i18n['Search']}" action="#{searchBean.doSearch}" />
+                    <div class="ui-g">
+                        <div class="ui-g-11">
+                            <p:inputText value="#{searchBean.searchTerm}" label="#{i18n['Search']}" placeholder="#{i18n['Search for Products']}" styleClass="ui-g-12" style="font-size:1.5em" required="true"/>
+                        </div>
+                        <div class="ui-g-1">
+                            <p:commandButton value="#{i18n['Search']}" action="#{searchBean.doSearch}" />
+                        </div>
+                    </div>
                 </h:form>
 
                 <div class="ui-g">
@@ -33,7 +39,7 @@
                                 <f:param name="id" value="#{product.id}"/>
                                 <f:param name="slug" value="#{product.slug}"/>
                                 <figure>
-                                    <o:graphicImage value="#{product.image.bytes}" dataURI="true" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image.bytes}"/>
+                                    <p:graphicImage value="/product/#{product.image.name}" alt="#{product.name}" title="#{product.name}" rendered="#{not empty product.image}" />
                                     <figcaption>
                                         <p><h:outputText value="#{product.name}"/></p>
                                         <small><h:outputText value="#{of:formatCurrency(searchBean.getPriceTaxedExchanged(product), currencyBean.currency.currencyCode)}"/></small>
