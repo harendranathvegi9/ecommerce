@@ -1,9 +1,12 @@
 package com.aripd.ecommerce.view;
 
+import com.aripd.ecommerce.entity.BasketitemEntity;
 import com.aripd.ecommerce.service.UserService;
 import com.aripd.ecommerce.entity.UserEntity;
+import com.aripd.ecommerce.service.BasketitemService;
 import com.aripd.util.MessageUtil;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.FacesException;
 import javax.faces.application.NavigationHandler;
@@ -27,6 +30,9 @@ public class ProfileBean implements Serializable {
     private String passwordNew;
 
     @Inject
+    private BasketitemService basketitemService;
+
+    @Inject
     MessageUtil messageUtil;
 
     public ProfileBean() {
@@ -35,6 +41,11 @@ public class ProfileBean implements Serializable {
     @PostConstruct
     public void init() {
         selectedRecord = userService.getCurrentUser();
+    }
+
+    public int getNumberOfItems() {
+        List<BasketitemEntity> basketitems = basketitemService.findAllByUser(selectedRecord);
+        return basketitems.size();
     }
 
     public void doUpdatePassword(ActionEvent actionEvent) {

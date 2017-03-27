@@ -69,7 +69,10 @@
                                 <div class="ui-g">
                                     <div class="ui-g-11">
                                         <p:remoteCommand name="search" action="#{searchBean.doSearch}"/>
-                                        <p:inputText value="#{searchBean.searchTerm}" label="#{i18n['Search']}" placeholder="#{i18n['Search for Products']}" onkeypress="if (event.keyCode == 13) { search(); return false; }" style="width:100%;font-size:4em;border:0;box-shadow: 0 0 0 transparent;" required="true"/>
+                                        <p:inputText value="#{searchBean.searchTerm}" label="#{i18n['Search']}" placeholder="#{i18n['Search for Products']}" onkeypress="if (event.keyCode == 13) {
+                                                    search();
+                                                    return false;
+                                                }" style="width:100%;font-size:4em;border:0;box-shadow: 0 0 0 transparent;" required="true"/>
                                     </div>
                                     <div class="ui-g-1">
                                         <p:commandLink value="#{i18n['Close']}" immediate="true" onclick="PF('bar').hide()" />
@@ -81,11 +84,28 @@
                             <li><p:link outcome="/index" value="#{i18n['Home']}"/></li>
                             <li>
                                 <h:form>
+                                    <p:commandLink action="shopping">
+                                        <h:outputText title="#{i18n['Shopping Basket']}" styleClass="fa fa-shopping-cart" />
+                                        <span class="topbar-badge animated rubberBand" style="
+                                              position: absolute;
+                                              font-size: 10px;
+                                              color: #ffffff;
+                                              padding: 2px 4px;
+                                              background-color: #ef6262;
+                                              -moz-border-radius: 50%;
+                                              -webkit-border-radius: 50%;
+                                              border-radius: 50%;
+                                              ">#{profileBean.numberOfItems}</span>
+                                    </p:commandLink>
+                                </h:form>
+                            </li>
+                            <li>
+                                <h:form>
                                     <p:commandLink value="#{i18n['Search']}" onclick="PF('bar').show()" />
                                 </h:form>
                             </li>
-                            <li><p:link outcome="/login" value="#{i18n['Login']}" rendered="#{empty request.userPrincipal}"/></li>
-                            <li><p:link outcome="/member/index" value="#{i18n['My Account']}" rendered="#{not empty request.userPrincipal}"/></li>
+                            <li><p:link outcome="/login" value="#{i18n['Login']}" rendered="#{empty request.userPrincipal}" /></li>
+                            <li><p:link outcome="/member/index" value="#{i18n['My Account']}" rendered="#{not empty request.userPrincipal}" /></li>
                             <li>
                                 <h:form>
                                     <p:commandLink value="#{i18n['Logout']}" action="#{loginBean.doLogout}" rendered="#{not empty request.userPrincipal}"/>
