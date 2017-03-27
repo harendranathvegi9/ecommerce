@@ -84,6 +84,11 @@
                             <li><p:link outcome="/index" value="#{i18n['Home']}"/></li>
                             <li>
                                 <h:form>
+                                    <p:commandLink value="#{i18n['Search']}" onclick="PF('bar').show()" />
+                                </h:form>
+                            </li>
+                            <li>
+                                <h:form>
                                     <p:commandLink action="shopping">
                                         <h:outputText title="#{i18n['Shopping Basket']}" styleClass="fa fa-shopping-cart" />
                                         <span class="topbar-badge animated rubberBand" style="
@@ -97,11 +102,6 @@
                                               border-radius: 50%;
                                               ">#{profileBean.numberOfItems}</span>
                                     </p:commandLink>
-                                </h:form>
-                            </li>
-                            <li>
-                                <h:form>
-                                    <p:commandLink value="#{i18n['Search']}" onclick="PF('bar').show()" />
                                 </h:form>
                             </li>
                             <li><p:link outcome="/login" value="#{i18n['Login']}" rendered="#{empty request.userPrincipal}" /></li>

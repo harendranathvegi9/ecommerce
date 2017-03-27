@@ -19,88 +19,85 @@
                     <p>Use this page to start from scratch and place your custom content.</p>
                     <div class="ui-g">
                         <div class="ui-g-3">
-                            <p:panel header="#{i18n['Order Ref']}" >
+                            <p:panel header="#{i18n['Order Ref']}" style="margin-bottom: 5px;">
                                 <h:outputText value="#{saleController.selectedRecord.REFNOEXT}"/>
                             </p:panel>
-                            <p:panel header="#{i18n['Date']}">
+                            <p:panel header="#{i18n['Date']}" style="margin-bottom: 5px;">
                                 <h:outputFormat value="#{saleController.selectedRecord.createdAt}">
                                     <f:convertDateTime locale="#{localeBean.locale}" type="both"/>
                                 </h:outputFormat>
                             </p:panel>
-                            <p:panel header="#{i18n['Delivery Address']}">
+                            <p:panel header="#{i18n['Delivery Address']}" style="margin-bottom: 5px;">
                                 <h:panelGrid columns="1">
                                     <h:outputText value="#{saleController.selectedRecord.deliveryFirstname} #{saleController.selectedRecord.deliveryLastname}"/>
-                                    <h:outputText value="#{saleController.selectedRecord.deliveryCompany}"/>
                                     <h:outputText value="#{saleController.selectedRecord.deliveryAddress}"/>
                                     <h:outputText value="#{saleController.selectedRecord.deliveryPhone}"/>
                                 </h:panelGrid>
                             </p:panel>
-                            <p:panel header="#{i18n['Bill Address']}">
+                            <p:panel header="#{i18n['Bill Address']}" style="margin-bottom: 5px;">
                                 <h:panelGrid columns="1">
                                     <h:outputText value="#{saleController.selectedRecord.billFirstname} #{saleController.selectedRecord.billLastname}"/>
-                                    <h:outputText value="#{saleController.selectedRecord.billCompany}"/>
                                     <h:outputText value="#{saleController.selectedRecord.billAddress}"/>
                                     <h:outputText value="#{saleController.selectedRecord.billPhone}"/>
-                                    <h:outputText value="#{saleController.selectedRecord.billFax}"/>
-                                    <h:outputText value="#{saleController.selectedRecord.billEmail}"/>
                                 </h:panelGrid>
                             </p:panel>
                         </div>
                         <div class="ui-g-9">
-                            <p:panel>
-                                <f:facet name="header">
-                                    <h:form>
-                                        <p:commandButton value="#{i18n['Invoice']}" actionListener="#{saleController.doGenerateSale}"/>
-                                    </h:form>
-                                </f:facet>
-                                <f:facet name="footer">
-                                    <h:form>
-                                        <p:outputLabel value="#{i18n['Status']}" />
-                                        <p:selectOneMenu value="#{saleController.selectedRecord.saleStatus}" label="#{i18n['Status']}" converter="#{saleStatusConverter}" required="true">
-                                            <f:ajax execute="@form :growl" render="@form" listener="#{saleController.doUpdateStatus}"/>
-                                            <f:selectItems value="#{saleController.saleStatuses}" var="saleStatus" itemValue="#{saleStatus}" itemLabel="#{i18n[saleStatus]}" />
-                                        </p:selectOneMenu>
-                                    </h:form>
-                                </f:facet>
+                            <p:dataTable value="#{saleController.selectedRecord.salelines}" var="saleline">
+                                <p:column width="30">
+                                    <h:outputText id="saleStatus" styleClass="fa fa-info-circle" style="padding-right: 3px;" />
+                                    <p:tooltip for="saleStatus" value="#{i18n[saleline.saleStatus]}" position="top" />
 
-                                <p:dataTable value="#{saleController.selectedRecord.salelines}" var="saleline">
-                                    <p:column headerText="#{i18n['Product']}" footerText="#{i18n['Amount']}">
-                                        <p:link style="display: block;" outcome="/product" value="#{saleline.IPN_PNAME}">
-                                            <f:param name="id" value="#{saleline.product.id}"/>
-                                            <f:param name="slug" value="#{saleline.product.slug}"/>
-                                        </p:link>
-                                        <h:outputText style="display: block;" value="#{saleline.note}" />
-                                    </p:column>
-                                    <p:column headerText="#{i18n['Quantity']}" width="50">
-                                        <h:outputText value="#{saleline.IPN_QTY}"/>
-                                        <f:facet name="footer">
-                                            <h:outputText value="#{saleController.selectedRecord.quantityTotal}"/>
-                                        </f:facet>
-                                    </p:column>
-                                    <p:column headerText="#{i18n['Unit Price']}" width="100">
-                                        <h:outputText value="#{of:formatCurrency(saleline.IPN_TOTAL, saleController.selectedRecord.currency)}"/>
-                                    </p:column>
-                                    <p:column headerText="#{i18n['Amount']}" width="100">
-                                        <h:outputText value="#{of:formatCurrency(saleController.doCalculateSubtotal(saleline), saleController.selectedRecord.currency)}"/>
-                                        <f:facet name="footer">
-                                            <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.priceTotalAfterTax, saleController.selectedRecord.currency)}"/>
-                                        </f:facet>
-                                    </p:column>
-                                </p:dataTable>
-                                <h:panelGrid columns="2">
-                                    <h:panelGroup rendered="#{saleController.selectedRecord.paymentMethod eq 'CCVISAMC'}">
-                                        <h:outputFormat value="{0} - {1} {2} - {3}">
-                                            <f:param value="#{i18n['Delay Interest']}"/>
-                                            <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_NUMBER}"/>
-                                            <f:param value="#{i18n['Installment']}"/>
-                                            <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_PROGRAM}"/>
-                                        </h:outputFormat>
-                                    </h:panelGroup>
+                                    <h:outputText id="note" styleClass="fa fa-sticky-note-o" style="padding-right: 3px;" rendered="#{not empty saleline.note}" />
+                                    <p:tooltip for="note" value="#{saleline.note}" position="top" rendered="#{not empty saleline.note}" />
+                                </p:column>
+                                <p:column headerText="#{i18n['Product']}">
+                                    <p:link outcome="/product" value="#{saleline.product.name}">
+                                        <f:param name="id" value="#{saleline.product.id}"/>
+                                        <f:param name="slug" value="#{saleline.product.slug}"/>
+                                    </p:link>
+                                </p:column>
+                                <p:column headerText="#{i18n['Unit(s)']}">
+                                    <h:outputText value="#{saleline.IPN_QTY}"/>
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{saleController.selectedRecord.quantityTotal}"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{i18n['Unit Price']}">
+                                    <h:outputText value="#{of:formatCurrency(saleline.IPN_TOTAL, saleController.selectedRecord.currency)}"/>
+                                </p:column>
+                                <p:column headerText="#{i18n['Amount']}">
+                                    <h:outputText value="#{of:formatCurrency(saleController.doCalculateSubtotal(saleline), saleController.selectedRecord.currency)}"/>
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.priceTotalAfterTax, saleController.selectedRecord.currency)}"/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
 
-                                    <h:outputText value="#{i18n['General Total']}"/>
-                                    <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.IPN_TOTALGENERAL, saleController.selectedRecord.currency)}"/>
+                            <h:panelGrid columns="2" style="text-align: right; float: right;">
+                                <h:panelGroup rendered="#{saleController.selectedRecord.paymentMethod eq 'CCVISAMC'}">
+                                    <h:outputFormat value="{0} - {1} {2} - {3}">
+                                        <f:param value="#{i18n['Delay Interest']}"/>
+                                        <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_NUMBER}"/>
+                                        <f:param value="#{i18n['Installment']}"/>
+                                        <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_PROGRAM}"/>
+                                    </h:outputFormat>
+                                </h:panelGroup>
+
+                                <h:outputText value="#{i18n['General Total']}"/>
+                                <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.IPN_TOTALGENERAL, saleController.selectedRecord.currency)}"/>
+                            </h:panelGrid>
+
+                            <h:form style="clear: both;">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:outputLabel value="#{i18n['Status']}" />
+                                    <p:selectOneMenu value="#{saleController.selectedRecord.saleStatus}" label="#{i18n['Status']}" converter="#{saleStatusConverter}" required="true">
+                                        <f:ajax execute="@form :growl" render="@form" listener="#{saleController.doUpdateStatus}"/>
+                                        <f:selectItems value="#{saleController.saleStatuses}" var="saleStatus" itemValue="#{saleStatus}" itemLabel="#{i18n[saleStatus]}" />
+                                    </p:selectOneMenu>
                                 </h:panelGrid>
-                            </p:panel>
+                            </h:form>
+
                         </div>
                     </div>
                 </div>

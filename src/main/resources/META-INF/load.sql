@@ -164,5 +164,5 @@ VALUES
 INSERT INTO `BASKETITEMENTITY` (`ID`, `NOTE`, `QUANTITY`, `CREATEDBY_ID`, `PRODUCT_ID`)
 VALUES
 	(1,NULL,1,2,3),
-	(2,NULL,2,2,2),
-	(3,NULL,3,2,1);
+	(2,'paket olsun lütfen',2,2,2),
+	(3,'kırmızı olanı istiyorum',3,2,1);
