@@ -4,6 +4,8 @@ import com.aripd.ecommerce.model.ReportFormModel;
 import com.aripd.ecommerce.service.SalelineService;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
@@ -14,6 +16,8 @@ import org.primefaces.model.chart.PieChartModel;
 @Named
 @ViewScoped
 public class ReportController implements Serializable {
+
+    private static final Logger LOG = Logger.getLogger(ReportController.class.getName());
 
     private PieChartModel pieModel1;
     private PieChartModel pieModel2;
@@ -36,12 +40,10 @@ public class ReportController implements Serializable {
         createPieModels();
     }
 
-    public PieChartModel getPieModel1() {
-        return pieModel1;
-    }
-
-    public PieChartModel getPieModel2() {
-        return pieModel2;
+    public void doDrawChart(ActionEvent actionEvent) {
+        LOG.log(Level.INFO, "start: {0}", reportFormModel.getStart());
+        LOG.log(Level.INFO, "end: {0}", reportFormModel.getEnd());
+        createPieModels();
     }
 
     private void createPieModels() {
@@ -70,16 +72,28 @@ public class ReportController implements Serializable {
         pieModel2.setDiameter(150);
     }
 
-    public void doDrawChart(ActionEvent actionEvent) {
-        createPieModels();
-    }
-
     public ReportFormModel getReportFormModel() {
         return reportFormModel;
     }
 
     public void setReportFormModel(ReportFormModel reportFormModel) {
         this.reportFormModel = reportFormModel;
+    }
+
+    public PieChartModel getPieModel1() {
+        return pieModel1;
+    }
+
+    public void setPieModel1(PieChartModel pieModel1) {
+        this.pieModel1 = pieModel1;
+    }
+
+    public PieChartModel getPieModel2() {
+        return pieModel2;
+    }
+
+    public void setPieModel2(PieChartModel pieModel2) {
+        this.pieModel2 = pieModel2;
     }
 
 }
