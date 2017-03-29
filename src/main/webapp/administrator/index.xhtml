@@ -11,7 +11,7 @@
             <div class="ui-g-12">
                 <div class="card">
                     <h1>#{i18n['Dashboard']}</h1>
-                    <p>Use this page to start from scratch and place your custom content.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     <h:form>
                         <div class="ui-g">
                             <div class="ui-g-6">
@@ -54,7 +54,7 @@
                                              paginator="true" paginatorPosition="bottom" rows="10"
                                              sortBy="#{sale.id}" sortOrder="descending"
                                              lazy="true" rowsPerPageTemplate="10,15,50">
-                                    <f:facet name="header">#{i18n['Sales']}</f:facet>
+                                    <f:facet name="header">#{i18n['Orders']}</f:facet>
                                     <p:column headerText="#{i18n['Order Ref']}" filterBy="#{sale.REFNOEXT}">
                                         <p:link outcome="/administrator/sale/show" value="#{sale.REFNOEXT}">
                                             <f:param name="id" value="#{sale.id}"/>
