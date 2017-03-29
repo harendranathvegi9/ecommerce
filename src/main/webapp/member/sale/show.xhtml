@@ -24,7 +24,10 @@
                     </div>
                     <div class="ui-g-9">
                         <p:dataTable value="#{saleView.selectedRecord.salelines}" var="saleline">
-                            <p:column width="30">
+                            <p:column width="50" style="text-align: right;">
+                                <p:link id="cargoTrackingLink" title="#{saleline.cargoTrackingLink}" href="#{saleline.cargoTrackingLink}" target="_blank" styleClass="fa fa-truck" style="padding-right: 3px;" rendered="#{not empty saleline.cargoTrackingLink}" />
+                                <p:tooltip for="cargoTrackingLink" value="#{saleline.cargoTrackingLink}" position="top" rendered="#{not empty saleline.cargoTrackingLink}" />
+
                                 <h:outputText id="saleStatus" styleClass="fa fa-info-circle" style="padding-right: 3px;" />
                                 <p:tooltip for="saleStatus" value="#{i18n[saleline.saleStatus]}" position="top" />
 

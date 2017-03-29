@@ -45,7 +45,10 @@
                         <div class="ui-g-9">
                             <h:form id="form">
                                 <p:dataTable id="dataTable" value="#{saleController.selectedRecord.salelines}" var="saleline">
-                                    <p:column width="30">
+                                    <p:column width="50">
+                                        <p:link id="cargoTrackingLink" title="#{saleline.cargoTrackingLink}" href="#{saleline.cargoTrackingLink}" target="_blank" styleClass="fa fa-truck" style="padding-right: 3px;" rendered="#{not empty saleline.cargoTrackingLink}" />
+                                        <p:tooltip for="cargoTrackingLink" value="#{saleline.cargoTrackingLink}" position="top" rendered="#{not empty saleline.cargoTrackingLink}" />
+
                                         <p:commandLink id="saleStatus" title="#{i18n['Edit']}" update="editForm" oncomplete="PF('editDialog').show()" styleClass="fa fa-info-circle" style="padding-right: 3px;">
                                             <f:setPropertyActionListener value="#{saleline}" target="#{saleController.selectedSaleline}" />
                                         </p:commandLink>
