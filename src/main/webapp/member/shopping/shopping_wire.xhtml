@@ -19,12 +19,15 @@
                     </div>
                     <div class="ui-g-9">
                         <p:dataTable value="#{shoppingBean.basketitems}" var="basketitem" emptyMessage="#{i18n['No records found']}">
+                            <p:column width="30">
+                                <h:outputText id="note" styleClass="fa fa-sticky-note-o" style="padding-right: 3px;" rendered="#{not empty basketitem.note}" />
+                                <p:tooltip for="note" value="#{basketitem.note}" position="top" rendered="#{not empty basketitem.note}" />
+                            </p:column>
                             <p:column headerText="#{i18n['Product']}">
                                 <p:link outcome="/product" value="#{basketitem.product.name}">
                                     <f:param name="id" value="#{basketitem.product.id}"/>
                                     <f:param name="slug" value="#{basketitem.product.slug}"/>
                                 </p:link>
-                                <h:outputText value="#{basketitem.note}"/>
                             </p:column>
                             <p:column headerText="#{i18n['Unit(s)']}">
                                 <h:outputText value="#{basketitem.quantity}"/>
