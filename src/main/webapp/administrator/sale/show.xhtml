@@ -67,7 +67,16 @@
                                         </f:facet>
                                     </p:column>
                                     <p:column headerText="#{i18n['Unit Price']}">
-                                        <h:outputText value="#{of:formatCurrency(saleline.IPN_TOTAL, saleController.selectedRecord.currency)}"/>
+                                        <h:outputText value="#{of:formatCurrency(saleline.IPN_PRICE, saleController.selectedRecord.currency)}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.priceTotalBeforeTax, saleController.selectedRecord.currency)}"/>
+                                        </f:facet>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Unit Tax']}">
+                                        <h:outputText value="#{of:formatCurrency(saleline.IPN_VAT, saleController.selectedRecord.currency)}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.taxTotal, saleController.selectedRecord.currency)}"/>
+                                        </f:facet>
                                     </p:column>
                                     <p:column headerText="#{i18n['Amount']}">
                                         <h:outputText value="#{of:formatCurrency(saleController.doCalculateSubtotal(saleline), saleController.selectedRecord.currency)}"/>
@@ -88,7 +97,7 @@
                                     </h:panelGroup>
 
                                     <h:outputText value="#{i18n['General Total']}"/>
-                                    <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.IPN_TOTALGENERAL, saleController.selectedRecord.currency)}"/>
+                                    <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.priceTotalAfterTax, saleController.selectedRecord.currency)}" />
                                 </h:panelGrid>
                             </h:form>
 
@@ -115,13 +124,20 @@
                     <p:outputLabel for="quantity" value="#{i18n['Quantity']}"/>
                     <p:inputText id="quantity" value="#{saleController.selectedSaleline.IPN_QTY}" label="#{i18n['Quantity']}" placeholder="#{i18n['Quantity']}" required="true" />
 
+                    <p:outputLabel for="price" value="#{i18n['Unit Price']}"/>
+                    <p:inputText id="price" value="#{saleController.selectedSaleline.IPN_PRICE}" label="#{i18n['Unit Price']}" placeholder="#{i18n['Unit Price']}" required="true" />
+
                     <p:outputLabel value="#{i18n['Status']}" />
                     <p:selectOneMenu value="#{saleController.selectedSaleline.saleStatus}" label="#{i18n['Status']}" converter="#{saleStatusConverter}" required="true">
                         <f:selectItems value="#{saleController.saleStatuses}" var="saleStatus" itemValue="#{saleStatus}" itemLabel="#{i18n[saleStatus]}" />
                     </p:selectOneMenu>
+
+                    <p:outputLabel for="cargoTrackingLink" value="#{i18n['cargoTrackingLink']}"/>
+                    <p:inputText id="cargoTrackingLink" value="#{saleController.selectedSaleline.cargoTrackingLink}" label="#{i18n['cargoTrackingLink']}" placeholder="#{i18n['cargoTrackingLink']}" />
+
                 </p:panelGrid>
                 <f:facet name="footer">
-                    <p:commandButton value="#{i18n['Update']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{saleController.doUpdateSaleline}"/>
+                    <p:commandButton value="#{i18n['Update']}" update=":form, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{saleController.doUpdateSaleline}"/>
                     <p:commandButton value="#{i18n['Close']}" onclick="PF('editDialog').hide();"/>
                 </f:facet>
             </p:dialog>

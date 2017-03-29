@@ -78,9 +78,7 @@
                             </h:panelGroup>
 
                             <h:outputText value="#{i18n['General Total']}"/>
-                            <h:outputText value="#{of:formatCurrency(saleView.selectedRecord.priceTotalAfterTax, saleView.selectedRecord.currency)}" rendered="#{saleView.selectedRecord.paymentMethod eq 'Payment_On_Delivery'}"/>
-                            <h:outputText value="#{of:formatCurrency(saleView.selectedRecord.priceTotalAfterTax, saleView.selectedRecord.currency)}" rendered="#{saleView.selectedRecord.paymentMethod eq 'WIRE'}"/>
-                            <h:outputText value="#{of:formatCurrency(saleView.selectedRecord.IPN_TOTALGENERAL, saleView.selectedRecord.currency)}" rendered="#{saleView.selectedRecord.paymentMethod eq 'CCVISAMC'}"/>
+                            <h:outputText value="#{of:formatCurrency(saleView.selectedRecord.priceTotalAfterTax, saleView.selectedRecord.currency)}" />
                         </h:panelGrid>
 
                         <h:panelGrid columns="2" cellpadding="5" style="clear: both;">

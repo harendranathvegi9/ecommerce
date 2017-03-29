@@ -34,7 +34,6 @@ public class SalelineEntity extends AbstractEntity {
     private String IPN_PID;
     private String IPN_PNAME;
     private String IPN_PCODE;
-    private String IPN_INFO;
     private Integer IPN_QTY;
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
     private BigDecimal IPN_PRICE;
@@ -116,14 +115,6 @@ public class SalelineEntity extends AbstractEntity {
 
     public void setIPN_PCODE(String IPN_PCODE) {
         this.IPN_PCODE = IPN_PCODE;
-    }
-
-    public String getIPN_INFO() {
-        return IPN_INFO;
-    }
-
-    public void setIPN_INFO(String IPN_INFO) {
-        this.IPN_INFO = IPN_INFO;
     }
 
     public Integer getIPN_QTY() {

@@ -75,8 +75,6 @@ public class SaleEntity extends AbstractEntity {
     private String IPN_INSTALLMENTS_NUMBER;
 
     private String currency;
-    @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10,2)")
-    private BigDecimal IPN_TOTALGENERAL = BigDecimal.ZERO;
 
     public SaleEntity() {
     }
@@ -349,14 +347,6 @@ public class SaleEntity extends AbstractEntity {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public BigDecimal getIPN_TOTALGENERAL() {
-        return IPN_TOTALGENERAL;
-    }
-
-    public void setIPN_TOTALGENERAL(BigDecimal IPN_TOTALGENERAL) {
-        this.IPN_TOTALGENERAL = IPN_TOTALGENERAL;
     }
 
     public Date getCreatedAt() {

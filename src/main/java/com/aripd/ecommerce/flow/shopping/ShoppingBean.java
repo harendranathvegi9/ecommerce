@@ -241,7 +241,6 @@ public class ShoppingBean implements Serializable {
             saleline.setIPN_PID(String.valueOf(basketProduct.getId()));
             saleline.setIPN_PNAME(basketProduct.getName());
             saleline.setIPN_PCODE(basketProduct.getCode());
-            saleline.setIPN_INFO(basketProduct.getDescription());
             saleline.setIPN_QTY(basketAmount);
             saleline.setIPN_PRICE(priceHelper.getPriceExchanged(basketProduct, basketAmount, "TRY"));
             saleline.setIPN_VAT(priceHelper.getTaxExchanged(basketProduct, basketAmount, "TRY"));
@@ -264,7 +263,6 @@ public class ShoppingBean implements Serializable {
         e.setIPN_INSTALLMENTS_NUMBER("");
 
         e.setCurrency("TRY");
-        e.setIPN_TOTALGENERAL(e.getPriceTotalAfterTax());
 
         SaleEntity sale = saleService.create(e);
 
