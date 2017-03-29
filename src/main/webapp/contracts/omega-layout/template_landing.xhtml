@@ -81,17 +81,30 @@
                             </h:form>
                         </p:notificationBar>
                         <ul id="menu">
-                            <li><p:link outcome="/index" value="#{i18n['Home']}"/></li>
+                            <li><p:link outcome="/index" value="#{i18n['Home']}" /></li>
                             <li>
                                 <h:form>
                                     <p:commandLink value="#{i18n['Search']}" onclick="PF('bar').show()" />
                                 </h:form>
                             </li>
                             <li>
-                                <h:form>
+                                <p:link outcome="/member/index" title="#{i18n['Shopping Basket']}" rendered="#{empty request.userPrincipal}">
+                                    <h:outputText title="#{i18n['Shopping Basket']}" styleClass="fa fa-shopping-cart" />
+                                    <span style="
+                                          position: absolute;
+                                          font-size: 10px;
+                                          color: #ffffff;
+                                          padding: 2px 4px;
+                                          background-color: #ef6262;
+                                          -moz-border-radius: 50%;
+                                          -webkit-border-radius: 50%;
+                                          border-radius: 50%;
+                                          ">0</span>
+                                </p:link>
+                                <h:form rendered="#{not empty request.userPrincipal}">
                                     <p:commandLink action="shopping">
                                         <h:outputText title="#{i18n['Shopping Basket']}" styleClass="fa fa-shopping-cart" />
-                                        <span class="topbar-badge animated rubberBand" style="
+                                        <span style="
                                               position: absolute;
                                               font-size: 10px;
                                               color: #ffffff;
@@ -108,7 +121,7 @@
                             <li><p:link outcome="/member/index" value="#{i18n['My Account']}" rendered="#{not empty request.userPrincipal}" /></li>
                             <li>
                                 <h:form>
-                                    <p:commandLink value="#{i18n['Logout']}" action="#{loginBean.doLogout}" rendered="#{not empty request.userPrincipal}"/>
+                                    <p:commandLink value="#{i18n['Logout']}" action="#{loginBean.doLogout}" rendered="#{not empty request.userPrincipal}" />
                                 </h:form>
                             </li>
                         </ul>

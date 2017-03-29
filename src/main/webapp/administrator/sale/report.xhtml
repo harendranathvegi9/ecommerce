@@ -18,8 +18,15 @@
                             <p:commandButton value="#{i18n['Refresh']}" actionListener="#{reportController.doDrawChart}" update="@form, :growl"/>
                         </h:panelGrid>
 
-                        <p:chart type="pie" model="#{reportController.pieModel1}" responsive="true" rendered="#{not empty reportController.pieModel1.data}" />
-                        <p:chart type="pie" model="#{reportController.pieModel2}" responsive="true" rendered="#{not empty reportController.pieModel2.data}" />
+                        <p:panel header="#{i18n['Sales Revenue']}" style="margin-bottom: 5px;">
+                            <h:outputText value="#{i18n['No data']}" rendered="#{empty reportController.pieModel1.data}" />
+                            <p:chart type="pie" model="#{reportController.pieModel1}" responsive="true" rendered="#{not empty reportController.pieModel1.data}" />
+                        </p:panel>
+
+                        <p:panel header="#{i18n['Sales Volume']}" style="margin-bottom: 5px;">
+                            <h:outputText value="#{i18n['No data']}" rendered="#{empty reportController.pieModel2.data}" />
+                            <p:chart type="pie" model="#{reportController.pieModel2}" responsive="true" rendered="#{not empty reportController.pieModel2.data}" />
+                        </p:panel>
                     </h:form>
                 </div>
             </div>
