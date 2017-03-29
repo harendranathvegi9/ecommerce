@@ -43,50 +43,54 @@
                             </p:panel>
                         </div>
                         <div class="ui-g-9">
-                            <p:dataTable value="#{saleController.selectedRecord.salelines}" var="saleline">
-                                <p:column width="30">
-                                    <h:outputText id="saleStatus" styleClass="fa fa-info-circle" style="padding-right: 3px;" />
-                                    <p:tooltip for="saleStatus" value="#{i18n[saleline.saleStatus]}" position="top" />
+                            <h:form id="form">
+                                <p:dataTable id="dataTable" value="#{saleController.selectedRecord.salelines}" var="saleline">
+                                    <p:column width="30">
+                                        <p:commandLink id="saleStatus" title="#{i18n['Edit']}" update="editForm" oncomplete="PF('editDialog').show()" styleClass="fa fa-info-circle" style="padding-right: 3px;">
+                                            <f:setPropertyActionListener value="#{saleline}" target="#{saleController.selectedSaleline}" />
+                                        </p:commandLink>
+                                        <p:tooltip for="saleStatus" value="#{i18n[saleline.saleStatus]}" position="top" />
 
-                                    <h:outputText id="note" styleClass="fa fa-sticky-note-o" style="padding-right: 3px;" rendered="#{not empty saleline.note}" />
-                                    <p:tooltip for="note" value="#{saleline.note}" position="top" rendered="#{not empty saleline.note}" />
-                                </p:column>
-                                <p:column headerText="#{i18n['Product']}">
-                                    <p:link outcome="/product" value="#{saleline.product.name}">
-                                        <f:param name="id" value="#{saleline.product.id}"/>
-                                        <f:param name="slug" value="#{saleline.product.slug}"/>
-                                    </p:link>
-                                </p:column>
-                                <p:column headerText="#{i18n['Unit(s)']}">
-                                    <h:outputText value="#{saleline.IPN_QTY}"/>
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{saleController.selectedRecord.quantityTotal}"/>
-                                    </f:facet>
-                                </p:column>
-                                <p:column headerText="#{i18n['Unit Price']}">
-                                    <h:outputText value="#{of:formatCurrency(saleline.IPN_TOTAL, saleController.selectedRecord.currency)}"/>
-                                </p:column>
-                                <p:column headerText="#{i18n['Amount']}">
-                                    <h:outputText value="#{of:formatCurrency(saleController.doCalculateSubtotal(saleline), saleController.selectedRecord.currency)}"/>
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.priceTotalAfterTax, saleController.selectedRecord.currency)}"/>
-                                    </f:facet>
-                                </p:column>
-                            </p:dataTable>
+                                        <h:outputText id="note" styleClass="fa fa-sticky-note-o" style="padding-right: 3px;" rendered="#{not empty saleline.note}" />
+                                        <p:tooltip for="note" value="#{saleline.note}" position="top" rendered="#{not empty saleline.note}" />
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Product']}">
+                                        <p:link outcome="/product" value="#{saleline.product.name}">
+                                            <f:param name="id" value="#{saleline.product.id}"/>
+                                            <f:param name="slug" value="#{saleline.product.slug}"/>
+                                        </p:link>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Unit(s)']}">
+                                        <h:outputText value="#{saleline.IPN_QTY}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{saleController.selectedRecord.quantityTotal}"/>
+                                        </f:facet>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Unit Price']}">
+                                        <h:outputText value="#{of:formatCurrency(saleline.IPN_TOTAL, saleController.selectedRecord.currency)}"/>
+                                    </p:column>
+                                    <p:column headerText="#{i18n['Amount']}">
+                                        <h:outputText value="#{of:formatCurrency(saleController.doCalculateSubtotal(saleline), saleController.selectedRecord.currency)}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.priceTotalAfterTax, saleController.selectedRecord.currency)}"/>
+                                        </f:facet>
+                                    </p:column>
+                                </p:dataTable>
 
-                            <h:panelGrid columns="2" style="text-align: right; float: right;">
-                                <h:panelGroup rendered="#{saleController.selectedRecord.paymentMethod eq 'CCVISAMC'}">
-                                    <h:outputFormat value="{0} - {1} {2} - {3}">
-                                        <f:param value="#{i18n['Delay Interest']}"/>
-                                        <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_NUMBER}"/>
-                                        <f:param value="#{i18n['Installment']}"/>
-                                        <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_PROGRAM}"/>
-                                    </h:outputFormat>
-                                </h:panelGroup>
+                                <h:panelGrid columns="2" style="text-align: right; float: right;">
+                                    <h:panelGroup rendered="#{saleController.selectedRecord.paymentMethod eq 'CCVISAMC'}">
+                                        <h:outputFormat value="{0} - {1} {2} - {3}">
+                                            <f:param value="#{i18n['Delay Interest']}"/>
+                                            <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_NUMBER}"/>
+                                            <f:param value="#{i18n['Installment']}"/>
+                                            <f:param value="#{saleController.selectedRecord.IPN_INSTALLMENTS_PROGRAM}"/>
+                                        </h:outputFormat>
+                                    </h:panelGroup>
 
-                                <h:outputText value="#{i18n['General Total']}"/>
-                                <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.IPN_TOTALGENERAL, saleController.selectedRecord.currency)}"/>
-                            </h:panelGrid>
+                                    <h:outputText value="#{i18n['General Total']}"/>
+                                    <h:outputText value="#{of:formatCurrency(saleController.selectedRecord.IPN_TOTALGENERAL, saleController.selectedRecord.currency)}"/>
+                                </h:panelGrid>
+                            </h:form>
 
                             <h:form style="clear: both;">
                                 <h:panelGrid columns="2" cellpadding="5">
@@ -103,5 +107,24 @@
                 </div>
             </div>
         </div>
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form id="editForm">
+            <p:dialog id="editDlg" header="#{i18n['Edit']}" widgetVar="editDialog" resizable="false" closeOnEscape="true" modal="true">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="quantity" value="#{i18n['Quantity']}"/>
+                    <p:inputText id="quantity" value="#{saleController.selectedSaleline.IPN_QTY}" label="#{i18n['Quantity']}" placeholder="#{i18n['Quantity']}" required="true" />
+
+                    <p:outputLabel value="#{i18n['Status']}" />
+                    <p:selectOneMenu value="#{saleController.selectedSaleline.saleStatus}" label="#{i18n['Status']}" converter="#{saleStatusConverter}" required="true">
+                        <f:selectItems value="#{saleController.saleStatuses}" var="saleStatus" itemValue="#{saleStatus}" itemLabel="#{i18n[saleStatus]}" />
+                    </p:selectOneMenu>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{i18n['Update']}" update=":form:dataTable, :growl" oncomplete="handleSubmitRequest(xhr, status, args, 'editDlg','editForm','editDialog');" actionListener="#{saleController.doUpdateSaleline}"/>
+                    <p:commandButton value="#{i18n['Close']}" onclick="PF('editDialog').hide();"/>
+                </f:facet>
+            </p:dialog>
+        </h:form>
     </ui:define>
 </ui:composition>

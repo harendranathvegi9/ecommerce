@@ -56,7 +56,9 @@
                                              lazy="true" rowsPerPageTemplate="10,15,50">
                                     <f:facet name="header">#{i18n['Sales']}</f:facet>
                                     <p:column headerText="#{i18n['Order Ref']}" filterBy="#{sale.REFNOEXT}">
-                                        <h:outputText value="#{sale.REFNOEXT}"/>
+                                        <p:link outcome="/administrator/sale/show" value="#{sale.REFNOEXT}">
+                                            <f:param name="id" value="#{sale.id}"/>
+                                        </p:link>
                                     </p:column>
                                     <p:column headerText="#{i18n['Created At']}">
                                         <h:outputFormat value="#{sale.createdAt}">

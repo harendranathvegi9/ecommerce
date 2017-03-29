@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.LazyDataModel;
 import com.aripd.ecommerce.service.SaleService;
+import com.aripd.ecommerce.service.SalelineService;
 
 @Named
 @ViewScoped
@@ -33,6 +34,10 @@ public class SaleController implements Serializable {
     private Long id;
 
     @Inject
+    private SalelineService salelineService;
+    private SalelineEntity selectedSaleline;
+
+    @Inject
     private ProductService productService;
 
     @Inject
@@ -40,7 +45,6 @@ public class SaleController implements Serializable {
 
     public SaleController() {
         newRecord = new SaleEntity();
-        selectedRecord = new SaleEntity();
     }
 
     @PostConstruct
@@ -98,6 +102,11 @@ public class SaleController implements Serializable {
         messageUtil.addGlobalInfoFlashMessage("Updated");
     }
 
+    public void doUpdateSaleline(ActionEvent actionEvent) {
+        salelineService.update(selectedSaleline);
+        messageUtil.addGlobalInfoFlashMessage("Updated");
+    }
+
     public SaleEntity getSelectedRecord() {
         return selectedRecord;
     }
@@ -124,6 +133,14 @@ public class SaleController implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public SalelineEntity getSelectedSaleline() {
+        return selectedSaleline;
+    }
+
+    public void setSelectedSaleline(SalelineEntity selectedSaleline) {
+        this.selectedSaleline = selectedSaleline;
     }
 
 }
